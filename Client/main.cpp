@@ -35,4 +35,6 @@ int main()
 	outputLoses.close();
 
 	std::cout << "Tschuess!\n";
+
+	return 0;
 }
