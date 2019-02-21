@@ -2,7 +2,7 @@
 
 
 Client::Client(const sf::IpAddress &addressOfHost)
-	:m_addressOfHost{ addressOfHost }
+	:User{addressOfHost}
 {
 }
 

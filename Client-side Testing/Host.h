@@ -1,5 +1,7 @@
 #pragma once
-class Host
+#include "User.h"
+
+class Host : public User
 {
 public:
 	Host();
