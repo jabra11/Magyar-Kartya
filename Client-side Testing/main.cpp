@@ -37,6 +37,6 @@ int main()
 
 		//for (int i{0}; i < 32; )
 
-		Host host{temp, }
+		//Host host{temp, }
 	}
 }
