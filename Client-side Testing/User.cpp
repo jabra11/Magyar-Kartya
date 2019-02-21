@@ -1,8 +1,9 @@
 #include "User.h"
 
 
-User::User(const sf::IpAddress &addressOfOtherUser)
-	:m_addressOfOtherUser{addressOfOtherUser}
+User::User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> *pointerToDeck,
+	std::vector<CardInfo> *pointerToHand )
+	:m_addressOfOtherUser{addressOfOtherUser}, m_pointerToDeck{pointerToDeck}, m_poiterToHand{pointerToHand}
 {
 }
 

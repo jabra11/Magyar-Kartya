@@ -1,6 +1,9 @@
 #pragma once
 
 #include "SFML/Network.hpp"
+#include <vector>
+#include <array>
+#include <cassert>
 
 class User
 {
@@ -40,8 +43,12 @@ protected:
 	sf::TcpSocket m_mySocket;
 	sf::IpAddress m_addressOfOtherUser;
 
+	std::vector<CardInfo> *m_pointerToDeck;
+	std::vector<CardInfo> *m_poiterToHand;
+
 public:
-	User(const sf::IpAddress &addressOfOtherUser);
+	User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> *pointerToDeck = nullptr,
+		std::vector<CardInfo> *pointerToHand = nullptr);
 
 	void sendCardInformation(const CardInfo &cardToSend);
 	void receiveCardInformation(CardInfo &cardToreceive);
