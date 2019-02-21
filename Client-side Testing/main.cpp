@@ -3,6 +3,8 @@
 #include <thread>
 
 #include "SFML/Network.hpp"
+#include "Host.h"
+#include "Client.h"
 
 
 int main()
@@ -31,6 +33,10 @@ int main()
 
 	if (decision == 1)
 	{
-		// create Client object
+		User::CardInfo testDeck;
+
+		//for (int i{0}; i < 32; )
+
+		Host host{temp, }
 	}
 }
