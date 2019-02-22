@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# files to keep track of local statistics
+Client/resources/stats
+
 # User-specific files
 *.rsuser
 *.suo
