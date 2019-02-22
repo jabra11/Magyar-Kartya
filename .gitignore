@@ -4,8 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # files to keep track of local statistics
-Client/resources/stats/loses.txt
-Client/resources/stats/wins.txt
+Client/resources/stats/
 
 # User-specific files
 *.rsuser
