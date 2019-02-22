@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Logic.h"
 
-int game(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
+int singlePlayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
 
 int gameMenu(int &gewonnen, int &verloren)
 {
@@ -92,7 +92,7 @@ int gameMenu(int &gewonnen, int &verloren)
 		{
 			if (play.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
 			{
-				int gameStatus{ game(gameWindow, logic, textureToPass) };
+				int gameStatus{ singlePlayer(gameWindow, logic, textureToPass) };
 
 				if (gameStatus == 1)
 					++verloren;

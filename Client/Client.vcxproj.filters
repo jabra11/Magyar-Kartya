@@ -24,9 +24,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gameMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="windowSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="singlePlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
