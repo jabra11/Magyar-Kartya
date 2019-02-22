@@ -3,10 +3,13 @@
 
 class Host : public User
 {
+	sf::TcpListener m_myListener;
 public:
-	Host(const sf::IpAddress &addressOfOtherGuy, std::vector<CardInfo> *pointerToDeck = nullptr, 
-		std::vector<CardInfo> *pointerToHand = nullptr);
+	Host(const sf::IpAddress &addressOfOtherGuy, std::vector<CardInfo> &pointerToDeck, 
+		std::vector<CardInfo> &pointerToHand);
 
 	void sendDeckInfo();
+
+	void connectToOtherGuy() override;
 };
 
