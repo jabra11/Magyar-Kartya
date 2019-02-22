@@ -1,2 +1,2 @@
 # Magyar Kartya
-To build the game, download the appropriate version of SFML from https://www.sfml-dev.org/download/sfml/2.5.1/ (32bit). Set up your compiler as shown in https://www.sfml-dev.org/tutorials/2.5/start-vc.php. Copy the DLL's inside of the downloaded SFML-version/bin into your debug or release folder inside the solution folder respectively and compile.
+To build the game, download the appropriate version of SFML from https://www.sfml-dev.org/download/sfml/2.5.1/ (32bit). Set up your compiler as shown in https://www.sfml-dev.org/tutorials/2.5/start-vc.php. Copy the DLL's inside of the downloaded SFML-version/bin folder into your debug and/or release folder inside the solution folder and compile.
