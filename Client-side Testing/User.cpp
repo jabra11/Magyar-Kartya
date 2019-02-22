@@ -1,15 +1,18 @@
 #include "User.h"
 
 
-User::User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> *pointerToDeck,
-	std::vector<CardInfo> *pointerToHand )
+User::User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> &pointerToDeck,
+	std::vector<CardInfo> &pointerToHand )
 	:m_addressOfOtherUser{addressOfOtherUser}, m_pointerToDeck{pointerToDeck}, m_poiterToHand{pointerToHand}
 {
 }
 
 void User::connectToOtherGuy()
 {
-	m_mySocket.connect(m_addressOfOtherUser, 50000);
+	while (m_mySocket.connect(m_addressOfOtherUser, 50000, sf::Time{ sf::milliseconds(100) }) != sf::Socket::Done)
+		std::cerr << "Could not connect\n";
+
+	std::cout << "Successfully connected\n";
 }
 
 void User::sendCardInformation(const CardInfo &card)

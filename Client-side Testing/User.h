@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 #include <cassert>
+#include <iostream>
 
 class User
 {
@@ -43,17 +44,17 @@ protected:
 	sf::TcpSocket m_mySocket;
 	sf::IpAddress m_addressOfOtherUser;
 
-	std::vector<CardInfo> *m_pointerToDeck;
-	std::vector<CardInfo> *m_poiterToHand;
+	std::vector<CardInfo> m_pointerToDeck;
+	std::vector<CardInfo> m_poiterToHand;
 
 public:
-	User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> *pointerToDeck = nullptr,
-		std::vector<CardInfo> *pointerToHand = nullptr);
+	User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> &pointerToDeck,
+		std::vector<CardInfo> &pointerToHand);
 
 	void sendCardInformation(const CardInfo &cardToSend);
-	void receiveCardInformation(CardInfo &cardToreceive);
+	void receiveCardInformation(CardInfo &cardToReceive);
 
-	void connectToOtherGuy();
+	virtual void connectToOtherGuy();
 
 	friend sf::Packet& operator<<(sf::Packet &packet, const CardInfo &card);
 	friend sf::Packet& operator>>(sf::Packet &packet, CardInfo &card);
