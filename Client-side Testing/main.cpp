@@ -31,12 +31,32 @@ int main()
 	int decision;
 	std::cin >> decision;
 
+
+	std::vector<User::CardInfo> testDeck;
+	testDeck.resize(32);
+
+
 	if (decision == 1)
 	{
-		User::CardInfo testDeck;
+		for (int i{ 0 }; i < 32; ++i)
+			testDeck[i] = User::CardInfo{ 1, 2, 5 };
 
-		//for (int i{0}; i < 32; )
-
-		//Host host{temp, }
+		Host host{ temp, testDeck, testDeck};
+		
+		host.connectToOtherGuy();
+		//system("pause");
+		host.sendDeckInfo();
 	}
+
+	else if (decision == 2)
+	{
+		Client client{ temp, testDeck, testDeck };
+
+		client.connectToOtherGuy();
+		//system("pause");
+		client.receiveDeckInfo();
+		client.printDeck();
+	}
+
+	system("pause");
 }
