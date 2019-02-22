@@ -22,7 +22,7 @@ bool Server::acceptClient()
 	{
 		if (m_listener.listen(m_port) != sf::Socket::Done)
 		{
-			std::cerr << "ERROR: Couldn't bind Listener to port: " << m_port + 1 << '\n';
+			std::cerr << "ERROR: Couldn't bind Listener to port: " << m_port << '\n';
 		}
 
 		if (m_listener.accept(m_client2Socket) == sf::Socket::Done)
