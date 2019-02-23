@@ -4,15 +4,17 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # files to keep track of local statistics
-Client/resources/stats/wins.txt
-Client/resources/stats/loses.txt
+#Client/resources/stats/wins.txt
+#Client/resources/stats/loses.txt
+#Client/resources/stats/*.txt
+
+
 # User-specific files
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
