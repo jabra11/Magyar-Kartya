@@ -12,7 +12,7 @@ Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, boo
 
 const bool Card::getMoveStatus() const
 {
-	return m_canBeMoved;
+	return m_canBeMoved;s
 }
 
 void Card::changeMoveStatus(bool status)
