@@ -152,7 +152,8 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="singlePlayer.cpp" />
+    <ClCompile Include="multiplayer.cpp" />
+    <ClCompile Include="singleplayer.cpp" />
     <ClCompile Include="gameMenu.cpp" />
     <ClCompile Include="Logic.cpp" />
     <ClCompile Include="main.cpp" />
