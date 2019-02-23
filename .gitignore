@@ -6,7 +6,7 @@
 # files to keep track of local statistics
 #Client/resources/stats/wins.txt
 #Client/resources/stats/loses.txt
-#Client/resources/stats/*.txt
+Client/resources/stats/*.txt
 
 
 # User-specific files
