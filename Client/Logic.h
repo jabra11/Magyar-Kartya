@@ -61,9 +61,9 @@ public:
 		switch (m_wunschkarte.getTyp())
 		{
 		case Card::PIROS:   return "Wunschkarte aktiv: Piros"; break;
-		case Card::TÖCK:	return "Wunschkarte aktiv: Toeck"; break;
+		case Card::TOECK:	return "Wunschkarte aktiv: Toeck"; break;
 		case Card::MOCK:    return "Wunschkarte aktiv: Mock"; break;
-		case Card::ZÖLD:    return "Wunschkarte aktiv: Zoeld"; break;
+		case Card::ZOELD:    return "Wunschkarte aktiv: Zoeld"; break;
 		default: std::cout << "Could not get a name (getWunschkartenName())";
 		}
 	}

@@ -11,8 +11,8 @@ class User
 public:
 	enum CardTyp
 	{
-		ZÖLD,
-		TÖCK,
+		ZOELD,
+		TOECK,
 		MOCK,
 		PIROS,
 		MAX_TYPES,
@@ -21,7 +21,7 @@ public:
 	enum CardRank
 	{
 		DAME,
-		KÖNIG,
+		KOENIG,
 		BUBE,
 		SIEBEN,
 		ACHT,

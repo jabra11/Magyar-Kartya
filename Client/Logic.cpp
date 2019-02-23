@@ -144,8 +144,8 @@ const bool Logic::wunschkarteAktiv()
 		switch (m_wunschkarte.getTyp())
 		{
 		case Card::MOCK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_MOCK], true); break;
-		case Card::ZÖLD: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_ZÖLD], true); break;
-		case Card::TÖCK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_TÖCK], true); break;
+		case Card::ZOELD: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_ZOELD], true); break;
+		case Card::TOECK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_TOECK], true); break;
 		case Card::PIROS: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_PIROS], true); break;
 		}
 	}

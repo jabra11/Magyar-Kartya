@@ -131,8 +131,8 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 {
 	int amountPiros{ 0 };
 	int amountMock{ 0 };
-	int amountTöck{ 0 };
-	int amountZöld{ 0 };
+	int amountTOECK{ 0 };
+	int amountZOELD{ 0 };
 
 	for (int i{ 0 }; i < m_enemyHand.size(); ++i)
 	{
@@ -143,20 +143,20 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 		{
 		case Card::PIROS:	++amountPiros;	break;
 		case Card::MOCK:	++amountMock;	break;
-		case Card::TÖCK:	++amountTöck;	break;
-		case Card::ZÖLD:	++amountZöld;	break;
+		case Card::TOECK:	++amountTOECK;	break;
+		case Card::ZOELD:	++amountZOELD;	break;
 		}
 	}
 
 
 	wunschKarte = card;
 
-	if (amountZöld > amountPiros && amountZöld > amountMock && amountZöld > amountTöck)
-		wunschKarte.setTyp(Card::ZÖLD);
-	if (amountMock > amountPiros && amountMock > amountTöck && amountMock > amountZöld)
+	if (amountZOELD > amountPiros && amountZOELD > amountMock && amountZOELD > amountTOECK)
+		wunschKarte.setTyp(Card::ZOELD);
+	if (amountMock > amountPiros && amountMock > amountTOECK && amountMock > amountZOELD)
 		wunschKarte.setTyp(Card::MOCK);
-	if (amountTöck > amountPiros && amountTöck > amountMock && amountTöck > amountZöld)
-		wunschKarte.setTyp(Card::TÖCK);
-	if (amountPiros > amountMock && amountPiros > amountTöck && amountPiros > amountZöld)
+	if (amountTOECK > amountPiros && amountTOECK > amountMock && amountTOECK > amountZOELD)
+		wunschKarte.setTyp(Card::TOECK);
+	if (amountPiros > amountMock && amountPiros > amountTOECK && amountPiros > amountZOELD)
 		wunschKarte.setTyp(Card::PIROS);
 }

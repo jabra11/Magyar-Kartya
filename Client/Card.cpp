@@ -35,35 +35,35 @@ void Card::setTexture()
 	using namespace myTextures;
 	switch (m_typ)
 	{
-	case Z�LD:
+	case ZOELD:
 	{
 		switch (m_rank)
 		{
-		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[Z�LD][DAME], true); break;
-		case CardRank::K�NIG:	m_graphicalCard.setTexture(textureArr[Z�LD][K�NIG], true); break;
-		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[Z�LD][BUBE], true); break;
-		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[Z�LD][SIEBEN], true); break;
-		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[Z�LD][ACHT], true); break;
-		case CardRank::NEUN:	m_graphicalCard.setTexture(textureArr[Z�LD][NEUN], true); break;
-		case CardRank::ZEHN:	m_graphicalCard.setTexture(textureArr[Z�LD][ZEHN], true); break;
-		case CardRank::ASS:		m_graphicalCard.setTexture(textureArr[Z�LD][ASS], true); break;
+		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[ZOELD][DAME], true); break;
+		case CardRank::KOENIG:	m_graphicalCard.setTexture(textureArr[ZOELD][KOENIG], true); break;
+		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[ZOELD][BUBE], true); break;
+		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[ZOELD][SIEBEN], true); break;
+		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[ZOELD][ACHT], true); break;
+		case CardRank::NEUN:	m_graphicalCard.setTexture(textureArr[ZOELD][NEUN], true); break;
+		case CardRank::ZEHN:	m_graphicalCard.setTexture(textureArr[ZOELD][ZEHN], true); break;
+		case CardRank::ASS:		m_graphicalCard.setTexture(textureArr[ZOELD][ASS], true); break;
 		default:				std::cout << "error in setTexture case ZOELD switch"; break;
 		}
 		break;
 	}
 
-	case T�CK:
+	case TOECK:
 	{
 		switch (m_rank)
 		{
-		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[T�CK][DAME], true); break;
-		case CardRank::K�NIG:	m_graphicalCard.setTexture(textureArr[T�CK][K�NIG], true); break;
-		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[T�CK][BUBE], true); break;
-		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[T�CK][SIEBEN], true);  break;
-		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[T�CK][ACHT], true); break;
-		case CardRank::NEUN:	m_graphicalCard.setTexture(textureArr[T�CK][NEUN], true); break;
-		case CardRank::ZEHN:	m_graphicalCard.setTexture(textureArr[T�CK][ZEHN], true); break;
-		case CardRank::ASS:		m_graphicalCard.setTexture(textureArr[T�CK][ASS], true); break;
+		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[TOECK][DAME], true); break;
+		case CardRank::KOENIG:	m_graphicalCard.setTexture(textureArr[TOECK][KOENIG], true); break;
+		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[TOECK][BUBE], true); break;
+		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[TOECK][SIEBEN], true);  break;
+		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[TOECK][ACHT], true); break;
+		case CardRank::NEUN:	m_graphicalCard.setTexture(textureArr[TOECK][NEUN], true); break;
+		case CardRank::ZEHN:	m_graphicalCard.setTexture(textureArr[TOECK][ZEHN], true); break;
+		case CardRank::ASS:		m_graphicalCard.setTexture(textureArr[TOECK][ASS], true); break;
 		default:				std::cout << "error in setTexture case TOECK switch"; break;
 		}
 		break;
@@ -74,7 +74,7 @@ void Card::setTexture()
 		switch (m_rank)
 		{
 		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[MOCK][DAME], true); break;
-		case CardRank::K�NIG:	m_graphicalCard.setTexture(textureArr[MOCK][K�NIG], true); break;
+		case CardRank::KOENIG:	m_graphicalCard.setTexture(textureArr[MOCK][KOENIG], true); break;
 		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[MOCK][BUBE], true); break;
 		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[MOCK][SIEBEN], true); break;
 		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[MOCK][ACHT], true); break;
@@ -91,7 +91,7 @@ void Card::setTexture()
 		switch (m_rank)
 		{
 		case CardRank::DAME:	m_graphicalCard.setTexture(textureArr[PIROS][DAME], true); break;
-		case CardRank::K�NIG:	m_graphicalCard.setTexture(textureArr[PIROS][K�NIG], true); break;
+		case CardRank::KOENIG:	m_graphicalCard.setTexture(textureArr[PIROS][KOENIG], true); break;
 		case CardRank::BUBE:	m_graphicalCard.setTexture(textureArr[PIROS][BUBE], true); break;
 		case CardRank::SIEBEN:	m_graphicalCard.setTexture(textureArr[PIROS][SIEBEN], true); break;
 		case CardRank::ACHT:	m_graphicalCard.setTexture(textureArr[PIROS][ACHT], true); break;
@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 	case Card::NEUN:	out	<< "IX";		break;
 	case Card::ACHT:	out	<< "VIII";		break;
 	case Card::SIEBEN:	out	<< "VII";		break;
-	case Card::K�NIG:	out	<< "Koenig";	break;
+	case Card::KOENIG:	out	<< "Koenig";	break;
 	case Card::DAME:	out	<< "Dame";		break;
 	case Card::BUBE:	out	<< "Bube";		break;
 	}
@@ -150,9 +150,9 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 
 	switch (card.m_typ)
 	{
-	case Card::Z�LD:	out	<< "Zoeld";		break;
+	case Card::ZOELD:	out	<< "Zoeld";		break;
 	case Card::MOCK:	out	<< "Mock";		break;
-	case Card::T�CK:	out	<< "Toeck";		break;
+	case Card::TOECK:	out	<< "Toeck";		break;
 	case Card::PIROS:	out	<< "Piros";		break;
 	}
 
@@ -164,9 +164,9 @@ std::ostream& operator<<(std::ostream &out, const Card::CardTyp &typ)
 	switch (typ)
 	{
 	case Card::PIROS: out << "Piros"; break;
-	case Card::T�CK: out << "Toeck"; break;
+	case Card::TOECK: out << "Toeck"; break;
 	case Card::MOCK: out << "Mock"; break;
-	case Card::Z�LD: out << "Zoeld"; break;
+	case Card::ZOELD: out << "Zoeld"; break;
 	}
 
 	return out;
@@ -187,7 +187,7 @@ const std::string Card::getCardName() const
 	case Card::NEUN:	temp += "IX";		break;
 	case Card::ACHT:	temp += "VIII";		break;
 	case Card::SIEBEN:	temp += "VII";		break;
-	case Card::K�NIG:	temp += "Koenig";	break;
+	case Card::KOENIG:	temp += "Koenig";	break;
 	case Card::DAME:	temp += "Dame";		break;
 	case Card::BUBE:	temp += "Bube";		break;
 	}
@@ -196,9 +196,9 @@ const std::string Card::getCardName() const
 
 	switch (m_typ)
 	{
-	case Card::Z�LD:	temp += "Z�ld";			break;
+	case Card::ZOELD:	temp += "ZOELD";			break;
 	case Card::MOCK:	temp += "Mock";			break;
-	case Card::T�CK:	temp += "T�ck";			break;
+	case Card::TOECK:	temp += "TOECK";			break;
 	case Card::PIROS:	temp += "Piros";		break;
 	}
 
