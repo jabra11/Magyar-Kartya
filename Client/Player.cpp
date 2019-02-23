@@ -21,7 +21,7 @@ void Player::dealCard(int cardToDeal, std::vector<Card> &cardStack)
 
 const int Player::getHandSize()
 {
-	return m_playerHand.size();w
+	return m_playerHand.size();
 }
 
 void Player::drawCard(const Card &card,const std::vector<Card> &deck)
