@@ -42,7 +42,10 @@
     <ClCompile Include="windowSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="singlePlayer.cpp">
+    <ClCompile Include="singleplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="multiplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
