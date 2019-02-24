@@ -28,6 +28,7 @@ public:
 	bool acceptClient();
 
 	void sendAdresses();
+	void disconnectClients();
 };
 
 #endif

@@ -6,9 +6,13 @@ int main()
 {
 	Server server;
 
+	while (true)
+	{
 	while (server.getClientsConnected() != 2)
 	{
 		server.acceptClient();
 	}
 	server.sendAdresses();
+	server.disconnectClients();
+	}
 }

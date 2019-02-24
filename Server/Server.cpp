@@ -53,7 +53,7 @@ void Server::sendAdresses()
 	std::string stringClient2{ client2Address.toString() };
 
 	std::cout << "IP address of client 1: " << stringClient1
-		<< "\nIP address of client 2: " << stringClient2;
+		<< "\nIP address of client 2: " << stringClient2 << '\n';
 
 	packet << stringClient1;
 	m_client1Socket.send(packet);
@@ -62,4 +62,12 @@ void Server::sendAdresses()
 	packet << stringClient2;
 	m_client2Socket.send(packet);
 	packet.clear();
+}
+
+void Server::disconnectClients()
+{
+	m_client1Socket.disconnect();
+	m_client2Socket.disconnect();
+
+	m_clientsConnected = 0;
 }
