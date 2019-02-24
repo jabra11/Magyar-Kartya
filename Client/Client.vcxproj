@@ -150,9 +150,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Host.cpp" />
     <ClCompile Include="multiplayer.cpp" />
+    <ClCompile Include="OnlineEnemy.cpp" />
+    <ClCompile Include="OnlinePlayer.cpp" />
     <ClCompile Include="singleplayer.cpp" />
     <ClCompile Include="gameMenu.cpp" />
     <ClCompile Include="Logic.cpp" />
@@ -163,9 +167,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Host.h" />
     <ClInclude Include="Logic.h" />
+    <ClInclude Include="OnlineEnemy.h" />
+    <ClInclude Include="OnlinePlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="textureArray.h" />
     <ClInclude Include="windowSettings.h" />

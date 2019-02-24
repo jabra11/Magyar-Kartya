@@ -3,11 +3,15 @@
 #include <vector>
 #include <iostream>
 #include "Logic.h"
+#include "Client.h"
+#include "Host.h"
+
 
 class Player
 {
 private:
 	Logic *m_logic;
+
 public:
 	std::vector<Card> m_playerHand;
 	float m_xOffset{ 0.0 };
