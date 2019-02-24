@@ -4,7 +4,7 @@
 #include "Logic.h"
 
 int singleplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
-int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
+int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);
 
 int gameMenu(int &gewonnen, int &verloren)
 {
@@ -51,6 +51,8 @@ int gameMenu(int &gewonnen, int &verloren)
 
 	bool showStats{ false };
 	bool showOptions{ false };
+
+	bool host{ true };
 
 	int tableTex{ 1 };
 
@@ -112,7 +114,8 @@ int gameMenu(int &gewonnen, int &verloren)
 			// MULTIPLAYER
 			if (multiplayerText.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
 			{
-				int gameStatus{ multiplayer(gameWindow, logic, textureToPass) };
+
+				int gameStatus{ multiplayer(gameWindow, logic, textureToPass, host) };
 
 				if (gameStatus == 1)
 					++verloren;
@@ -192,11 +195,17 @@ int gameMenu(int &gewonnen, int &verloren)
 
 
 			std::string tableTexString{ "" };
-			(tableTex) ? tableTexString = "Grau" : tableTexString = "Grün";
+			(tableTex) ? tableTexString = "Grau" : tableTexString = "Gruen";
 			sf::Text chooseTableTex{ "Spielhintergrund: " + tableTexString, myFont, 50u };
 			chooseTableTex.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 4);
 
-			sf::Text goBack{ "Zurück", myFont, 80u };
+			std::string onlineHost{ "" };
+			(host) ? onlineHost = "Host" : onlineHost = "Client";
+			sf::Text onlineHostTex{ "Onlinemodus: " + onlineHost, myFont, 50u };
+			onlineHostTex.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 5);
+
+
+			sf::Text goBack{ "Zurueck", myFont, 80u };
 			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (goBack.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 8));
 
 			if (mouseLeftPressed && !mouseLeftReleased)
@@ -227,6 +236,9 @@ int gameMenu(int &gewonnen, int &verloren)
 					}
 				}
 
+				if (onlineHostTex.getGlobalBounds().contains(mousePos))
+					(host) ? host = false : host = true;
+
 				if (goBack.getGlobalBounds().contains(mousePos))
 					showOptions = false;
 
@@ -240,6 +252,7 @@ int gameMenu(int &gewonnen, int &verloren)
 			gameWindow.draw(startSize);
 			gameWindow.draw(showEnemyHand);
 			gameWindow.draw(chooseTableTex);
+			gameWindow.draw(onlineHostTex);
 			gameWindow.draw(goBack);
 
 			gameWindow.display();

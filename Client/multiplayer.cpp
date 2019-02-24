@@ -4,12 +4,39 @@
 #include "Deck.h"
 #include <array>
 #include "textureArray.h"
-#include "Enemy.h"
-#include "Player.h"
+#include "OnlineEnemy.h"
+#include "OnlinePlayer.h"
 #include "Logic.h"
+#include "Client.h"
+#include "Host.h"
 
-int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture)
+int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool bHost)
 {
+	// load textures
+	sf::RectangleShape playTable(sf::Vector2f(windowSettings::windowX, windowSettings::windowY));
+	playTable.setTexture(&playTableTexture);
+
+	std::array<sf::Texture, 4> rueckseiten;
+	rueckseiten[0].loadFromFile("resources/images/rueckseite/einzel.jpg");
+	rueckseiten[1].loadFromFile("resources/images/rueckseite/zwei.png");
+	rueckseiten[2].loadFromFile("resources/images/rueckseite/drei.png");
+	rueckseiten[3].loadFromFile("resources/images/rueckseite/vier.png");
+	sf::Sprite backCard;
+	backCard.scale(0.4f, 0.4f);
+	backCard.setOrigin(backCard.getGlobalBounds().width, backCard.getGlobalBounds().height);
+	backCard.setPosition(1250.0f, 250.0f);
+
+	sf::Font myFont;
+	myFont.loadFromFile("resources/font/testFont.ttf");
+
+	Deck deck;
+	bool setup{ true };
+	// start the setup
+	
+	// to-do
+	// setup client and host game logic. think about how to bring the client and host class into the logic (as seperate class, friend class or even member).
+
+
 
 	return 0;
 }
