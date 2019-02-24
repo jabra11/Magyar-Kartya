@@ -153,10 +153,10 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 
 	if (amountZOELD > amountPiros && amountZOELD > amountMock && amountZOELD > amountTOECK)
 		wunschKarte.setTyp(Card::ZOELD);
-	if (amountMock > amountPiros && amountMock > amountTOECK && amountMock > amountZOELD)
+	else if (amountMock > amountPiros && amountMock > amountTOECK && amountMock > amountZOELD)
 		wunschKarte.setTyp(Card::MOCK);
-	if (amountTOECK > amountPiros && amountTOECK > amountMock && amountTOECK > amountZOELD)
+	else if (amountTOECK > amountPiros && amountTOECK > amountMock && amountTOECK > amountZOELD)
 		wunschKarte.setTyp(Card::TOECK);
-	if (amountPiros > amountMock && amountPiros > amountTOECK && amountPiros > amountZOELD)
+	else 
 		wunschKarte.setTyp(Card::PIROS);
 }

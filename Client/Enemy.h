@@ -8,6 +8,7 @@ class Enemy
 {
 private:
 	Logic *m_logic;
+
 public:
 	std::vector<Card> m_enemyHand;
 	float m_yOffset{ 0.0 };
@@ -25,7 +26,7 @@ public:
 	const int getHandSize();
 
 	void determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
-		bool wunschKarteAktiv, const Card &wunschKarte, int schwierigkeitsGrad = 0);
+		bool wunschkarteAktiv, const Card &wunschKarte, int schwierigkeitsgrad = 0);
 
 	void determineBesteWunschKarte(const Card &card, Card &wunschkarte);
 

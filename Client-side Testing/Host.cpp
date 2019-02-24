@@ -37,5 +37,4 @@ void Host::connectToOtherGuy()
 
 	if (m_myListener.accept(m_mySocket) == sf::Socket::Done)
 		std::cout << "Successfully connected\n";
-
 }
