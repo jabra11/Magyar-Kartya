@@ -25,6 +25,5 @@ public:
 	static void swapCard(Card &a, Card &b);
 
 	void shuffleStack(std::vector<Card> &cardStack);
-
 };
 

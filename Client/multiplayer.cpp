@@ -30,12 +30,47 @@ int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture 
 	myFont.loadFromFile("resources/font/testFont.ttf");
 
 	Deck deck;
-	bool setup{ true };
+	bool setupFinished{ false };
+
 	// start the setup
 	
-	// to-do
-	// setup client and host game logic. think about how to bring the client and host class into the logic (as seperate class, friend class or even member).
+	// connect to server and get IP address of other user.
 
+	sf::TcpSocket connectToServer;
+
+	while (connectToServer.connect(sf::IpAddress{}.getLocalAddress(), 50000) != sf::Socket::Done)
+	{
+		std::cerr << "ERROR: Could not connect.\n";
+	}
+
+	std::cout << "Connected\n";
+
+	std::string temp;
+	sf::Packet myPacket;
+	connectToServer.receive(myPacket);
+	myPacket >> temp;
+
+	std::cout << "address of other user is : " << temp << '\n';
+
+	// to-do
+	// setup client and host game logic. think about how to bring the client and host class into play (as seperate class, friend class or even member variable).
+	// 1. establish connection between host and client
+	// 2. create game logic
+
+
+
+
+
+	if (bHost)
+	{
+		Host host;
+
+	}
+
+	else
+	{
+
+	}
 
 
 	return 0;
