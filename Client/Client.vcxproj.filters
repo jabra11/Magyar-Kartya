@@ -60,6 +60,9 @@
     <ClCompile Include="Host.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OnlineUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Host.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,5 +4,7 @@ class Host
 public:
 	Host();
 	~Host();
+
+	
 };
 

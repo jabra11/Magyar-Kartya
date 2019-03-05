@@ -157,6 +157,7 @@
     <ClCompile Include="multiplayer.cpp" />
     <ClCompile Include="OnlineEnemy.cpp" />
     <ClCompile Include="OnlinePlayer.cpp" />
+    <ClCompile Include="OnlineUser.cpp" />
     <ClCompile Include="singleplayer.cpp" />
     <ClCompile Include="gameMenu.cpp" />
     <ClCompile Include="Logic.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Logic.h" />
     <ClInclude Include="OnlineEnemy.h" />
     <ClInclude Include="OnlinePlayer.h" />
+    <ClInclude Include="OnlineUser.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="textureArray.h" />
     <ClInclude Include="windowSettings.h" />
