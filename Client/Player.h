@@ -26,7 +26,7 @@ public:
 	sf::Vector2f getCoord(bool &mouseLeftPressed);
 
 	void dealCard(int cardToDeal, std::vector<Card> &cardStack);
-	void drawCard(const Card &card, const std::vector<Card> &deck);
+	void drawCard(const Card &card);
 	const int getHandSize();
 
 	Card& getCard(int index);

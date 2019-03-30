@@ -34,22 +34,22 @@ public:
 
 	struct CardInfo
 	{
-		int cardTyp;
-		int cardRank;
+		int cardTyp{ 0 };
+		int cardRank{ 0 };
 		int wunschKarte{ static_cast<int>(CardTyp::IGNORE_TYP) };
 	};
 	
 
-	User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> &pointerToDeck,
-		std::vector<CardInfo> &pointerToHand);
+	User(const sf::IpAddress& addressOfOtherUser, std::vector<CardInfo>& pointerToDeck,
+		std::vector<CardInfo>& pointerToHand);
 
-	void sendCardInformation(const CardInfo &cardToSend);
-	void receiveCardInformation(CardInfo &cardToReceive);
+	void sendCardInformation(const CardInfo& cardToSend);
+	void receiveCardInformation(CardInfo& cardToReceive);
 
 	virtual void connectToOtherGuy();
 
-	friend sf::Packet& operator<<(sf::Packet &packet, const CardInfo &card);
-	friend sf::Packet& operator>>(sf::Packet &packet, CardInfo &card);
+	friend sf::Packet& operator<<(sf::Packet& packet, const CardInfo& card);
+	friend sf::Packet& operator>>(sf::Packet& packet, CardInfo& card);
 
 protected:
 	sf::TcpSocket m_mySocket;

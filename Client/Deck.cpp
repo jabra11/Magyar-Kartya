@@ -105,3 +105,13 @@ void Deck::shuffleStack(std::vector<Card> &cardStack)
 	std::cout << "Das Deck wird neu gemischt...\n";
 	std::cout << '\n';
 }
+
+unsigned int Deck::getSize() const
+{
+	return m_deck.size();
+}
+
+Card& Deck::operator[](int index)
+{
+	return m_deck[index];
+}

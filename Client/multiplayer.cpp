@@ -10,7 +10,7 @@
 #include "Client.h"
 #include "Host.h"
 
-int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool bHost)
+int multiplayer(sf::RenderWindow& renderWindow, Logic& logic, const sf::Texture& playTableTexture, const bool bHost)
 {
 	// load textures
 	sf::RectangleShape playTable(sf::Vector2f(windowSettings::windowX, windowSettings::windowY));
@@ -30,13 +30,14 @@ int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture 
 	myFont.loadFromFile("resources/font/testFont.ttf");
 
 	Deck deck;
-	bool setupFinished{ false };
+	bool setup_finished{ false };
 
 	// start the setup
 	
 	// connect to server and get IP address of other user.
 
 	sf::TcpSocket connectToServer;
+
 
 	while (connectToServer.connect(sf::IpAddress{}.getLocalAddress(), 50000) != sf::Socket::Done)
 	{
@@ -53,14 +54,14 @@ int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture 
 	std::cout << "address of available user: " << ipAddressOfOtherGuy << '\n';
 
 	// to-do
-	// setup client and host game logic. think about how to bring the client and host class into play (as seperate class, friend class or even member variable).
+	// setup client and host logic. think about how to bring the client and host class into play (as seperate class, friend class or even member variable).
 	// 1. establish connection between host and client
 	// 2. create game logic
 
 	// host logic
 	if (bHost)
 	{
-		Host host;
+
 	}
 
 

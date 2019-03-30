@@ -14,7 +14,8 @@ public:
 		TOECK,
 		MOCK,
 		PIROS,
-		MAX_TYPES
+		MAX_TYPES,
+		PLACEHOLDER_TYP
 	};
 	enum CardRank
 	{
@@ -26,7 +27,8 @@ public:
 		NEUN,
 		ZEHN,
 		ASS,
-		MAX_RANKS
+		MAX_RANKS,
+		PLACEHOLDER_RANK
 	};
 
 

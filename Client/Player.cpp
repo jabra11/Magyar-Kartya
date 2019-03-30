@@ -24,7 +24,7 @@ const int Player::getHandSize()
 	return m_playerHand.size();
 }
 
-void Player::drawCard(const Card &card,const std::vector<Card> &deck)
+void Player::drawCard(const Card &card)
 {
 	m_playerHand.push_back(card);
 	std::cout << "Du ziehst " << card << "\n";
