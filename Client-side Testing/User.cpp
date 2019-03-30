@@ -9,6 +9,8 @@ User::User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> &point
 
 void User::connectToOtherGuy()
 {
+	std::cout << "Connecting..\n";
+
 	while (m_mySocket.connect(m_addressOfOtherUser, 50000, sf::Time{ sf::milliseconds(100) }) != sf::Socket::Done)
 		std::cerr << "Could not connect\n";
 

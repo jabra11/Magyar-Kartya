@@ -31,8 +31,7 @@ public:
 		MAX_RANKS,
 		IGNORE_RANK
 	};
-	
-public:
+
 	struct CardInfo
 	{
 		int cardTyp;
@@ -40,14 +39,7 @@ public:
 		int wunschKarte{ static_cast<int>(CardTyp::IGNORE_TYP) };
 	};
 	
-protected:
-	sf::TcpSocket m_mySocket;
-	sf::IpAddress m_addressOfOtherUser;
 
-	std::vector<CardInfo> m_pointerToDeck;
-	std::vector<CardInfo> m_poiterToHand;
-
-public:
 	User(const sf::IpAddress &addressOfOtherUser, std::vector<CardInfo> &pointerToDeck,
 		std::vector<CardInfo> &pointerToHand);
 
@@ -58,5 +50,12 @@ public:
 
 	friend sf::Packet& operator<<(sf::Packet &packet, const CardInfo &card);
 	friend sf::Packet& operator>>(sf::Packet &packet, CardInfo &card);
+
+protected:
+	sf::TcpSocket m_mySocket;
+	sf::IpAddress m_addressOfOtherUser;
+
+	std::vector<CardInfo> m_pointerToDeck;
+	std::vector<CardInfo> m_poiterToHand;
 };
 
