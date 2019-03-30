@@ -3,6 +3,7 @@
 #include "Card.h"
 #include "Deck.h"
 #include "SFML/Network.hpp"
+#include "SFML/System.hpp"
 
 class OnlineUser
 {
@@ -24,18 +25,34 @@ public:
 
 protected:
 
-	OnlineUser();
+	OnlineUser(int port);
+
+	// constructs a Default_packet from the arguments and sends it to the 
+	// connected TCP socket
+	void send_choice_information(const bool is_using_a_card, const Card& card,
+		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
 
 
-	void send_card_information(const Default_packet& packet_to_send);
-	void receive_card_information(Default_packet& packet_to_receive);
+	// retrieves information of a received packet from the established TCP
+	// connection and writes it into the first parameter
+	void receive_choice_information(OnlineUser::Default_packet& Default_packet_to_write_in,
+		const bool is_using_a_card, const Card& card,
+		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
 
-	virtual void connect_to_user(sf::IpAddress& target_address) = 0;
 
-	sf::TcpSocket m_my_socket;
-	sf::IpAddress address_of_other_user;
+	// connects to a given IP address using a TCP socket, meant to be overwritten by 
+	// derivatives
+
+
+	Default_packet convert_to_Default_packet(const bool is_using_a_card, const Card& card,
+		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
 
 	friend sf::Packet& operator<<(sf::Packet& target, const Default_packet& source);
-	friend sf::Packet& operator>>(sf::Packet& source, const Default_packet& target);
-};
+	friend sf::Packet& operator>>(sf::Packet& source, Default_packet& target);
 
+
+protected:
+
+	sf::TcpSocket m_socket;
+	int m_port{ 0 };
+};
