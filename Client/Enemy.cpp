@@ -27,14 +27,14 @@ void Enemy::drawCard(const Card &card)
 
 	std::array<std::string, 6> temp;
 
-	for (int i{ 0 }; i < m_logic->m_myFeed.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size(); ++i)
 	{
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
 	m_logic->m_myFeed[0] = "Gegner: Karte gezogen";
 
-	for (int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
+	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{
 		m_logic->m_myFeed[i + 1] = temp[i];
 	}
@@ -53,7 +53,7 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 
 	if (schwierigkeitsGrad == 0)
 	{
-		for (int i{ 0 }; i < m_enemyHand.size(); ++i)
+		for (unsigned int i{ 0 }; i < m_enemyHand.size(); ++i)
 		{
 			int holdPoints{ 0 };
 			if (m_enemyHand[i].getRank() == topOfCardStack.getRank())
@@ -112,11 +112,11 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 		}
 	}
 
-	for (int startIndex{ 0 }; startIndex < (saveCardPoints.size() - 1); ++startIndex)
+	for (unsigned int startIndex{ 0 }; startIndex < (saveCardPoints.size() - 1); ++startIndex)
 	{
 		int heightestIndex = startIndex;
 
-		for (int currentIndex = startIndex + 1; currentIndex < saveCardPoints.size(); ++currentIndex)
+		for (unsigned int currentIndex = startIndex + 1; currentIndex < saveCardPoints.size(); ++currentIndex)
 		{
 			if (saveCardPoints[currentIndex] > saveCardPoints[heightestIndex])
 				heightestIndex = currentIndex;
@@ -134,7 +134,7 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 	int amountTOECK{ 0 };
 	int amountZOELD{ 0 };
 
-	for (int i{ 0 }; i < m_enemyHand.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_enemyHand.size(); ++i)
 	{
 		if (m_enemyHand[i].getRank() == Card::SIEBEN)
 			continue;

@@ -10,7 +10,7 @@ void Host::sendDeckInfo()
 {
 	std::vector<sf::Packet> packetsContainingDeckInfo;
 
-	for (int i{ 0 }; i < m_pointerToDeck.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_pointerToDeck.size(); ++i)
 	{
 		sf::Packet temp;
 		temp << m_pointerToDeck[i];
@@ -21,7 +21,7 @@ void Host::sendDeckInfo()
 
 	int packetsSentCounter{ 0 };
 
-	for (int i{ 0 }; i < packetsContainingDeckInfo.size(); ++i)
+	for (unsigned int i{ 0 }; i < packetsContainingDeckInfo.size(); ++i)
 	{
 		while (m_mySocket.send(packetsContainingDeckInfo[i]) != sf::Socket::Done)
 			std::cerr << "Couldn't send packet #" << ++packetsSentCounter << std::endl;

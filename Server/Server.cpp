@@ -15,7 +15,7 @@ bool Server::acceptClient()
 		}
 
 		if (m_listener.accept(m_client1Socket) == sf::Socket::Done)
-			std::cout << "Successfully connected client " << ++m_clientsConnected << '\n';
+			std::cout << "Successfully connected client " << ++m_clientsConnected << " (address: " << m_client1Socket.getRemoteAddress() << ")\n";
 	}
 
 	else if (m_clientsConnected == 1)

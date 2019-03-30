@@ -6,7 +6,7 @@
 int singleplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
 int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);
 
-int gameMenu(int &gewonnen, int &verloren)
+void gameMenu(int &gewonnen, int &verloren)
 {
 	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya");
 	//gameWindow.setVerticalSyncEnabled(true);
@@ -73,6 +73,7 @@ int gameMenu(int &gewonnen, int &verloren)
 			if (evnt.type == sf::Event::Closed)
 			{
 				gameWindow.close();
+				return;
 			}
 
 			if (evnt.type == sf::Event::MouseButtonPressed)
@@ -108,7 +109,7 @@ int gameMenu(int &gewonnen, int &verloren)
 					++gewonnen;
 
 				else
-					return 0;
+					return;
 			}
 
 			// MULTIPLAYER
@@ -124,7 +125,7 @@ int gameMenu(int &gewonnen, int &verloren)
 					++gewonnen;
 
 				else
-					return 0;
+					return;
 			}
 
 			if (stats.getGlobalBounds().contains(mousePos) && !showOptions)
@@ -139,7 +140,7 @@ int gameMenu(int &gewonnen, int &verloren)
 
 			if (exit.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
 			{
-				return 0;
+				return;
 			}
 		}
 

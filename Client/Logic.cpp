@@ -17,7 +17,7 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 	{	
 		std::array<std::string, 6> temp;
 		
-		for (int i{ 0 }; i < m_myFeed.size(); ++i)
+		for (unsigned int i{ 0 }; i < m_myFeed.size(); ++i)
 		{
 			temp[i] = m_myFeed[i];
 		}
@@ -27,7 +27,7 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 		else
 			m_myFeed[0] = "Gegner: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
 
-		for (int i{ 0 }; i < m_myFeed.size() - 1; ++i)
+		for (unsigned int i{ 0 }; i < m_myFeed.size() - 1; ++i)
 			m_myFeed[i + 1] = temp[i];
 
 		return true;

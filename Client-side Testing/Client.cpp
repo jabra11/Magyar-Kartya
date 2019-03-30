@@ -26,7 +26,7 @@ void Client::receiveDeckInfo()
 
 	// now extract the cardInfo from the packets
 
-	for (int i{ 0 }; i < packetsContainingTheDeck.size(); ++i)
+	for (unsigned int i{ 0 }; i < packetsContainingTheDeck.size(); ++i)
 	{
 		CardInfo temp;
 		packetsContainingTheDeck[i] >> temp;
@@ -41,7 +41,7 @@ void Client::printDeck()
 	int counter{ 0 };
 	
 	std::cout << "contents of Deck:\n";
-	for (int i{ 0 }; i < m_copyOfTheDeck.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_copyOfTheDeck.size(); ++i)
 	{
 		std::cout << "#" << ++counter << " " << m_copyOfTheDeck[i].cardRank << " " << m_copyOfTheDeck[i].cardTyp << " " << m_copyOfTheDeck[i].wunschKarte << std::endl;
 	}

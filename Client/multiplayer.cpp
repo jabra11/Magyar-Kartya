@@ -43,35 +43,34 @@ int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture 
 		std::cerr << "ERROR: Could not connect.\n";
 	}
 
-	std::cout << "Connected\n";
+	std::cout << "Connected to server\n";
 
-	std::string temp;
+	std::string ipAddressOfOtherGuy;
 	sf::Packet myPacket;
 	connectToServer.receive(myPacket);
-	myPacket >> temp;
+	myPacket >> ipAddressOfOtherGuy;
 
-	std::cout << "address of other user is : " << temp << '\n';
+	std::cout << "address of available user: " << ipAddressOfOtherGuy << '\n';
 
 	// to-do
 	// setup client and host game logic. think about how to bring the client and host class into play (as seperate class, friend class or even member variable).
 	// 1. establish connection between host and client
 	// 2. create game logic
 
-
-
-
-
+	// host logic
 	if (bHost)
 	{
 		Host host;
-
 	}
 
+
+	// client logic
 	else
 	{
 
 	}
 
-
+	// preliminary return statement
 	return 0;
+	// ----------------------------
 }
