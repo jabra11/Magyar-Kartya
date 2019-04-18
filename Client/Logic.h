@@ -68,7 +68,10 @@ public:
 		}
 	}
 	
+	// Decapsulate
 	friend class Player;
 	friend class Enemy;
+	friend class OnlinePlayer;
+	friend class OnlineEnemy;
 };
 

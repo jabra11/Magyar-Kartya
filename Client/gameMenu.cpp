@@ -3,10 +3,10 @@
 #include <iostream>
 #include "Logic.h"
 
-int singleplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
-int multiplayer(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);
+int singleplayer(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture);
+int multiplayerSetup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);
 
-void gameMenu(int &gewonnen, int &verloren)
+void gameMenu(int& gewonnen, int& verloren)
 {
 	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya");
 	//gameWindow.setVerticalSyncEnabled(true);
@@ -116,7 +116,7 @@ void gameMenu(int &gewonnen, int &verloren)
 			if (multiplayerText.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
 			{
 
-				int gameStatus{ multiplayer(gameWindow, logic, textureToPass, host) };
+				int gameStatus{ multiplayerSetup(gameWindow, logic, textureToPass, host) };
 
 				if (gameStatus == 1)
 					++verloren;

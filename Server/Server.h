@@ -17,7 +17,7 @@ private:
 	sf::TcpSocket m_client2Socket;
 
 	int m_clientsConnected{ 0 };
-	int m_port{ 50000 };
+	int m_port{ 55000 };
 
 public:
 

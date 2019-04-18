@@ -9,8 +9,8 @@
 
 class Player
 {
-private:
-	Logic *m_logic;
+protected:
+	Logic* m_logic;
 
 public:
 	std::vector<Card> m_playerHand;
@@ -25,8 +25,8 @@ public:
 	Player(Logic *logic);
 	sf::Vector2f getCoord(bool &mouseLeftPressed);
 
-	void dealCard(int cardToDeal, std::vector<Card> &cardStack);
-	void drawCard(const Card &card);
+	virtual void dealCard(int cardToDeal, std::vector<Card> &cardStack);
+	virtual void drawCard(const Card &card);
 	const int getHandSize();
 
 	Card& getCard(int index);
