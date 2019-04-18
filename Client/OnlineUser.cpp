@@ -2,9 +2,11 @@
 
 
 
+
 OnlineUser::OnlineUser(int port)
 	:m_port{port}
 {
+	m_socket.setBlocking(false);
 }
 
 
@@ -20,12 +22,10 @@ sf::Packet& operator>>(sf::Packet &packet, OnlineUser::Default_packet &card)
 }
 
 
-void OnlineUser::send_choice_information(const bool is_using_a_card, const Card& card,
-	const Card::CardTyp wunsch_typ)
+void OnlineUser::send_choice_information()
 {
-
 	sf::Packet temp;
-	temp << convert_to_Default_packet(is_using_a_card, card, wunsch_typ);
+	temp << m_buffer;
 
 	std::cout << "Sending packet..\n";
 	if (m_socket.send(temp) == sf::Socket::Done)
@@ -36,9 +36,7 @@ void OnlineUser::send_choice_information(const bool is_using_a_card, const Card&
 }
 
 
-void OnlineUser::receive_choice_information(OnlineUser::Default_packet& Default_packet_to_write_in,
-	const bool is_using_a_card, const Card& card,
-	const Card::CardTyp wunsch_typ)
+void OnlineUser::receive_choice_information()
 {
 	sf::Packet temp;
 	if (m_socket.receive(temp) == sf::Socket::Done)
@@ -47,7 +45,7 @@ void OnlineUser::receive_choice_information(OnlineUser::Default_packet& Default_
 	else
 		std::cerr << "ERROR: Did not receive any packet.\n";
 
-	temp >> Default_packet_to_write_in;
+	temp >> m_buffer;
 }
 
 
@@ -66,4 +64,14 @@ OnlineUser::Default_packet OnlineUser::convert_to_Default_packet(const bool is_u
 	temp.wunschkarte_value = wunsch_typ;
 
 	return temp;
+}
+
+OnlineUser::Default_packet& OnlineUser::modify_buffer()
+{
+	return m_buffer;
+}
+
+const OnlineUser::Default_packet& OnlineUser::get_buffer() const
+{
+	return m_buffer;
 }

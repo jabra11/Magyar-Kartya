@@ -17,32 +17,30 @@ public:
 		// Initialize with placeholder values.
 		int card_typ{ Card::CardTyp::PLACEHOLDER_TYP };
 		int card_rank{ Card::CardRank::PLACEHOLDER_RANK };
-
+		
 		// Track the wished card typ if used card happens to be a 7.
 		int wunschkarte_value{ Card::CardTyp::PLACEHOLDER_TYP };
 
 	};
 
+	// Returns a reference to the buffer variable
+	Default_packet& modify_buffer();
+
+	// Returns a const referenc to the buffer variable
+	const Default_packet& get_buffer() const;
+
+	// Sends m_buffer to the  
+	// connected TCP socket
+	void send_choice_information();
+
+
+	// Retrieves information of a received packet from the established TCP-
+	// connection and writes it into m_buffer
+	void receive_choice_information();
+
 protected:
 
 	OnlineUser(int port);
-
-	// constructs a Default_packet from the arguments and sends it to the 
-	// connected TCP socket
-	void send_choice_information(const bool is_using_a_card, const Card& card,
-		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
-
-
-	// retrieves information of a received packet from the established TCP
-	// connection and writes it into the first parameter
-	void receive_choice_information(OnlineUser::Default_packet& Default_packet_to_write_in,
-		const bool is_using_a_card, const Card& card,
-		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
-
-
-	// connects to a given IP address using a TCP socket, meant to be overwritten by 
-	// derivatives
-
 
 	Default_packet convert_to_Default_packet(const bool is_using_a_card, const Card& card,
 		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
@@ -52,6 +50,8 @@ protected:
 
 
 protected:
+	// a buffer holding information to be send after each turn
+	Default_packet m_buffer;
 
 	sf::TcpSocket m_socket;
 	int m_port{ 0 };

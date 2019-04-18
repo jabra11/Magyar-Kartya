@@ -8,9 +8,11 @@ public:
 	Client(int port);
 
 	// Returns True if a connection has been established
-	bool connect_to_user(sf::IpAddress& ip_address);
+	bool connect_to_user();
 
 	void receive_deck_information(Deck& copy_to_this, int size_of_deck);
+
+	void set_IP_address(const std::string& address);
 
 private:
 
