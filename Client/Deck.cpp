@@ -2,6 +2,9 @@
 #include <random>
 #include <cassert>
 
+#include "Client.h"
+#include "Host.h"
+#include "OnlineUser.h"
 
 Deck::Deck()
 {
@@ -10,6 +13,16 @@ Deck::Deck()
 		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
 		{
 			m_deck.push_back(Card(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank)));
+			/*
+			// testing purposes
+			if (temp % 1 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
+			if (temp % 6 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
+			if (temp % 2 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::SIEBEN);
+			if (temp % 4 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
+			//m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::BUBE);
+			temp++;*/
+
+			//
 		}
 
 	shuffleDeck();
@@ -46,7 +59,7 @@ const int Deck::getRandomNumber(unsigned int min, unsigned int max)
 	return randomCard(mersenne);
 }
 
-Card &Deck::dealCard(std::vector<Card> &cardStack)
+Card& Deck::dealCard()
 {
 	m_temp = m_deck.back();
 	m_deck.pop_back();
@@ -54,7 +67,7 @@ Card &Deck::dealCard(std::vector<Card> &cardStack)
 	return m_temp;
 }
 
-Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack)
+Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack, Client* client, Host* host)
 {
 	bool shuffle{ false };
 	if (m_deck.size() == 1)
@@ -67,10 +80,17 @@ Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack)
 	if (shuffle)
 		shuffleStack(cardStack);
 
+	// online stuff
+	if (host)
+		host->send_deck_information(*this);
+
+	if (client)
+		client->receive_deck_information(*this);
+
 	return m_temp;
 }
 
-Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack)
+Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack, Client* client, Host* host)
 {
 	bool shuffle{ false };
 	if (m_deck.size() == 1)

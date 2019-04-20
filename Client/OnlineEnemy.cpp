@@ -2,37 +2,37 @@
 
 
 
-OnlineEnemy::OnlineEnemy(Logic* logic, Deck* deck, std::vector<Card>* card_stack,
+OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, std::vector<Card>* card_stack,
 	int port, bool is_hosting)
-	:m_client{ port }, m_host{ port }, m_card_stack{ card_stack },
+	:m_client{ client }, m_host{ host }, m_card_stack{ card_stack },
 	m_logic{ logic }, m_deck{ deck }, m_is_hosting{ is_hosting }
 {
+	
 }
 
-const OnlineUser::Default_packet& OnlineEnemy::getNextMove()
+void OnlineEnemy::getNextMove()
 {
 	if (m_is_hosting)
 	{
-		m_host.receive_choice_information();
-		return m_host.get_buffer();
+		bool received_valid_information{ false };
+
+		while (!received_valid_information)
+			received_valid_information = m_host->receive_choice_information();
+
+		std::cout << "killing thread\n";
+		return;
 	}
 
 	else
 	{
-		m_client.receive_choice_information();
-		return m_client.get_buffer();
-	}
+		bool received_valid_information{ false };
 
-	// Handle the move here ? If so make the function void.
-	/*
-	if (!temp.uses_card)
-		drawCard(m_deck->dealCard((windowSettings::windowX / 3 + m_xOffset, 125, *m_card_stack)));
+		while (!received_valid_information)
+			received_valid_information = m_client->receive_choice_information();
 
-	else
-	{
-		if (temp.card_rank != Card::SIEBEN)
+		std::cout << "killing thread\n";
+		return;
 	}
-	*/
 }
 
 const int OnlineEnemy::getHandSize()

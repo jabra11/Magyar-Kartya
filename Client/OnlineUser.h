@@ -5,29 +5,36 @@
 #include "SFML/Network.hpp"
 #include "SFML/System.hpp"
 
+
 class OnlineUser
 {
 public:
 
 	struct Default_packet
 	{
+		// check if packet is valid
+		bool is_valid{ false };
+
 		// User draws a card or uses one.
 		bool uses_card{ false };
+		int amount_of_cards_drawn{ 0 };
 
 		// Initialize with placeholder values.
 		int card_typ{ Card::CardTyp::PLACEHOLDER_TYP };
 		int card_rank{ Card::CardRank::PLACEHOLDER_RANK };
 		
 		// Track the wished card typ if used card happens to be a 7.
-		int wunschkarte_value{ Card::CardTyp::PLACEHOLDER_TYP };
-
+		int wishcard_value{ Card::CardTyp::PLACEHOLDER_TYP };
 	};
 
-	// Returns a reference to the buffer variable
-	Default_packet& modify_buffer();
+	// Returns a reference to the buffer variable; true returns the player's buffers, false the enemy's
+	Default_packet& modify_buffer(bool player = true);
 
 	// Returns a const referenc to the buffer variable
 	const Default_packet& get_buffer() const;
+
+	// true flushes the player buffer, false the enemy buffer
+	void flush_buffer(bool player);
 
 	// Sends m_buffer to the  
 	// connected TCP socket
@@ -36,7 +43,7 @@ public:
 
 	// Retrieves information of a received packet from the established TCP-
 	// connection and writes it into m_buffer
-	void receive_choice_information();
+	bool receive_choice_information();
 
 protected:
 
@@ -49,9 +56,13 @@ protected:
 	friend sf::Packet& operator>>(sf::Packet& source, Default_packet& target);
 
 
-protected:
+public:
 	// a buffer holding information to be send after each turn
-	Default_packet m_buffer;
+	Default_packet m_buffer_player;
+	Default_packet m_buffer_enemy;
+
+
+	int counter{ 0 };
 
 	sf::TcpSocket m_socket;
 	int m_port{ 0 };

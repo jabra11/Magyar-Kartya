@@ -22,7 +22,7 @@ bool Host::wait_for_connection(bool* done)
 		if (m_listener.accept(m_socket) == sf::Socket::Done)
 		{
 			std::cout << "Successfully connected: " << m_socket.getRemoteAddress() << ".\n";
-
+			std::cout << m_socket.getRemoteAddress() << " uses port: " << m_socket.getRemotePort() << ".\n";
 			*done = true;
 			return true;
 		}
@@ -50,15 +50,34 @@ bool Host::wait_for_connection(bool* done)
 
 void Host::send_deck_information(Deck& deck_to_send)
 {
-	for (int i{ 0 }; i < deck_to_send.getSize(); ++i)
+	int counter{ 0 };
+	for (int i{ 0 }; i < deck_to_send.getSize() + 1; ++i)
 	{
-		Default_packet card;
-		card.card_rank = deck_to_send[i].getRank();
-		card.card_typ = deck_to_send[i].getTyp();
+		if (i < deck_to_send.getSize())
+		{
+			std::cout << "sending card..\n";
+			++counter;
+			Default_packet card;
+			card.is_valid = true;
+			card.card_rank = deck_to_send[i].getRank();
+			card.card_typ = deck_to_send[i].getTyp();
 
-		sf::Packet temp;
-		temp << card;
+			sf::Packet temp;
+			temp << card;
 
-		m_socket.send(temp);
+			m_socket.send(temp);
+		}
+		else if (i == deck_to_send.getSize())
+		{
+			std::cout << "sending terminator..\n";
+			Default_packet card;
+			card.is_valid = false;
+
+			sf::Packet temp;
+			temp << card;
+			m_socket.send(temp);
+		}
 	}
+
+	std::cout << "Sent deck informations containing	" << counter << " cards.\n";
 }

@@ -24,23 +24,27 @@ void OnlinePlayer::dealCard(int card_to_deal, std::vector<Card>& card_stack)
 
 	if (m_is_hosting)
 	{
+		m_host.modify_buffer().is_valid = true;
 		m_host.modify_buffer().uses_card = true;
 		m_host.modify_buffer().card_rank = m_playerHand.back().getRank();
 		m_host.modify_buffer().card_typ = m_playerHand.back().getTyp();
+		std::cout << "validated host packet.\n";
 	}
 
 	else
 	{
+		m_client.modify_buffer().is_valid = true;
 		m_client.modify_buffer().uses_card = true;
 		m_client.modify_buffer().card_rank = m_playerHand.back().getRank();
 		m_client.modify_buffer().card_typ = m_playerHand.back().getTyp();
+		std::cout << "validated client packet\n";
 	}
 
 	m_playerHand.pop_back();
 }
 
 
-void OnlinePlayer::drawCard(const Card& card)
+void OnlinePlayer::drawCard(const Card& card, const int how_many)
 {
 	m_playerHand.push_back(card);
 	std::cout << "Du ziehst " << card << "\n";
@@ -59,7 +63,20 @@ void OnlinePlayer::drawCard(const Card& card)
 		m_logic->m_myFeed[i + 1] = temp[i];
 	}
 
-	m_host.modify_buffer().uses_card = false;
+	if (m_is_hosting)
+	{
+		m_host.modify_buffer().is_valid = true;
+		m_host.modify_buffer().uses_card = false;
+		m_host.modify_buffer().amount_of_cards_drawn = how_many;
+		std::cout << "validated packet\n";
+	}
+	else
+	{
+		m_client.modify_buffer().is_valid = true;
+		m_client.modify_buffer().uses_card = false;
+		m_client.modify_buffer().amount_of_cards_drawn = how_many;
+		std::cout << "validated packet\n";
+	}
 }
 
 void OnlinePlayer::set_host_status(bool is_hosting)

@@ -2,8 +2,10 @@
 
 #include "OnlineUser.h"
 
+
 class Host : public OnlineUser
 {
+
 public:
 
 	Host(int port);
@@ -13,7 +15,7 @@ public:
 
 	// Sends the deck in the parameter to the connected TCP-Socket.
 	void send_deck_information(Deck& deck_to_send);
-	
+
 
 	// data members
 

@@ -1,7 +1,11 @@
 #pragma once
 #include <vector>
-#include "Card.h"
 
+#include "OnlineUser.h"
+
+class OnlineUser;
+class Host;
+class Client;
 
 class Deck
 {
@@ -16,9 +20,9 @@ public:
 	
 
 
-	Card& dealCard(std::vector<Card> &cardStack);
-	Card& dealCard(float xPos,float yPos, std::vector<Card> &cardStack);
-	Card& dealCard(sf::Vector2f vector, std::vector<Card> &cardStack);
+	Card& dealCard();
+	Card& dealCard(float xPos, float yPos, std::vector<Card>& cardStack, Client* client = nullptr, Host* host = nullptr);
+	Card& dealCard(sf::Vector2f vector, std::vector<Card>& cardStack, Client* client = nullptr, Host* host = nullptr);
 	void shuffleDeck();
 
 	unsigned int getSize() const;

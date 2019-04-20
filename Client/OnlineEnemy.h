@@ -12,15 +12,13 @@ class OnlineEnemy
 
 public:
 
-	OnlineEnemy(Logic* logic, Deck* deck, std::vector<Card>* card_stack, int port, bool is_hosting);
+	OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, std::vector<Card>* card_stack, int port, bool is_hosting);
 
-	const OnlineUser::Default_packet& getNextMove();
+	void getNextMove();
 	const int getHandSize();
 
 	void dealCard(int index);
 	void drawCard(const Card& card);
-
-private:
 
 	std::vector<Card> m_enemyHand;
 	float m_yOffSet{ 0.0f };
@@ -33,8 +31,8 @@ private:
 	Deck* m_deck;
 	std::vector<Card>* m_card_stack;
 
-	Client m_client;
-	Host m_host;
+	Client* m_client;
+	Host* m_host;
 
 	bool m_is_hosting{ false };
 };
