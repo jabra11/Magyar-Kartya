@@ -4,10 +4,12 @@
 class Logic
 {
 private:
+
 	int m_wunschKarteSpam{ 1 };
 
 	std::array<std::string, 6> m_myFeed{ "" };
 public:
+
 	bool m_startWunschKarteAktiv{ false };
 	bool m_wunschkarteAktiv{ false };
 	Card m_wunschkarte{Card::PIROS, Card::SIEBEN};
@@ -29,11 +31,13 @@ public:
 	bool m_enemysTurn{ false };
 
 public:
+
 	Logic();
 
 	const std::string& getFeedString(int index) const;
 
-	const bool validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw = false); //player true, enemy false
+	//player true, enemy false
+	const bool validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw = false); 
 
 	const bool playerSkips() const;
 	const bool enemySkips() const; 

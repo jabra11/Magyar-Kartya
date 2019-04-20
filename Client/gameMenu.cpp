@@ -2,13 +2,15 @@
 #include "windowSettings.h"
 #include <iostream>
 #include "Logic.h"
+#include "ReturnCodes.h"
 
 int singleplayer(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture);
 int multiplayerSetup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);
 
 void gameMenu(int& gewonnen, int& verloren)
 {
-	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya");
+	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya", sf::Style::Close);
+
 	//gameWindow.setVerticalSyncEnabled(true);
 
 	sf::Texture menu; 
@@ -118,14 +120,18 @@ void gameMenu(int& gewonnen, int& verloren)
 
 				int gameStatus{ multiplayerSetup(gameWindow, logic, textureToPass, host) };
 
-				if (gameStatus == 1)
+				if (gameStatus == ReturnCodes::WON)
 					++verloren;
 
-				else if (gameStatus == 0)
+				else if (gameStatus == ReturnCodes::LOST)
 					++gewonnen;
 
-				else
-					return;
+				else if (gameStatus == ReturnCodes::EARLY_EXIT)
+				{
+					// do nothing
+				}
+				/*else
+					return;*/
 			}
 
 			if (stats.getGlobalBounds().contains(mousePos) && !showOptions)

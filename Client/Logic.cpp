@@ -32,7 +32,6 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 
 		return true;
 	}
-
 	else
 		return false;
 }
@@ -55,6 +54,7 @@ void Logic::setStatuses(const Card &card, bool player)
 		}
 		else
 		{
+			std::cout << "player has to ddraw " << m_amountOfCardsToDraw << " Cards\n";
 			m_playerHasToDraw = true;
 			m_enemyHasToDraw = false;
 		}

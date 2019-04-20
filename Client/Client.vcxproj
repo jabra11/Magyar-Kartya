@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Joerg\Documents\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,6 +122,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Joerg\Documents\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -151,7 +153,6 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="clientSession.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Host.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="OnlinePlayer.h" />
     <ClInclude Include="OnlineUser.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ReturnCodes.h" />
     <ClInclude Include="textureArray.h" />
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="windowSettings.h" />
