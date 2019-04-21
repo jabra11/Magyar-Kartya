@@ -489,7 +489,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 								enemys_move->is_valid = false;
 
 								//thread_has_been_enlisted = false;
-								break;
+								//break;
 							}
 						}
 
@@ -505,6 +505,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						{
 							if (enemy.m_enemyHand[index_of_enemy_card].getRank() == Card::BUBE)
 							{
+								std::cout << "enemys seems to be having to draw\n";
 								//has_drawcards = true;
 								logic.m_enemysTurn = false;
 								logic.m_playersTurn = true;
@@ -541,10 +542,12 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 						if (logic.validateMove(enemy.m_enemyHand[index_of_enemy_card], card_stack.back(), false))
 						{
+							std::cout << "internally validated move\n";
+
 							logic.m_startWunschKarteAktiv = false;
 							logic.m_wunschkarteAktiv = false;
 
-							//std::cout << "setting statuses..\n";
+							std::cout << "setting statuses..\n";
 							logic.setStatuses(enemy.m_enemyHand[index_of_enemy_card], false);
 
 							if (enemy.m_enemyHand[index_of_enemy_card].getRank() == Card::SIEBEN)
@@ -569,6 +572,10 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							// allow to enlist new thread next iteration
 							thread_has_been_enlisted = false;
 							continue;
+						}
+						else
+						{
+							std::cout << "logic::validateMove failed\n";
 						}
 					}
 					else if (enemys_move->is_valid)
