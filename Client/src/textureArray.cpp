@@ -1,6 +1,6 @@
 #include <array>
 #include "SFML/Graphics.hpp"
-#include "textureArray.h"
+#include "headers/textureArray.h"
 
 using namespace myTextures;
 

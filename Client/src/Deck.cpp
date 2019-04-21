@@ -1,10 +1,10 @@
-#include "Deck.h"
+#include "headers/Deck.h"
 #include <random>
 #include <cassert>
 
-#include "Client.h"
-#include "Host.h"
-#include "OnlineUser.h"
+#include "headers/Client.h"
+#include "headers/Host.h"
+#include "headers/OnlineUser.h"
 
 Deck::Deck()
 {

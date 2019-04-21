@@ -6,12 +6,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Logic.h"
-#include "OnlinePlayer.h"
-#include "OnlineEnemy.h"
-#include "TextureHandler.h"
-#include "Card.h"
-#include "ReturnCodes.h"
+#include "headers/Logic.h"
+#include "headers/OnlinePlayer.h"
+#include "headers/OnlineEnemy.h"
+#include "headers/textureHandler.h"
+#include "headers/Card.h"
+#include "headers/ReturnCodes.h"
 
 int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, OnlinePlayer& player, const bool is_hosting = true)
 {
@@ -482,6 +482,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							{
 								std::cout << "Successfully parsed with index " << i << ".\n";
 								for (int i{ 0 }; i < 20; ++i) std::cout << "-";
+								std::cout << '\n';
 								index_of_enemy_card = i;
 								parsing_completed = true;
 
@@ -497,6 +498,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						{
 							std::cerr << "ERROR: Parsing has failed!\n";
 							for (int i{ 0 }; i < 20; ++i) std::cout << "-";
+							std::cout << '\n';
 						}
 						assert(parsing_completed&& "Couldn't parse packet information correctly\n");
 
@@ -514,6 +516,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 							else 
 							{
+								std::cout << "enemy draws: " << logic.m_amountOfCardsToDraw << " cards\n";
 								for (int i{ 0 }; i < logic.m_amountOfCardsToDraw; ++i)
 								{
 									int amountOfCards{ enemy.getHandSize() };
@@ -539,7 +542,6 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 								continue;
 							}
 						}
-
 						if (logic.validateMove(enemy.m_enemyHand[index_of_enemy_card], card_stack.back(), false))
 						{
 							std::cout << "internally validated move\n";
@@ -575,7 +577,12 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						}
 						else
 						{
-							std::cout << "logic::validateMove failed\n";
+							std::cout << enemy.m_enemyHand[index_of_enemy_card]
+								<< "cant be used on " << card_stack.back() << '\n';
+
+							std::cerr << "ERROR: logic::validateMove failed\n";
+
+							assert(false && "INTERNAL VALIDATION FAILURE");
 						}
 					}
 					else if (enemys_move->is_valid)

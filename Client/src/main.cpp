@@ -1,8 +1,8 @@
-#include "textureArray.h"
+#include "headers/textureArray.h"
 #include <iostream>
 #include <fstream>
-#include "windowSettings.h"
-#include "Logic.h"
+#include "headers/windowSettings.h"
+#include "headers/Logic.h"
 
 void gameMenu(int &gewonnen, int &verloren);
 void initializeStats(int&, int&);

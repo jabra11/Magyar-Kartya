@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "headers/Enemy.h"
 
 Enemy::Enemy(Logic *logic)
 	:m_logic{logic}

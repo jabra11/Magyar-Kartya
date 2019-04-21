@@ -18,6 +18,42 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Card.cpp" />
+    <ClCompile Include="src\Client.cpp" />
+    <ClCompile Include="src\Deck.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\gameMenu.cpp" />
+    <ClCompile Include="src\Host.cpp" />
+    <ClCompile Include="src\hostSession.cpp" />
+    <ClCompile Include="src\Logic.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\multiplayerSetup.cpp" />
+    <ClCompile Include="src\OnlineEnemy.cpp" />
+    <ClCompile Include="src\OnlinePlayer.cpp" />
+    <ClCompile Include="src\OnlineUser.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\singleplayer.cpp" />
+    <ClCompile Include="src\textureArray.cpp" />
+    <ClCompile Include="src\TextureHandler.cpp" />
+    <ClCompile Include="src\windowSettings.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\headers\Card.h" />
+    <ClInclude Include="src\headers\Client.h" />
+    <ClInclude Include="src\headers\Deck.h" />
+    <ClInclude Include="src\headers\Enemy.h" />
+    <ClInclude Include="src\headers\Host.h" />
+    <ClInclude Include="src\headers\Logic.h" />
+    <ClInclude Include="src\headers\OnlineEnemy.h" />
+    <ClInclude Include="src\headers\OnlinePlayer.h" />
+    <ClInclude Include="src\headers\OnlineUser.h" />
+    <ClInclude Include="src\headers\Player.h" />
+    <ClInclude Include="src\headers\ReturnCodes.h" />
+    <ClInclude Include="src\headers\textureArray.h" />
+    <ClInclude Include="src\headers\TextureHandler.h" />
+    <ClInclude Include="src\headers\windowSettings.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A0A65502-4B16-4DE7-A164-416BE7F4A2D5}</ProjectGuid>
@@ -35,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -150,42 +186,6 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="Deck.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Host.cpp" />
-    <ClCompile Include="hostSession.cpp" />
-    <ClCompile Include="multiplayerSetup.cpp" />
-    <ClCompile Include="OnlineEnemy.cpp" />
-    <ClCompile Include="OnlinePlayer.cpp" />
-    <ClCompile Include="OnlineUser.cpp" />
-    <ClCompile Include="singleplayer.cpp" />
-    <ClCompile Include="gameMenu.cpp" />
-    <ClCompile Include="Logic.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="textureArray.cpp" />
-    <ClCompile Include="TextureHandler.cpp" />
-    <ClCompile Include="windowSettings.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Card.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="Deck.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Host.h" />
-    <ClInclude Include="Logic.h" />
-    <ClInclude Include="OnlineEnemy.h" />
-    <ClInclude Include="OnlinePlayer.h" />
-    <ClInclude Include="OnlineUser.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ReturnCodes.h" />
-    <ClInclude Include="textureArray.h" />
-    <ClInclude Include="TextureHandler.h" />
-    <ClInclude Include="windowSettings.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -5,15 +5,15 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "Card.h"
-#include "Deck.h"
-#include "textureArray.h"
-#include "OnlineEnemy.h"
-#include "OnlinePlayer.h"
-#include "Logic.h"
-#include "Client.h"
-#include "Host.h"
-#include "ReturnCodes.h"
+#include "headers/Card.h"
+#include "headers/Deck.h"
+#include "headers/textureArray.h"
+#include "headers/OnlineEnemy.h"
+#include "headers/OnlinePlayer.h"
+#include "headers/Logic.h"
+#include "headers/Client.h"
+#include "headers/Host.h"
+#include "headers/ReturnCodes.h"
 
 // macros for keys in unicode
 

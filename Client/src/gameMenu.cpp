@@ -1,8 +1,8 @@
 #include "SFML/Graphics.hpp"
-#include "windowSettings.h"
+#include "headers/windowSettings.h"
 #include <iostream>
-#include "Logic.h"
-#include "ReturnCodes.h"
+#include "headers/Logic.h"
+#include "headers/ReturnCodes.h"
 
 int singleplayer(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture);
 int multiplayerSetup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host);

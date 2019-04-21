@@ -1,4 +1,4 @@
-#include "OnlinePlayer.h"
+#include "headers/OnlinePlayer.h"
 
 OnlinePlayer::OnlinePlayer(Logic* logic, int port)
 	:Player{ logic },

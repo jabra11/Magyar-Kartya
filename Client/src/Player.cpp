@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "headers/Player.h"
 
 /*Player::Player(float xDefaultVal, float yDefaultVal)
 	:m_xDefaultVal{xDefaultVal}, m_yDefaultVal{yDefaultVal}
