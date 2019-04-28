@@ -1,4 +1,4 @@
-#include "SFML/Graphics.hpp"
+#include "SFML/Graphics.hpp"	
 #include "headers/windowSettings.h"
 #include <iostream>
 #include "headers/Logic.h"
@@ -11,7 +11,12 @@ void gameMenu(int& gewonnen, int& verloren)
 {
 	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya", sf::Style::Close);
 
+
+	// will move this somewhere else later
+	gameWindow.setFramerateLimit(600);
+
 	//gameWindow.setVerticalSyncEnabled(true);
+
 
 	sf::Texture menu; 
 	menu.loadFromFile("resources/images/greyBackground.jpg");
@@ -210,7 +215,6 @@ void gameMenu(int& gewonnen, int& verloren)
 			(host) ? onlineHost = "Host" : onlineHost = "Client";
 			sf::Text onlineHostTex{ "Onlinemodus: " + onlineHost, myFont, 50u };
 			onlineHostTex.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 5);
-
 
 			sf::Text goBack{ "Zurueck", myFont, 80u };
 			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (goBack.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 8));

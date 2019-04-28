@@ -1,4 +1,5 @@
 #include "headers/Enemy.h"
+#include <chrono>
 
 Enemy::Enemy(Logic *logic)
 	:m_logic{logic}
@@ -48,6 +49,11 @@ Card& Enemy::getCard(int index)
 void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 	bool wunschKarteAktiv, const Card &wunschKarte, int schwierigkeitsGrad)
 {
+
+	// time the algorithm runtime
+	// startpoint
+	auto start = std::chrono::steady_clock::now();
+
 	Card currentCard;
 	std::vector<int> saveCardPoints;
 
@@ -125,6 +131,10 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 		std::swap(saveCardPoints[startIndex], saveCardPoints[heightestIndex]);
 		std::swap(m_enemyHand[startIndex], m_enemyHand[heightestIndex]);
 	}
+
+	// endpoint
+	auto end = std::chrono::steady_clock::now();
+	std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << " nanoseconds.\n";
 }
 
 void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)

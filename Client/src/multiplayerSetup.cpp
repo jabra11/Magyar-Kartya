@@ -23,8 +23,7 @@
 //////////////////////////////////////
 
 
-int clientSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, OnlinePlayer& player);
-int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, OnlinePlayer& player, bool is_host);
+int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, bool is_host);
 
 int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host)
 {
@@ -85,7 +84,9 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 	play_again_tex.setPosition(windowSettings::windowX / 20 * 10 - play_again_tex.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 5);
 
-	OnlinePlayer player{ &logic, port};
+	//OnlinePlayer player{ &logic, port};
+	Host host{ port };
+	Client client{ port };
 	
 
 	bool mouse_pressed{ false };
@@ -120,8 +121,8 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 					{
 						if (player_input.getSize() > 0)
 						{
-							player.m_client.set_IP_address(static_cast<std::string>(player_input));
-							if (player.m_client.connect_to_user())
+							client.set_IP_address(static_cast<std::string>(player_input));
+							if (client.connect_to_user())
 							{
 								// worked, great!
 								player_input.clear();
@@ -166,15 +167,15 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 
 		if (is_host)
 		{
-			if (!player.m_host.m_enlisted_thread)
+			if (!host.m_enlisted_thread)
 			{
-				std::thread t1{ &Host::wait_for_connection, &player.m_host, &player.m_host.m_found_a_connection };
+				std::thread t1{ &Host::wait_for_connection, &host, &host.m_found_a_connection };
 				t1.detach();
-				player.m_host.m_enlisted_thread = true;
+				host.m_enlisted_thread = true;
 			}
 			
 
-			if (player.m_host.m_found_a_connection)
+			if (host.m_found_a_connection)
 			{
 				player_text.setString("Found a connection.\n");
 				player_text.setCharacterSize(50);
@@ -199,9 +200,7 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 				if (true)
 				{
 					// start the host session
-					result = hostSession(gameWindow, logic, playTable, player, is_host);
-
-					
+					result = hostSession(gameWindow, logic, playTable, client, host, is_host);
 					play_again = false;
 				}
 

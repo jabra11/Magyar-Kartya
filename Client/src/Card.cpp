@@ -5,8 +5,10 @@ Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, boo
 	:m_typ{typ}, m_rank{rank}, m_canBeMoved{canBeMoved}
 {
 	setTexture();
+
+	m_graphicalCard.setOrigin((m_graphicalCard.getGlobalBounds().width / 2), (m_graphicalCard.getGlobalBounds().height / 2));
 	m_graphicalCard.scale(0.4f, 0.4f);
-	m_graphicalCard.setOrigin(100.0f, 162.8f);
+	//m_graphicalCard.setOrigin(100.0f, 162.8f);
 	m_graphicalCard.setPosition(xPos, yPos);
 }
 

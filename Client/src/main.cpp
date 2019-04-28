@@ -8,7 +8,6 @@ void gameMenu(int &gewonnen, int &verloren);
 void initializeStats(int&, int&);
 void saveStats(int&, int&);
 
-
 int main()
 {
 	int gewonnen{ 0 };
