@@ -1,6 +1,7 @@
 #include "headers/Deck.h"
 #include <random>
 #include <cassert>
+#include <thread>
 
 #include "headers/Client.h"
 #include "headers/Host.h"
@@ -13,20 +14,28 @@ Deck::Deck()
 		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
 		{
 			m_deck.push_back(Card(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank)));
-			/*
-			// testing purposes
+			
+			/*// testing purposes
 			if (temp % 1 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
 			if (temp % 6 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
 			if (temp % 2 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::SIEBEN);
 			if (temp % 4 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
-			//m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::BUBE);
-			temp++;*/
+			m_deck[0] = Card(Card::CardTyp::PIROS, Card::CardRank::BUBE);
+			temp++;
 
-			//
+			//*/
 		}
 
 	shuffleDeck();
 	std::cout << "Deck wurde gemischt\n";
+}
+
+void Deck::set_online_status(bool is_host, Host* host, Client* client)
+{
+	if (is_host)
+		this->host = host;
+	else
+		this->client = client;
 }
 
 void Deck::shuffleDeck()
@@ -67,7 +76,7 @@ Card& Deck::dealCard()
 	return m_temp;
 }
 
-Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack, Client* client, Host* host)
+Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack)
 {
 	bool shuffle{ false };
 	if (m_deck.size() == 1)
@@ -78,19 +87,31 @@ Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack, Client* 
 	m_deck.pop_back();
 
 	if (shuffle)
+	{
 		shuffleStack(cardStack);
 
-	// online stuff
-	if (host)
-		host->send_deck_information(*this);
+		// online stuff
+		if (host)
+		{
+			// dirty, i should change this
+			std::thread transmit_info{ &Host::send_deck_information, host, std::ref(*this) };
+			transmit_info.detach();
+			return m_temp;
+		}
 
-	if (client)
-		client->receive_deck_information(*this);
-
-	return m_temp;
+		if (client)
+		{
+			// dirty, i should change this also
+			std::thread retrieve_info{ &Client::receive_deck_information, client, std::ref(*this) };
+			retrieve_info.detach();
+			return m_temp;
+		}
+	}
+	else
+		return m_temp;
 }
 
-Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack, Client* client, Host* host)
+Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack)
 {
 	bool shuffle{ false };
 	if (m_deck.size() == 1)
@@ -101,7 +122,24 @@ Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack, Client* cli
 	m_deck.pop_back();
 
 	if (shuffle)
+	{
 		shuffleStack(cardStack);
+
+		// online stuff
+		if (host)
+		{
+			// dirty, i should change this
+			std::thread transmit_info{ &Host::send_deck_information, host, std::ref(*this) };
+			transmit_info.detach();
+		}
+
+		if (client)
+		{
+			// dirty, i should change this also
+			std::thread retrieve_info{ &Client::receive_deck_information, client, std::ref(*this) };
+			retrieve_info.detach();
+		}
+	}
 
 	return m_temp;
 }

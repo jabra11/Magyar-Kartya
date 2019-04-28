@@ -9,13 +9,13 @@ OnlineUser::OnlineUser(int port)
 
 sf::Packet& operator<<(sf::Packet &packet, const OnlineUser::Default_packet &card)
 {
-	return packet << card.is_valid << card.uses_card << card.amount_of_cards_drawn << card.card_rank << card.card_typ << card.wishcard_value;
+	return packet << card.is_valid << card.header << card.uses_card << card.amount_of_cards_drawn << card.card_rank << card.card_typ << card.wishcard_value;
 }
 
 
 sf::Packet& operator>>(sf::Packet &packet, OnlineUser::Default_packet &card)
 {
-	return packet >> card.is_valid >> card.uses_card >> card.amount_of_cards_drawn >> card.card_rank >> card.card_typ >> card.wishcard_value;
+	return packet >> card.is_valid >> card.header >> card.uses_card >> card.amount_of_cards_drawn >> card.card_rank >> card.card_typ >> card.wishcard_value;
 }
 
 

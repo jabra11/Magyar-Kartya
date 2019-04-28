@@ -1,8 +1,8 @@
 #include "headers/OnlinePlayer.h"
 
-OnlinePlayer::OnlinePlayer(Logic* logic, int port)
+OnlinePlayer::OnlinePlayer(Logic* logic, int port, Client& client, Host& host)
 	:Player{ logic },
-	m_client{ port }, m_host{ port }
+	m_client{client}, m_host{host}
 {
 	m_is_hosting = true;
 }
@@ -25,6 +25,7 @@ void OnlinePlayer::dealCard(int card_to_deal, std::vector<Card>& card_stack)
 	if (m_is_hosting)
 	{
 		m_host.modify_buffer().is_valid = true;
+		m_host.modify_buffer().header = OnlineUser::Header::DEFAULT_HEADER;
 		m_host.modify_buffer().uses_card = true;
 		m_host.modify_buffer().card_rank = m_playerHand.back().getRank();
 		m_host.modify_buffer().card_typ = m_playerHand.back().getTyp();
@@ -34,6 +35,7 @@ void OnlinePlayer::dealCard(int card_to_deal, std::vector<Card>& card_stack)
 	else
 	{
 		m_client.modify_buffer().is_valid = true;
+		m_client.modify_buffer().header = OnlineUser::Header::DEFAULT_HEADER;
 		m_client.modify_buffer().uses_card = true;
 		m_client.modify_buffer().card_rank = m_playerHand.back().getRank();
 		m_client.modify_buffer().card_typ = m_playerHand.back().getTyp();
@@ -66,6 +68,7 @@ void OnlinePlayer::drawCard(const Card& card, const int how_many)
 	if (m_is_hosting)
 	{
 		m_host.modify_buffer().is_valid = true;
+		m_host.modify_buffer().header = OnlineUser::Header::DEFAULT_HEADER;
 		m_host.modify_buffer().uses_card = false;
 		m_host.modify_buffer().amount_of_cards_drawn = how_many;
 		std::cout << "validated packet\n";
@@ -73,6 +76,7 @@ void OnlinePlayer::drawCard(const Card& card, const int how_many)
 	else
 	{
 		m_client.modify_buffer().is_valid = true;
+		m_client.modify_buffer().header = OnlineUser::Header::DEFAULT_HEADER;
 		m_client.modify_buffer().uses_card = false;
 		m_client.modify_buffer().amount_of_cards_drawn = how_many;
 		std::cout << "validated packet\n";

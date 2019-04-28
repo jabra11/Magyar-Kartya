@@ -50,6 +50,7 @@ bool Host::wait_for_connection(bool* done)
 
 void Host::send_deck_information(Deck& deck_to_send)
 {
+	m_socket.setBlocking(true);
 	int counter{ 0 };
 	for (int i{ 0 }; i < deck_to_send.getSize() + 1; ++i)
 	{
@@ -59,6 +60,7 @@ void Host::send_deck_information(Deck& deck_to_send)
 			++counter;
 			Default_packet card;
 			card.is_valid = true;
+			card.header = OnlineUser::Header::SETUP_HEADER;
 			card.card_rank = deck_to_send[i].getRank();
 			card.card_typ = deck_to_send[i].getTyp();
 
@@ -72,6 +74,7 @@ void Host::send_deck_information(Deck& deck_to_send)
 			std::cout << "sending terminator..\n";
 			Default_packet card;
 			card.is_valid = false;
+			card.header = OnlineUser::Header::SETUP_HEADER;
 
 			sf::Packet temp;
 			temp << card;
@@ -80,4 +83,5 @@ void Host::send_deck_information(Deck& deck_to_send)
 	}
 
 	std::cout << "Sent deck informations containing	" << counter << " cards.\n";
+	m_socket.setBlocking(false);
 }

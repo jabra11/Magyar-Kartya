@@ -10,10 +10,21 @@ class OnlineUser
 {
 public:
 
+	enum Header
+	{
+		SETUP_HEADER,
+		DEFAULT_HEADER,
+		MAX_HEADER,
+		PLACE_HOLDER_HEADER
+	};
+
 	struct Default_packet
 	{
 		// check if packet is valid
 		bool is_valid{ false };
+
+		// specify the header
+		int header{ Header::PLACE_HOLDER_HEADER };
 
 		// User draws a card or uses one.
 		bool uses_card{ false };

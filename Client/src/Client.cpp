@@ -1,5 +1,5 @@
 #include "headers/Client.h"
-
+#include <cassert>
 
 
 Client::Client(int port)
@@ -56,6 +56,10 @@ bool Client::connect_to_user()
 
 void Client::receive_deck_information(Deck& deck_to_copy_in)
 {
+	m_socket.setBlocking(true);
+	
+	std::cout << "syncing deck now..\n";
+
 	int counter{ 0 };
 	for (int i{ 0 }; true; ++i)
 	{
@@ -64,24 +68,27 @@ void Client::receive_deck_information(Deck& deck_to_copy_in)
 		m_socket.receive(temp);
 		Default_packet card;
 		temp >> card;
-
-		(card.is_valid) ? std::cout << "is valid\n" : std::cout << "is not valid\n";
 		
-		if (card.is_valid)
+		if (card.is_valid && card.header == OnlineUser::Header::SETUP_HEADER)
 		{
 			std::cout << "received #" << i << std::endl;
+
 			deck_to_copy_in[i].setRank(static_cast<Card::CardRank>(card.card_rank));
 			deck_to_copy_in[i].setTyp(static_cast<Card::CardTyp>(card.card_typ));
 			deck_to_copy_in[i].setTexture();
 		}
-		else if (!card.is_valid)
+		else if (!card.is_valid && card.header == OnlineUser::Header::SETUP_HEADER)
 		{
+			std::cout << "received terminator\n";
 			counter = i;
 			break;
 		}
+		else if (!card.is_valid && card.header != OnlineUser::Header::SETUP_HEADER)
+			assert(false && "ERROR in Client::receive_deck_information()");
 	}
 
 	std::cout << "Deck is syncronized. Received " << counter << " Cards\n";
+	m_socket.setBlocking(false);
 }
 
 void Client::set_IP_address(const std::string& address)
