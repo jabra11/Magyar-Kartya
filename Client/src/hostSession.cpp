@@ -13,7 +13,7 @@
 #include "headers/Card.h"
 #include "headers/ReturnCodes.h"
 
-int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, OnlinePlayer& player, const bool is_hosting = true)
+int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, const bool is_hosting = true)
 {
 	// init rückseiten array
 	auto rueckseiten = std::array<sf::Texture, 4>{};
@@ -31,6 +31,13 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	sf::Font my_font;
 	TextureHandler::init_font(my_font);
 
+	sf::Text turn_info;
+	turn_info.setString("Your turnX");
+	turn_info.setCharacterSize(25);
+	turn_info.setFont(my_font);
+	turn_info.setPosition(windowSettings::windowX / 10 * 2 - turn_info.getGlobalBounds().width / 2,
+		windowSettings::windowY / 10 * 1);
+
 	// init additional_info_text
 	sf::Text additional_info_text;
 	additional_info_text.setString("Du musst XX Karten ziehen\n");
@@ -43,12 +50,19 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	bool choose_wishcard{ false };
 
 	Deck deck;
+
+	if (is_hosting)
+		deck.set_online_status(true, &host);
+	else
+		deck.set_online_status(false, nullptr ,&client);
+
 	auto card_stack = std::vector<Card>{};
 
 	constexpr int port{ 55000 };
 
-	OnlineEnemy enemy{ &player.m_host, &player.m_client, &logic, &deck, &card_stack, port, true };
-
+	//OnlinePlayer player{ &logic, port };
+	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, port, true };
+	OnlinePlayer player{&logic, port, client, host };
 	// check if a thread has been enlisted to retrieve the packets
 	bool thread_has_been_enlisted{ false };
 
@@ -499,8 +513,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							std::cerr << "ERROR: Parsing has failed!\n";
 							for (int i{ 0 }; i < 20; ++i) std::cout << "-";
 							std::cout << '\n';
+
+							assert(false && "Couldn't parse packet information correctly\n");
 						}
-						assert(parsing_completed&& "Couldn't parse packet information correctly\n");
 
 						
 						if (logic.m_enemyHasToDraw)
@@ -608,6 +623,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							else
 								enemy.m_client->flush_buffer(false);*/
 
+							logic.m_enemyHasToDraw = false;
 							logic.m_amountOfCardsToDraw = 0;
 
 							logic.m_enemysTurn = false;
@@ -696,6 +712,15 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		if (logic.m_playerHasToDraw)
 			gameWindow.draw(additional_info_text);
 
+		// Only to test, will replace with If-else 
+		if (logic.m_enemysTurn)
+			turn_info.setString("Enemy's turn");
+		
+		if (logic.m_playersTurn)
+			turn_info.setString("Your turn");
+			
+		gameWindow.draw(turn_info);
+
 		// draw feed  //
 		std::array<sf::Text, 5> killFeed;
 		float xOffset{ 0 };
@@ -713,6 +738,6 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 
 	// preliminary return statement
-	return ReturnCodes::EXIT;
+	//return ReturnCodes::EXIT;
 	///////////////////////////////
 }
