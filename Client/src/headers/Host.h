@@ -2,7 +2,6 @@
 
 #include "OnlineUser.h"
 
-
 class Host : public OnlineUser
 {
 

@@ -3,6 +3,7 @@
 
 #include "OnlineUser.h"
 
+
 class OnlineUser;
 class Host;
 class Client;
