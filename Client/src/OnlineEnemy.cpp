@@ -17,7 +17,7 @@ void OnlineEnemy::getNextMove()
 		bool received_valid_information{ false };
 
 		while (!received_valid_information)
-			received_valid_information = m_host->receive_choice_information();
+			received_valid_information = m_host->receive_choice_information(*m_deck);
 
 		std::cout << "killing thread\n";
 		return;
@@ -28,7 +28,7 @@ void OnlineEnemy::getNextMove()
 		bool received_valid_information{ false };
 
 		while (!received_valid_information)
-			received_valid_information = m_client->receive_choice_information();
+			received_valid_information = m_client->receive_choice_information(*m_deck);
 
 		std::cout << "killing thread\n";
 		return;

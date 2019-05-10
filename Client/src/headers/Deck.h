@@ -26,8 +26,7 @@ public:
 	void set_online_status(bool is_host,  Host* host = nullptr, Client* client = nullptr);
 
 	Card& dealCard();
-	Card& dealCard(float xPos, float yPos, std::vector<Card>& cardStack);
-	Card& dealCard(sf::Vector2f vector, std::vector<Card>& cardStack);
+	Card& dealCard(const sf::Vector2f &vector, std::vector<Card>& cardStack);
 	void shuffleDeck();
 
 	unsigned int getSize() const;

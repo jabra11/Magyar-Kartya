@@ -9,7 +9,7 @@
 
 Deck::Deck()
 {
-	int temp{ 0 };
+	//int temp{ 0 };
 	for (int typ{ 0 }; typ < Card::MAX_TYPES; ++typ)
 		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
 		{
@@ -76,7 +76,7 @@ Card& Deck::dealCard()
 	return m_temp;
 }
 
-Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack)
+Card& Deck::dealCard(const sf::Vector2f& vector, std::vector<Card> &cardStack)
 {
 	bool shuffle{ false };
 	if (m_deck.size() == 1)
@@ -94,53 +94,24 @@ Card& Deck::dealCard(sf::Vector2f vector, std::vector<Card> &cardStack)
 		if (host)
 		{
 			// dirty, i should change this
+			/*
 			std::thread transmit_info{ &Host::send_deck_information, host, std::ref(*this) };
 			transmit_info.detach();
-			return m_temp;
-		}
+			*/
 
+			host->request_deck_exchange(*this);
+		}
 		if (client)
 		{
 			// dirty, i should change this also
+			/*
 			std::thread retrieve_info{ &Client::receive_deck_information, client, std::ref(*this) };
 			retrieve_info.detach();
-			return m_temp;
+			*/
+
+			client->request_deck_exchange(*this);
 		}
 	}
-	else
-		return m_temp;
-}
-
-Card &Deck::dealCard(float x, float y, std::vector<Card> &cardStack)
-{
-	bool shuffle{ false };
-	if (m_deck.size() == 1)
-		shuffle = true;
-
-	m_deck.back().setPosition(x, y);
-	m_temp = m_deck.back();
-	m_deck.pop_back();
-
-	if (shuffle)
-	{
-		shuffleStack(cardStack);
-
-		// online stuff
-		if (host)
-		{
-			// dirty, i should change this
-			std::thread transmit_info{ &Host::send_deck_information, host, std::ref(*this) };
-			transmit_info.detach();
-		}
-
-		if (client)
-		{
-			// dirty, i should change this also
-			std::thread retrieve_info{ &Client::receive_deck_information, client, std::ref(*this) };
-			retrieve_info.detach();
-		}
-	}
-
 	return m_temp;
 }
 

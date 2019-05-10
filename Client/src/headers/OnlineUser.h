@@ -5,30 +5,37 @@
 #include "SFML/Network.hpp"
 #include "SFML/System.hpp"
 
+// class forward declaration to avoid circular dependency issue.. 
+class Deck;
 
 class OnlineUser
 {
 public:
 
+	// Enumerator containing Header statuses
 	enum Header
 	{
 		SETUP_HEADER,
 		DEFAULT_HEADER,
 		MAX_HEADER,
-		PLACE_HOLDER_HEADER
+		INVALID_HEADER
 	};
 
+
+	// Structure of the packet
 	struct Default_packet
 	{
 		// check if packet is valid
 		bool is_valid{ false };
 
 		// specify the header
-		int header{ Header::PLACE_HOLDER_HEADER };
+		int header{ Header::INVALID_HEADER };
+		bool exchange_deck{false};
 
 		// User draws a card or uses one.
 		bool uses_card{ false };
 		int amount_of_cards_drawn{ 0 };
+
 
 		// Initialize with placeholder values.
 		int card_typ{ Card::CardTyp::PLACEHOLDER_TYP };
@@ -54,17 +61,29 @@ public:
 
 	// Retrieves information of a received packet from the established TCP-
 	// connection and writes it into m_buffer
-	bool receive_choice_information();
+	bool receive_choice_information(Deck& deck);
+
+	// Request to syncronize the deck after it had been reshuffled
+	bool request_deck_exchange(Deck& deck);
+
+	bool accept_deck_exchange();
+
+	// ... 
+	void receive_deck_information(Deck& write_to_this);
+
+	// Sends the deck in the parameter to the connected TCP-Socket.
+	void send_deck_information(Deck& deck_to_send);
+
 
 protected:
 
-	OnlineUser(int port);
+	OnlineUser(unsigned short port, bool is_host);
 
 	Default_packet convert_to_Default_packet(const bool is_using_a_card, const Card& card,
 		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
 
-	friend sf::Packet& operator<<(sf::Packet& target, const Default_packet& source);
-	friend sf::Packet& operator>>(sf::Packet& source, Default_packet& target);
+	friend sf::Packet& operator<<(sf::Packet& write_in, const Default_packet& write_from);
+	friend sf::Packet& operator>>(sf::Packet& write_from, Default_packet& write_in);
 
 
 public:
@@ -76,5 +95,8 @@ public:
 	int counter{ 0 };
 
 	sf::TcpSocket m_socket;
-	int m_port{ 0 };
+	unsigned short m_port{ 0 };
+
+private:
+	bool m_is_host{ false };
 };
