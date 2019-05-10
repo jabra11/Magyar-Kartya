@@ -48,8 +48,12 @@ public:
 	void changeMoveStatus(bool status);
 
 	//const sf::Texture& getTexture() const;
-	void setTexture(const sf::Texture &texture); // set a texture based on parameter input
-	void setTexture();							 // set texture based on m_rank and m_typ, this is called in the constructor
+
+	// set a texture based on parameter input
+	void setTexture(const sf::Texture &texture);
+
+	// set texture based on m_rank and m_typ, this is called in the constructor
+	void setTexture();							
 	
 	const std::string getCardName() const;
 	const CardTyp& getTyp() const;

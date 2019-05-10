@@ -2,8 +2,8 @@
 
 
 
-Host::Host(int port)
-	:OnlineUser{ port }
+Host::Host(unsigned short port, bool is_host)
+	:OnlineUser{ port, is_host }
 {
 	m_listener.setBlocking(false);
 }
@@ -48,7 +48,7 @@ bool Host::wait_for_connection(bool* done)
 	m_socket.setBlocking(false);
 }
 
-void Host::send_deck_information(Deck& deck_to_send)
+/*void Host::send_deck_information(Deck& deck_to_send)
 {
 	m_socket.setBlocking(true);
 	int counter{ 0 };
@@ -84,4 +84,4 @@ void Host::send_deck_information(Deck& deck_to_send)
 
 	std::cout << "Sent deck informations containing	" << counter << " cards.\n";
 	m_socket.setBlocking(false);
-}
+}*/

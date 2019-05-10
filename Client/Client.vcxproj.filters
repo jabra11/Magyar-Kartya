@@ -32,9 +32,6 @@
     <ClCompile Include="src\Host.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hostSession.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Logic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,6 +63,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\windowSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\multiplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\singleplayerSetup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

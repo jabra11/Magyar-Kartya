@@ -134,7 +134,7 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 
 	// endpoint
 	auto end = std::chrono::steady_clock::now();
-	std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << " nanoseconds.\n";
+	std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " microseconds.\n";
 }
 
 void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)

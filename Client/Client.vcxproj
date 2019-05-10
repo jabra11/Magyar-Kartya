@@ -25,7 +25,7 @@
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\gameMenu.cpp" />
     <ClCompile Include="src\Host.cpp" />
-    <ClCompile Include="src\hostSession.cpp" />
+    <ClCompile Include="src\multiplayer.cpp" />
     <ClCompile Include="src\Logic.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\multiplayerSetup.cpp" />
@@ -34,6 +34,7 @@
     <ClCompile Include="src\OnlineUser.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\singleplayer.cpp" />
+    <ClCompile Include="src\singleplayerSetup.cpp" />
     <ClCompile Include="src\textureArray.cpp" />
     <ClCompile Include="src\TextureHandler.cpp" />
     <ClCompile Include="src\windowSettings.cpp" />
@@ -120,7 +121,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -150,7 +151,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

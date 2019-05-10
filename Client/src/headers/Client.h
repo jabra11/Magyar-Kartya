@@ -5,12 +5,12 @@
 class Client : public OnlineUser
 {
 public:
-	Client(int port);
+	Client(unsigned short port, bool is_host);
 
 	// Returns True if a connection has been established
 	bool connect_to_user();
 
-	void receive_deck_information(Deck& copy_to_this);
+	//void receive_deck_information(Deck& copy_to_this);
 
 	void set_IP_address(const std::string& address);
 

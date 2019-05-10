@@ -2,8 +2,8 @@
 #include <cassert>
 
 
-Client::Client(int port)
-	:OnlineUser{port}
+Client::Client(unsigned short port, bool is_host)
+	:OnlineUser{port, is_host}
 {
 	m_address_of_other_user = sf::IpAddress::None;
 }
@@ -54,7 +54,7 @@ bool Client::connect_to_user()
 	}*/
 }
 
-void Client::receive_deck_information(Deck& deck_to_copy_in)
+/*void Client::receive_deck_information(Deck& deck_to_copy_in)
 {
 	m_socket.setBlocking(true);
 	
@@ -87,9 +87,9 @@ void Client::receive_deck_information(Deck& deck_to_copy_in)
 			assert(false && "ERROR in Client::receive_deck_information()");
 	}
 
-	std::cout << "Deck is syncronized. Received " << counter << " Cards\n";
+	std::cout << "Deck is syncronized. Received " << counter << " Cards.\n";
 	m_socket.setBlocking(false);
-}
+}*/
 
 void Client::set_IP_address(const std::string& address)
 {
