@@ -13,7 +13,7 @@
 #include "headers/Card.h"
 #include "headers/ReturnCodes.h"
 
-int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, const bool is_hosting = true)
+int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, const bool is_hosting = true)
 {
 	// init rückseiten array
 	auto rueckseiten = std::array<sf::Texture, 4>{};
@@ -31,12 +31,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	sf::Font my_font;
 	TextureHandler::init_font(my_font);
 
-	sf::Text turn_info;
-	turn_info.setString("Your turnX");
-	turn_info.setCharacterSize(25);
-	turn_info.setFont(my_font);
-	turn_info.setPosition(windowSettings::windowX / 10 * 2 - turn_info.getGlobalBounds().width / 2,
-		windowSettings::windowY / 10 * 1);
+	sf::Text turn_info{ "Your turnX", my_font, 25 };
+	turn_info.setPosition(windowSettings::windowX / 20 * 1 - turn_info.getGlobalBounds().width / 2,
+		windowSettings::windowY / 10 * 3);
 
 	// init additional_info_text
 	sf::Text additional_info_text;
@@ -44,7 +41,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	additional_info_text.setCharacterSize(40);
 	additional_info_text.setFont(my_font);
 	additional_info_text.setPosition(windowSettings::windowX / 2 - additional_info_text.getGlobalBounds().width / 2,
-		windowSettings::windowY / 10 * 3);
+		windowSettings::windowY * 0.25f);
 
 	auto additional_info = std::string{ "" };
 	bool choose_wishcard{ false };
@@ -94,7 +91,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	card_stack.push_back(deck.dealCard());
 
-
+	logic.m_sizeOfStartHand = 5;
 
 
 	bool mouse_left_pressed{ false };
@@ -112,7 +109,7 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		// init playerhand
 		for (int i{ 0 }; i < logic.m_sizeOfStartHand; ++i)
 		{
-			player.drawCard(deck.dealCard((windowSettings::windowX / (logic.m_sizeOfStartHand - 2)) + player.m_xOffset, windowSettings::windowY * 0.8f, card_stack));
+			player.drawCard(deck.dealCard(sf::Vector2f{ (windowSettings::windowX / (logic.m_sizeOfStartHand - 2)) + player.m_xOffset, windowSettings::windowY * 0.8f }, card_stack));
 			player.m_xOffset += 100;
 		}
 
@@ -120,9 +117,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		for (int i{ 0 }; i < logic.m_sizeOfStartHand; ++i)
 		{
 			if (i % 2 == 0)
-				enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 100, card_stack));
+				enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 100 }, card_stack));
 			else
-				enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 125, card_stack));
+				enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 125 }, card_stack));
 
 			enemy.m_xOffset += 50;
 		}
@@ -141,9 +138,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		for (int i{ 0 }; i < logic.m_sizeOfStartHand; ++i)
 		{
 			if (i % 2 == 0)
-				enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 100, card_stack));
+				enemy.drawCard(deck.dealCard(sf::Vector2f{windowSettings::windowX / 3 + enemy.m_xOffset, 100 }, card_stack));
 			else
-				enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 125, card_stack));
+				enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 125 }, card_stack));
 
 			enemy.m_xOffset += 50;
 		}
@@ -151,7 +148,8 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		// init playerhand
 		for (int i{ 0 }; i < logic.m_sizeOfStartHand; ++i)
 		{
-			player.drawCard(deck.dealCard((windowSettings::windowX / (logic.m_sizeOfStartHand - 2)) + player.m_xOffset, windowSettings::windowY * 0.8f, card_stack));
+			player.drawCard(deck.dealCard(sf::Vector2f{ (windowSettings::windowX / (logic.m_sizeOfStartHand - 2))
+				+ player.m_xOffset, windowSettings::windowY * 0.8f }, card_stack));
 			player.m_xOffset += 100;
 		}
 	}
@@ -237,8 +235,6 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 			if (logic.m_playerHasToDraw && logic.m_playersTurn)
 			{
-				additional_info = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen!";
-				additional_info_text.setString(additional_info);
 				bool has_draw_cards{ false };
 				for (int i{ 0 }; i < player.getHandSize(); ++i)
 				{
@@ -250,27 +246,16 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 				}
 
 				if (has_draw_cards)
-				{
-					if (back_card.getGlobalBounds().contains(mouse_pos) && mouse_left_pressed == true && mouse_left_released == false)
-					{
-						for (int i{ 0 }; i < logic.m_amountOfCardsToDraw; ++i)
-							player.drawCard(deck.dealCard(player.getCoord(mouse_left_pressed), card_stack),
-								logic.m_amountOfCardsToDraw);
-
-						logic.m_playerHasToDraw = false;
-						logic.m_amountOfCardsToDraw = 0;
-						logic.m_enemysTurn = true;
-						logic.m_playersTurn = false;
-
-						if (is_hosting)
-							player.m_host.send_choice_information();
-						else
-							player.m_client.send_choice_information();
-
-						continue;
-					}
-				}
+					additional_info = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen oder kontern!";
 				else
+					additional_info = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen!";
+
+				additional_info_text.setString(additional_info);
+				additional_info_text.setPosition(windowSettings::windowX / 2 - additional_info_text.getGlobalBounds().width / 2,
+					windowSettings::windowY* 0.25f);
+		
+
+				if (back_card.getGlobalBounds().contains(mouse_pos) && mouse_left_pressed == true && mouse_left_released == false)
 				{
 					for (int i{ 0 }; i < logic.m_amountOfCardsToDraw; ++i)
 						player.drawCard(deck.dealCard(player.getCoord(mouse_left_pressed), card_stack),
@@ -417,13 +402,8 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		///////////////////////// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP /////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		if (/*(!mouse_left_pressed && mouse_left_released)*/logic.m_enemysTurn)
+		if (logic.m_enemysTurn)
 		{
-			//if (logic.m_enemysTurn) std::cout << "not ur turn m8\n";
-			//std::cout << "enemys turn now\n";
-
-			//logic.m_playersTurn = false;
-
 			for (int i{ 0 }; i < 1; ++i)
 			{
 				bool has_drawcards{ false };
@@ -536,9 +516,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 								{
 									int amountOfCards{ enemy.getHandSize() };
 									if (amountOfCards++ % 2 == 0)
-										enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 100, card_stack));
+										enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 100 }, card_stack));
 									else
-										enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 125, card_stack));
+										enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 125 }, card_stack));
 
 									enemy.m_xOffset += 50;
 								}
@@ -612,9 +592,9 @@ int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							for (int i{ 0 }; i < enemys_move->amount_of_cards_drawn; ++i)
 							{
 								if (amountOfCards++ % 2 == 0)
-									enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 100, card_stack));
+									enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 100 }, card_stack));
 								else
-									enemy.drawCard(deck.dealCard(windowSettings::windowX / 3 + enemy.m_xOffset, 125, card_stack));
+									enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 125 }, card_stack));
 								enemy.m_xOffset += 50;
 							}
 

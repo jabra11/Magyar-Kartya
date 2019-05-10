@@ -15,17 +15,17 @@
 #include "headers/Host.h"
 #include "headers/ReturnCodes.h"
 
-// macros for keys in unicode
+// key macros expanding unicodes
 
-// unicode for backspace
 #define BACKSPACE			0x00000008
 #define ENTER_ON_WINDOWS	0x0000000D
 //////////////////////////////////////
 
 
-int hostSession(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, bool is_host);
+int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, bool is_host);
 
-int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host)
+int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host,
+	int& wins, int& loses)
 {
 	// do global texture init
 	sf::RectangleShape playTable(sf::Vector2f(windowSettings::windowX, windowSettings::windowY));
@@ -36,58 +36,41 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 	bool setup_finished{ false };
 	int result{ 0 };
 	bool play_again{ true };
-
-	constexpr int port{ 55000 };
+	constexpr unsigned short port{ unsigned short(55000) };
 
 
 	sf::Event evnt;
 	sf::String player_input{ "192.168.208.106" };
 
 	// initialize text objects to draw with 
-	sf::Text player_text;
-	player_text.setFont(myFont);
+	sf::Text player_text{"", myFont, 50};
 	player_text.setPosition(windowSettings::windowX / 2, windowSettings::windowY / 2);
-	player_text.setCharacterSize(50);
 
-	sf::Text enter_the_ip;
-	enter_the_ip.setFont(myFont);
-	enter_the_ip.setString("Please enter the IPv4-address of your opponent:");
-	enter_the_ip.setCharacterSize(50);
+	sf::Text enter_the_ip{ "Please enter the IPv4-address of your opponent:", myFont, 50 };
 	enter_the_ip.setPosition(windowSettings::windowX / 2 - enter_the_ip.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 4);
 	
-	sf::Text go_back;
-	go_back.setFont(myFont);
-	go_back.setCharacterSize(40);
-	go_back.setString("Go back");
+	sf::Text go_back{ "Go back", myFont, 40 };
 	go_back.setPosition(windowSettings::windowX / 20 * 19 - go_back.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 0);
 
-	sf::Text won_game;
-	won_game.setFont(myFont);
-	won_game.setCharacterSize(50);
-	won_game.setString("You have won the game!");
+	sf::Text won_game{ "You have won the game!", myFont, 50 };
 	won_game.setPosition(windowSettings::windowX / 20 * 10 - won_game.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 3);
 
-	sf::Text lost_game;
-	lost_game.setFont(myFont);
-	lost_game.setCharacterSize(50);
-	lost_game.setString("You have lost the game.");
+	sf::Text lost_game{ "You have lost the game.", myFont, 50 };
 	lost_game.setPosition(windowSettings::windowX / 20 * 10 - lost_game.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 3);
 
-	sf::Text play_again_tex;
-	play_again_tex.setFont(myFont);
-	play_again_tex.setCharacterSize(50);
-	play_again_tex.setString("Play again");
+	sf::Text play_again_tex{ "Play again", myFont, 50 };
 	play_again_tex.setPosition(windowSettings::windowX / 20 * 10 - play_again_tex.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 5);
 
 	//OnlinePlayer player{ &logic, port};
-	Host host{ port };
-	Client client{ port };
+	Host host{ port, is_host };
+	Client client{ port, is_host };
 	
+	bool has_won{ false };
 
 	bool mouse_pressed{ false };
 	bool mouse_released{ false };
@@ -197,33 +180,34 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 		{
 			if (play_again)
 			{
-				if (true)
-				{
-					// start the host session
-					result = hostSession(gameWindow, logic, playTable, client, host, is_host);
-					play_again = false;
-				}
 
-				/*else
-				{
-					// start the client session
-					result = clientSession(gameWindow, logic, playTable, player);
-					play_again = false;
-				}*/
+				// start the host session
+				result = multiplayer(gameWindow, logic, playTable, client, host, is_host);
+				mouse_pressed = false;
+				play_again = false;
+
 			}
 
 			// won the game
 			if (result == ReturnCodes::WON)
 			{
+				has_won = true;
+				++wins;
 				if (mouse_pressed && play_again_tex.getGlobalBounds().contains(mouse_pos))
 					play_again = true;
+
+				result = -1;
 			}
 
 			// lost the game
 			else if (result == ReturnCodes::LOST)
 			{
+				has_won = false;
+				++loses;
 				if (mouse_pressed && play_again_tex.getGlobalBounds().contains(mouse_pos))
 					play_again = true;
+
+				result = -1;
 			}
 
 
@@ -235,10 +219,10 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			gameWindow.draw(playTable);
 			gameWindow.draw(go_back);
 			
-			if (result == ReturnCodes::WON)
+			if (has_won)
 				gameWindow.draw(won_game);
 
-			else if (result == ReturnCodes::LOST)
+			else if (!has_won)
 				gameWindow.draw(lost_game);
 
 			if (!play_again)
