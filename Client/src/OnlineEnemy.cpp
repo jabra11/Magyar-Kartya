@@ -10,28 +10,49 @@ OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, s
 	
 }
 
-void OnlineEnemy::getNextMove()
+void OnlineEnemy::getNextMove(sf::Socket::Status* error_flag)
 {
 	if (m_is_hosting)
 	{
 		bool received_valid_information{ false };
 
 		while (!received_valid_information)
-			received_valid_information = m_host->receive_choice_information(*m_deck);
-
-		std::cout << "killing thread\n";
-		return;
+		{
+			*error_flag = m_host->receive_choice_information();
+			
+			if (*error_flag == sf::Socket::Status::Done)
+			{
+				std::cout << "killing thread\n";
+				received_valid_information = true;
+				return;
+			}
+			else if (*error_flag == sf::Socket::Status::Disconnected)
+			{
+				std::cout << "Lost connection. Exiting session.\n";
+				return;
+			}
+		}
 	}
-
 	else
 	{
 		bool received_valid_information{ false };
 
 		while (!received_valid_information)
-			received_valid_information = m_client->receive_choice_information(*m_deck);
+		{
+			*error_flag = m_client->receive_choice_information();
 
-		std::cout << "killing thread\n";
-		return;
+			if (*error_flag == sf::Socket::Status::Done)
+			{
+				std::cout << "killing thread\n";
+				received_valid_information = true;
+				return;
+			}
+			else if (*error_flag == sf::Socket::Status::Disconnected)
+			{
+				std::cout << "Lost connection. Exiting session.\n";
+				return;
+			}
+		}
 	}
 }
 

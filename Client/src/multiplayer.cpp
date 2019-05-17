@@ -55,11 +55,14 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	auto card_stack = std::vector<Card>{};
 
-	constexpr int port{ 55000 };
+	constexpr unsigned short port{ 55000 };
 
-	//OnlinePlayer player{ &logic, port };
 	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, port, true };
+
 	OnlinePlayer player{&logic, port, client, host };
+
+	sf::Socket::Status error_flag{ sf::Socket::Status::NotReady };
+
 	// check if a thread has been enlisted to retrieve the packets
 	bool thread_has_been_enlisted{ false };
 
@@ -91,8 +94,9 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	card_stack.push_back(deck.dealCard());
 
-	logic.m_sizeOfStartHand = 5;
-
+	////////////////////////////////
+	logic.m_sizeOfStartHand = 1;
+	////////////////////////////////
 
 	bool mouse_left_pressed{ false };
 	bool mouse_left_released{ false };
@@ -156,11 +160,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	std::cout << "Startkarte: " << card_stack.back() << '\n';
 
-	////////////////////////////////
-	//logic.m_playerSkips = true;
-	////////////////////////////////
-
-
 	if (is_hosting)
 	{
 		// in the host session, the enemy is the first to play
@@ -182,6 +181,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		sf::Vector2f mouse_pos{ sf::Mouse::getPosition(gameWindow) };
 		std::string wrong_card_string;
 		bool wrong_card{ false };
+
 
 		while (gameWindow.pollEvent(evnt))
 		{
@@ -423,10 +423,9 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					// enlist thread
 					thread_has_been_enlisted = true;
 					thread_is_ready = false;
-					//if (logic.m_enemysTurn) std::cout << "not ur turn m8\n";
-
 					std::cout << "enlisting thread..\n";
-					std::thread get_enemys_move{ &OnlineEnemy::getNextMove, &enemy };
+
+					std::thread get_enemys_move{ &OnlineEnemy::getNextMove, &enemy, &error_flag };
 					get_enemys_move.detach();
 					//get_enemys_move.join();
 				}
@@ -436,7 +435,10 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 				}
 				if (thread_has_been_enlisted)
 				{
-					if (enemy.m_host->modify_buffer(false).is_valid || enemy.m_client->modify_buffer(false).is_valid)
+					if (error_flag == sf::Socket::Status::Disconnected)
+						return ReturnCodes::LOST_CONNECTION;
+
+					else if (enemy.m_host->modify_buffer(false).is_valid || enemy.m_client->modify_buffer(false).is_valid)
 					{
 						if (is_hosting)
 							enemys_move = &enemy.m_host->modify_buffer(false);

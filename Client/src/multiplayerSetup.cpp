@@ -34,13 +34,13 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 	myFont.loadFromFile("resources/font/testFont.ttf");
 
 	bool setup_finished{ false };
-	int result{ 0 };
+	int result{ ReturnCodes::PLACEHOLDER };
 	bool play_again{ true };
 	constexpr unsigned short port{ unsigned short(55000) };
 
 
 	sf::Event evnt;
-	sf::String player_input{ "192.168.208.106" };
+	sf::String player_input{ "LOCALHOST" };
 
 	// initialize text objects to draw with 
 	sf::Text player_text{"", myFont, 50};
@@ -66,11 +66,16 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 	play_again_tex.setPosition(windowSettings::windowX / 20 * 10 - play_again_tex.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 5);
 
+	sf::Text lost_connection{ "You have lost the connection", myFont, 50 };
+	lost_connection.setPosition(windowSettings::windowX / 20 * 10 - lost_connection.getGlobalBounds().width / 2,
+		windowSettings::windowY / 10 * 4);
+
 	//OnlinePlayer player{ &logic, port};
 	Host host{ port, is_host };
 	Client client{ port, is_host };
 	
 	bool has_won{ false };
+	bool disconnected{ false };
 
 	bool mouse_pressed{ false };
 	bool mouse_released{ false };
@@ -111,7 +116,12 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 								player_input.clear();
 								player_text.setString(player_input);
 
-								setup_finished = true;
+								sf::Packet temp;
+								if (client.m_socket.receive(temp) == sf::Socket::Done)
+								{
+									temp >> logic.m_sizeOfStartHand;
+									setup_finished = true;
+								}
 							}
 							else
 								//did not work, not great
@@ -164,7 +174,11 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 				player_text.setCharacterSize(50);
 				player_text.setPosition(windowSettings::windowX / 2 - player_text.getGlobalBounds().width / 2,
 					windowSettings::windowY / 10 * 3);
-				setup_finished = true;
+
+				sf::Packet temp;
+				temp << logic.m_sizeOfStartHand;
+				if (host.m_socket.send(temp) == sf::Socket::Done)
+					setup_finished = true;
 			}
 			else
 			{
@@ -180,12 +194,10 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 		{
 			if (play_again)
 			{
-
+				play_again = false;
 				// start the host session
 				result = multiplayer(gameWindow, logic, playTable, client, host, is_host);
 				mouse_pressed = false;
-				play_again = false;
-
 			}
 
 			// won the game
@@ -193,10 +205,8 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			{
 				has_won = true;
 				++wins;
-				if (mouse_pressed && play_again_tex.getGlobalBounds().contains(mouse_pos))
-					play_again = true;
 
-				result = -1;
+				result = ReturnCodes::PLACEHOLDER;
 			}
 
 			// lost the game
@@ -204,12 +214,22 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			{
 				has_won = false;
 				++loses;
-				if (mouse_pressed && play_again_tex.getGlobalBounds().contains(mouse_pos))
-					play_again = true;
 
-				result = -1;
+				result = ReturnCodes::PLACEHOLDER;
 			}
 
+			// lost connection
+			if (result == ReturnCodes::LOST_CONNECTION)
+			{
+				disconnected = true;
+				setup_finished = false;
+				host.m_found_a_connection = false;
+
+				result = ReturnCodes::PLACEHOLDER;
+			}
+
+			if (mouse_pressed && play_again_tex.getGlobalBounds().contains(mouse_pos))
+				play_again = true;
 
 			// clear
 			gameWindow.clear();
@@ -218,7 +238,8 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			// draw
 			gameWindow.draw(playTable);
 			gameWindow.draw(go_back);
-			
+
+
 			if (has_won)
 				gameWindow.draw(won_game);
 
@@ -228,8 +249,21 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			if (!play_again)
 				gameWindow.draw(play_again_tex);
 
-
 			// display
+			gameWindow.display();
+		}
+
+		else if (disconnected)
+		{
+			gameWindow.clear();
+
+			gameWindow.draw(playTable);
+			gameWindow.draw(lost_connection);
+			gameWindow.draw(go_back);
+
+			if (mouse_pressed && go_back.getGlobalBounds().contains(mouse_pos))
+				return ReturnCodes::EXIT;
+
 			gameWindow.display();
 		}
 

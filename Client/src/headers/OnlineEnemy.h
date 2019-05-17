@@ -14,7 +14,7 @@ public:
 
 	OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, std::vector<Card>* card_stack, int port, bool is_hosting);
 
-	void getNextMove();
+	void getNextMove(sf::Socket::Status* error_flag);
 	const int getHandSize();
 
 	void dealCard(int index);

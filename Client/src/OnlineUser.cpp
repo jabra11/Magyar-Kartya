@@ -1,5 +1,6 @@
 #include "headers/OnlineUser.h"
 #include <cassert>
+#include <utility>
 
 OnlineUser::OnlineUser(unsigned short port, bool is_host)
 	:m_port{port}, m_is_host{is_host}
@@ -41,7 +42,10 @@ void OnlineUser::send_choice_information()
 		std::cout << "Successfully sent packet. # " << ++counter << "\n";
 
 	else
+	{
 		std::cerr << "ERROR: Couldn't send the packet.\n";
+		m_socket.disconnect();
+	}
 
 	flush_buffer(true);
 
@@ -50,7 +54,7 @@ void OnlineUser::send_choice_information()
 }
 
 
-bool OnlineUser::receive_choice_information(Deck& deck)
+const sf::Socket::Status OnlineUser::receive_choice_information()
 {
 	sf::Packet temp;
 	bool received_a_packet{ false };
@@ -65,9 +69,12 @@ bool OnlineUser::receive_choice_information(Deck& deck)
 		received_a_packet = true;
 	}
 	else
+	{
 		std::cerr << "ERROR: Did not receive any packet.\n";
+		m_socket.disconnect();
 
-	m_socket.setBlocking(true);
+		return sf::Socket::Disconnected;
+	}
 
 	if (received_a_packet)
 	{
@@ -78,27 +85,7 @@ bool OnlineUser::receive_choice_information(Deck& deck)
 		{
 			m_buffer_enemy = tempP;
 			std::cout << "Validated packet.\n";
-			return true;
-		}
-		else if (tempP.is_valid && tempP.header == Header::SETUP_HEADER
-			&& tempP.exchange_deck)
-		{
-			std::cout << "Received deck exchange request.\n";
-
-			if (accept_deck_exchange())
-			{
-				std::cout << "Accepted deck exchange request.\n";
-				if (m_is_host)
-				{
-					send_deck_information(deck);
-				}
-				else
-					receive_deck_information(deck);
-
-				return true;
-			}
-			else
-				std::cout << "Could not handle deck exchange request.\n";
+			return sf::Socket::Done;
 		}
 		else
 		{
@@ -106,13 +93,12 @@ bool OnlineUser::receive_choice_information(Deck& deck)
 				<< "\nexchange deck:" << tempP.exchange_deck << std::endl;
 
 			std::cerr << "ERROR: Packet is invalid!\n";
-			return false;
+			return sf::Socket::Error;
 		}
 	}
-	return false;
 }
 
-bool OnlineUser::request_deck_exchange(Deck& deck)
+/*bool OnlineUser::request_deck_exchange(Deck& deck)
 {
 	m_socket.setBlocking(true);
 
@@ -170,10 +156,9 @@ bool OnlineUser::request_deck_exchange(Deck& deck)
 	}
 	else
 		std::cerr << "Request to exchange deck information has failed!\n";
-*/
-}
+}*/
 
-bool OnlineUser::accept_deck_exchange()
+/*bool OnlineUser::accept_deck_exchange()
 {
 	m_socket.setBlocking(true);
 	
@@ -195,25 +180,7 @@ bool OnlineUser::accept_deck_exchange()
 		std::cout << "Failed to answer request.\n";
 		return false;
 	}
-}
-
-
-OnlineUser::Default_packet OnlineUser::convert_to_Default_packet(const bool is_using_a_card, const Card& card,
-	const Card::CardTyp wunsch_typ)
-{
-	OnlineUser::Default_packet temp;
-	if (is_using_a_card)
-		temp.uses_card = true;
-	else
-		temp.uses_card = false;
-
-	temp.card_typ = card.getTyp();
-	temp.card_rank = card.getRank();
-
-	temp.wishcard_value = wunsch_typ;
-
-	return temp;
-}
+}*/
 
 OnlineUser::Default_packet& OnlineUser::modify_buffer(bool player)
 {
@@ -243,7 +210,9 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 	std::cout << "syncing deck now..\n";
 
 	int counter{ 0 };
-	for (int i{ 0 }; true; ++i)
+
+
+	for (int i{ 0 }; true;)
 	{
 		sf::Packet temp;
 		//std::cout << "connected to " << m_socket.getRemoteAddress() << std::endl;
@@ -258,6 +227,7 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 			deck_to_copy_in[i].setRank(static_cast<Card::CardRank>(card.card_rank));
 			deck_to_copy_in[i].setTyp(static_cast<Card::CardTyp>(card.card_typ));
 			deck_to_copy_in[i].setTexture();
+			++i;
 		}
 		else if (!card.is_valid && card.header == OnlineUser::Header::SETUP_HEADER)
 		{
@@ -265,8 +235,8 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 			counter = i;
 			break;
 		}
-		else if (!card.is_valid && card.header != OnlineUser::Header::SETUP_HEADER)
-			assert(false && "ERROR in Client::receive_deck_information()");
+		/*else if (!card.is_valid && card.header != OnlineUser::Header::SETUP_HEADER)
+			assert(false && "ERROR in Client::receive_deck_information()");*/
 	}
 
 	std::cout << "Deck is syncronized. Received " << counter << " Cards.\n";
