@@ -54,33 +54,28 @@ public:
 	// true flushes the player buffer, false the enemy buffer
 	void flush_buffer(bool player);
 
-	// Sends m_buffer to the  
-	// connected TCP socket
+	// Sends m_buffer to the connected TCP socket
 	void send_choice_information();
 
 
 	// Retrieves information of a received packet from the established TCP-
 	// connection and writes it into m_buffer
-	bool receive_choice_information(Deck& deck);
+	const sf::Socket::Status receive_choice_information();
 
 	// Request to syncronize the deck after it had been reshuffled
-	bool request_deck_exchange(Deck& deck);
-
-	bool accept_deck_exchange();
+	//bool request_deck_exchange(Deck& deck);
+	//bool accept_deck_exchange();
 
 	// ... 
 	void receive_deck_information(Deck& write_to_this);
 
 	// Sends the deck in the parameter to the connected TCP-Socket.
-	void send_deck_information(Deck& deck_to_send);
+	void send_deck_information(Deck& send_this);
 
 
 protected:
 
 	OnlineUser(unsigned short port, bool is_host);
-
-	Default_packet convert_to_Default_packet(const bool is_using_a_card, const Card& card,
-		const Card::CardTyp wunsch_typ = Card::CardTyp::PLACEHOLDER_TYP);
 
 	friend sf::Packet& operator<<(sf::Packet& write_in, const Default_packet& write_from);
 	friend sf::Packet& operator>>(sf::Packet& write_from, Default_packet& write_in);

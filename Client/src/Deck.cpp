@@ -9,21 +9,34 @@
 
 Deck::Deck()
 {
-	//int temp{ 0 };
+	constexpr int seed = 55000;
+	std::mt19937 gen(seed);
+	std::uniform_int_distribution<int> dis(0, 31);
+
+	for (auto& element : number_list)
+	{
+		element = dis(gen);
+	}
+
+
+	int temp{ 0 };
+
 	for (int typ{ 0 }; typ < Card::MAX_TYPES; ++typ)
 		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
 		{
 			m_deck.push_back(Card(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank)));
 			
-			/*// testing purposes
-			if (temp % 1 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
-			if (temp % 6 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
-			if (temp % 2 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::SIEBEN);
-			if (temp % 4 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
-			m_deck[0] = Card(Card::CardTyp::PIROS, Card::CardRank::BUBE);
-			temp++;
-
-			//*/
+			
+			// testing purposes
+			if (false)
+			{
+				if (temp % 1 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
+				if (temp % 6 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
+				if (temp % 2 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::SIEBEN);
+				if (temp % 4 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
+				m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
+				++temp;
+			}
 		}
 
 	shuffleDeck();
@@ -40,9 +53,31 @@ void Deck::set_online_status(bool is_host, Host* host, Client* client)
 
 void Deck::shuffleDeck()
 {
-	for (Card &card : m_deck)
+	if (client || host)
 	{
-		swapCard(card, m_deck[getRandomNumber(0, (m_deck.size() - 1))]);
+		// reference to dereferenced poiter for qol
+
+
+		// shuffle deck based on a given list of numbers (generator parameter)
+		for (int o = 0; o < this->getSize(); ++o)
+		{
+			for (int i = 0; i < number_list.size(); ++i)
+			{
+				if (number_list[i] <= this->getSize() - 1)
+				{
+					swapCard(m_deck[o], m_deck[number_list[i]]);
+					
+					std::swap(number_list[i], number_list.back());
+				}
+			}
+		}
+	}
+	else
+	{
+		for (Card& card : m_deck)
+		{
+			swapCard(card, m_deck[getRandomNumber(0, (m_deck.size() - 1))]);
+		}
 	}
 }
 
@@ -89,28 +124,6 @@ Card& Deck::dealCard(const sf::Vector2f& vector, std::vector<Card> &cardStack)
 	if (shuffle)
 	{
 		shuffleStack(cardStack);
-
-		// online stuff
-		if (host)
-		{
-			// dirty, i should change this
-			/*
-			std::thread transmit_info{ &Host::send_deck_information, host, std::ref(*this) };
-			transmit_info.detach();
-			*/
-
-			host->request_deck_exchange(*this);
-		}
-		if (client)
-		{
-			// dirty, i should change this also
-			/*
-			std::thread retrieve_info{ &Client::receive_deck_information, client, std::ref(*this) };
-			retrieve_info.detach();
-			*/
-
-			client->request_deck_exchange(*this);
-		}
 	}
 	return m_temp;
 }
@@ -130,7 +143,9 @@ void Deck::shuffleStack(std::vector<Card> &cardStack)
 	}
 	cardStack.clear();
 	cardStack.push_back(temp);
+
 	shuffleDeck();
+
 	std::cout << "Das Deck wird neu gemischt...\n";
 	std::cout << '\n';
 }
