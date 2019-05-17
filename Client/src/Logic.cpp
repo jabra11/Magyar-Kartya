@@ -54,7 +54,7 @@ void Logic::setStatuses(const Card &card, bool player)
 		}
 		else
 		{
-			std::cout << "player has to ddraw " << m_amountOfCardsToDraw << " Cards\n";
+			std::cout << "player has to draw " << m_amountOfCardsToDraw << " Cards\n";
 			m_playerHasToDraw = true;
 			m_enemyHasToDraw = false;
 		}

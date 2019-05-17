@@ -55,6 +55,10 @@
     <ClInclude Include="src\headers\TextureHandler.h" />
     <ClInclude Include="src\headers\windowSettings.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\stats\loses.txt" />
+    <Text Include="resources\stats\wins.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A0A65502-4B16-4DE7-A164-416BE7F4A2D5}</ProjectGuid>

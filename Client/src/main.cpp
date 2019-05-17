@@ -46,7 +46,7 @@ void initializeStats(int& gewonnen, int& verloren)
 	inputWins.close();
 
 	std::ifstream inputLoses;
-	inputLoses.open("resources/loses.txt");
+	inputLoses.open("resources/stats/loses.txt");
 	inputLoses >> verloren;
 	inputLoses.close();
 }

@@ -118,23 +118,7 @@ void gameMenu(int& gewonnen, int& verloren)
 
 			// MULTIPLAYER
 			if (multiplayerText.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-			{
-
 				int gameStatus{ multiplayerSetup(gameWindow, logic, textureToPass, host, gewonnen, verloren) };
-
-				/*if (gameStatus == ReturnCodes::WON)
-					++verloren;
-
-				else if (gameStatus == ReturnCodes::LOST)
-					++gewonnen;
-
-				else if (gameStatus == ReturnCodes::EARLY_EXIT)
-				{
-					// do nothing
-				}
-				/*else
-					return;*/
-			}
 
 			if (stats.getGlobalBounds().contains(mousePos) && !showOptions)
 			{
@@ -142,14 +126,10 @@ void gameMenu(int& gewonnen, int& verloren)
 			}
 
 			if (options.getGlobalBounds().contains(mousePos) && !showStats)
-			{
 				showOptions = true;
-			}
 
 			if (exit.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-			{
 				return;
-			}
 		}
 
 		if (showStats)
