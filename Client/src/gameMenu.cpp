@@ -1,22 +1,35 @@
-#include "SFML/Graphics.hpp"
-#include "windowSettings.h"
+#include "SFML/Graphics.hpp"	
+#include "headers/windowSettings.h"
 #include <iostream>
-#include "Logic.h"
+#include "headers/Logic.h"
+#include "headers/ReturnCodes.h"
 
-int game(sf::RenderWindow &renderWindow, Logic &logic, const sf::Texture &playTableTexture);
+int singleplayer_setup(sf::RenderWindow& renderWindow, Logic& logic, const sf::Texture& playTableTexture,
+	int& wins, int& loses);
+int multiplayer_setup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host,
+	int& wins, int& loses);
 
-int gameMenu(int &gewonnen, int &verloren)
+void gameMenu(int& gewonnen, int& verloren)
 {
-	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya");
+	sf::RenderWindow gameWindow(sf::VideoMode(windowSettings::windowX, windowSettings::windowY), "Magyar Kartya", sf::Style::Close);
+
+	sf::Image icon;
+	if (icon.loadFromFile("resources/images/icon.jpg"))
+		gameWindow.setIcon(32, 32, icon.getPixelsPtr());
+
+	// will move this somewhere else later
+	gameWindow.setFramerateLimit(600);
+
 	//gameWindow.setVerticalSyncEnabled(true);
 
+
 	sf::Texture menu; 
-	menu.loadFromFile("resources/images//greyBackground.jpg");
+	menu.loadFromFile("resources/images/greyBackground.jpg");
 
 
 
-	sf::Texture playTableGrey; playTableGrey.loadFromFile("resources/images//greyBackground.jpg");
-	sf::Texture playTableGreen; playTableGreen.loadFromFile("resources/images//playTable.png");
+	sf::Texture playTableGrey; playTableGrey.loadFromFile("resources/images/greyBackground.jpg");
+	sf::Texture playTableGreen; playTableGreen.loadFromFile("resources/images/playTable.png");
 
 	sf::Texture textureToPass = playTableGrey;
 
@@ -31,16 +44,19 @@ int gameMenu(int &gewonnen, int &verloren)
 
 	// defining the text objects
 	sf::Text play{"Spielen", myFont, 90u };
-	play.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (play.getGlobalBounds().width / 2), windowSettings::windowY / 20 * 4));
+	play.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (play.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 2.0f));
+
+	sf::Text multiplayerText{ "Multiplayer", myFont, 90u };
+	multiplayerText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (multiplayerText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 5.0f));
 
 	sf::Text options{ "Optionen", myFont, 90u };
-	options.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (options.getGlobalBounds().width / 2), windowSettings::windowY / 20 * 7));
+	options.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (options.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 8.0f));
 
 	sf::Text stats{ "Statistiken", myFont, 90u };
-	stats.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (stats.getGlobalBounds().width / 2), windowSettings::windowY / 20 * 10));
+	stats.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (stats.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 11.0f));
 
 	sf::Text exit{ "Exit", myFont, 90u };
-	exit.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (exit.getGlobalBounds().width / 2), windowSettings::windowY / 20 * 13));
+	exit.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (exit.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 15.0f));
 
 	// stats
 	//
@@ -48,16 +64,19 @@ int gameMenu(int &gewonnen, int &verloren)
 	bool showStats{ false };
 	bool showOptions{ false };
 
+	bool host{ true };
+
 	int tableTex{ 1 };
+
 
 	while (gameWindow.isOpen())
 	{
 		bool mouseLeftPressed{ false };
-		bool mouseRightPressed{ false };
+		//bool mouseRightPressed{ false };
 
 		bool mouseLeftReleased{ false };
-		bool mouseRightReleased{ false };
-
+		//bool mouseRightReleased{ false };
+		
 
 		sf::Event evnt;
 		sf::Vector2f mousePos{ sf::Mouse::getPosition(gameWindow) };
@@ -67,6 +86,7 @@ int gameMenu(int &gewonnen, int &verloren)
 			if (evnt.type == sf::Event::Closed)
 			{
 				gameWindow.close();
+				return;
 			}
 
 			if (evnt.type == sf::Event::MouseButtonPressed)
@@ -88,21 +108,15 @@ int gameMenu(int &gewonnen, int &verloren)
 			}
 		}
 
-		if (mouseLeftPressed && mouseLeftReleased == false)
+		if (mouseLeftPressed && !mouseLeftReleased)
 		{
+			// SINGLEPLAYER
 			if (play.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-			{
-				int gameStatus{ game(gameWindow, logic, textureToPass) };
+				singleplayer_setup(gameWindow, logic, textureToPass, gewonnen, verloren);
 
-				if (gameStatus == 1)
-					++verloren;
-
-				else if (gameStatus == 0)
-					++gewonnen;
-
-				else
-					return 0;
-			}
+			// MULTIPLAYER
+			if (multiplayerText.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
+				multiplayer_setup(gameWindow, logic, textureToPass, host, gewonnen, verloren);
 
 			if (stats.getGlobalBounds().contains(mousePos) && !showOptions)
 			{
@@ -110,33 +124,28 @@ int gameMenu(int &gewonnen, int &verloren)
 			}
 
 			if (options.getGlobalBounds().contains(mousePos) && !showStats)
-			{
 				showOptions = true;
-			}
 
 			if (exit.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-			{
-				return 0;
-			}
+				return;
 		}
-
 
 		if (showStats)
 		{
 			sf::Text gewonnenText{ "Gewonnen: " + std::to_string(gewonnen), myFont, 80u };
-			gewonnenText.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (gewonnenText.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 1));
+			gewonnenText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (gewonnenText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 1.0f));
 
 			sf::Text verlorenText{ "Verloren: " + std::to_string(verloren), myFont, 80u };
-			verlorenText.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (verlorenText.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 2));
+			verlorenText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (verlorenText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 2.0f));
 
 			sf::Text bilanzText{ "Bilanz: " + std::to_string((gewonnen - verloren)), myFont, 80u };
-			bilanzText.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (bilanzText.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 3));
+			bilanzText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (bilanzText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 3.0f));
 
 			sf::Text resetStats{ "Zurücksetzen", myFont, 80u };
-			resetStats.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (resetStats.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 7));
+			resetStats.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (resetStats.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 7.0f));
 
 			sf::Text goBack{ "Zurück", myFont, 80u };
-			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (goBack.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 8));
+			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (goBack.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 8.0f));
 
 			if (mouseLeftPressed && !mouseLeftReleased)
 			{
@@ -164,21 +173,26 @@ int gameMenu(int &gewonnen, int &verloren)
 		else if (showOptions)
 		{
 			sf::Text startSize{ "Startkarten: " + std::to_string(logic.m_sizeOfStartHand), myFont, 50u };
-			startSize.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 2);
+			startSize.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 2.0f);
 
 			std::string viewEnemyHand{ "" };
 			(logic.m_viewEnemyHand) ? viewEnemyHand = "Ja" : viewEnemyHand = "Nein";
 			sf::Text showEnemyHand{ "Zeige Gegnerkarten: " + viewEnemyHand, myFont, 50u };
-			showEnemyHand.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 3);
+			showEnemyHand.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 3.0f);
 
 
 			std::string tableTexString{ "" };
-			(tableTex) ? tableTexString = "Grau" : tableTexString = "Grün";
+			(tableTex) ? tableTexString = "Grau" : tableTexString = "Gruen";
 			sf::Text chooseTableTex{ "Spielhintergrund: " + tableTexString, myFont, 50u };
-			chooseTableTex.setPosition(windowSettings::windowX / 10 * 1, windowSettings::windowY / 10 * 4);
+			chooseTableTex.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 4.0f);
 
-			sf::Text goBack{ "Zurück", myFont, 80u };
-			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2) - (goBack.getGlobalBounds().width / 2), windowSettings::windowY / 10 * 8));
+			std::string onlineHost{ "" };
+			(host) ? onlineHost = "Host" : onlineHost = "Client";
+			sf::Text onlineHostTex{ "Onlinemodus: " + onlineHost, myFont, 50u };
+			onlineHostTex.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 5.0f);
+
+			sf::Text goBack{ "Zurueck", myFont, 80u };
+			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (goBack.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 8.0f));
 
 			if (mouseLeftPressed && !mouseLeftReleased)
 			{
@@ -208,6 +222,9 @@ int gameMenu(int &gewonnen, int &verloren)
 					}
 				}
 
+				if (onlineHostTex.getGlobalBounds().contains(mousePos))
+					(host) ? host = false : host = true;
+
 				if (goBack.getGlobalBounds().contains(mousePos))
 					showOptions = false;
 
@@ -221,6 +238,7 @@ int gameMenu(int &gewonnen, int &verloren)
 			gameWindow.draw(startSize);
 			gameWindow.draw(showEnemyHand);
 			gameWindow.draw(chooseTableTex);
+			gameWindow.draw(onlineHostTex);
 			gameWindow.draw(goBack);
 
 			gameWindow.display();
@@ -234,6 +252,7 @@ int gameMenu(int &gewonnen, int &verloren)
 			// drawing // 
 			gameWindow.draw(sf::Sprite(menu));
 			gameWindow.draw(play);
+			gameWindow.draw(multiplayerText);
 			gameWindow.draw(options);
 			gameWindow.draw(stats);
 			gameWindow.draw(exit);

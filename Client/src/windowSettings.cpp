@@ -1,4 +1,4 @@
-#include "windowSettings.h"
+#include "headers/windowSettings.h"
 
 namespace windowSettings
 {

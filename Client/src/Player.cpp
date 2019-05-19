@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "headers/Player.h"
 
 /*Player::Player(float xDefaultVal, float yDefaultVal)
 	:m_xDefaultVal{xDefaultVal}, m_yDefaultVal{yDefaultVal}
@@ -24,7 +24,7 @@ const int Player::getHandSize()
 	return m_playerHand.size();
 }
 
-void Player::drawCard(const Card &card,const std::vector<Card> &deck)
+void Player::drawCard(const Card &card)
 {
 	m_playerHand.push_back(card);
 	std::cout << "Du ziehst " << card << "\n";

@@ -1,4 +1,4 @@
-#include "Logic.h"
+#include "headers/Logic.h"
 
 Logic::Logic()
 {
@@ -17,7 +17,7 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 	{	
 		std::array<std::string, 6> temp;
 		
-		for (int i{ 0 }; i < m_myFeed.size(); ++i)
+		for (unsigned int i{ 0 }; i < m_myFeed.size(); ++i)
 		{
 			temp[i] = m_myFeed[i];
 		}
@@ -27,12 +27,11 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 		else
 			m_myFeed[0] = "Gegner: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
 
-		for (int i{ 0 }; i < m_myFeed.size() - 1; ++i)
+		for (unsigned int i{ 0 }; i < m_myFeed.size() - 1; ++i)
 			m_myFeed[i + 1] = temp[i];
 
 		return true;
 	}
-
 	else
 		return false;
 }
@@ -55,6 +54,7 @@ void Logic::setStatuses(const Card &card, bool player)
 		}
 		else
 		{
+			std::cout << "player has to draw " << m_amountOfCardsToDraw << " Cards\n";
 			m_playerHasToDraw = true;
 			m_enemyHasToDraw = false;
 		}
@@ -144,8 +144,8 @@ const bool Logic::wunschkarteAktiv()
 		switch (m_wunschkarte.getTyp())
 		{
 		case Card::MOCK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_MOCK], true); break;
-		case Card::ZÖLD: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_ZÖLD], true); break;
-		case Card::TÖCK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_TÖCK], true); break;
+		case Card::ZOELD: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_ZOELD], true); break;
+		case Card::TOECK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_TOECK], true); break;
 		case Card::PIROS: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_PIROS], true); break;
 		}
 	}

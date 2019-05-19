@@ -10,8 +10,8 @@ namespace myTextures
 {
 	enum CardTyp
 	{
-		ZÖLD,
-		TÖCK,
+		ZOELD,
+		TOECK,
 		MOCK,
 		PIROS,
 		MAX_TYPES
@@ -19,7 +19,7 @@ namespace myTextures
 	enum CardRank
 	{
 		DAME,
-		KÖNIG,
+		KOENIG,
 		BUBE,
 		SIEBEN,
 		ACHT,
@@ -32,12 +32,12 @@ namespace myTextures
 	enum OtherTextures
 	{
 		WUNSCHKARTE_AKTIV_PIROS,
-		WUNSCHKARTE_AKTIV_TÖCK,
+		WUNSCHKARTE_AKTIV_TOECK,
 		WUNSCHKARTE_AKTIV_MOCK,
-		WUNSCHKARTE_AKTIV_ZÖLD,
+		WUNSCHKARTE_AKTIV_ZOELD,
 
-		WUNSCHKARTE_ZÖLD,
-		WUNSCHKARTE_TÖCK,
+		WUNSCHKARTE_ZOELD,
+		WUNSCHKARTE_TOECK,
 		WUNSCHKARTE_MOCK,
 		WUNSCHKARTE_PIROS
 	};

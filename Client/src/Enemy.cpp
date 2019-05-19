@@ -1,4 +1,5 @@
-#include "Enemy.h"
+#include "headers/Enemy.h"
+#include <chrono>
 
 Enemy::Enemy(Logic *logic)
 	:m_logic{logic}
@@ -27,14 +28,14 @@ void Enemy::drawCard(const Card &card)
 
 	std::array<std::string, 6> temp;
 
-	for (int i{ 0 }; i < m_logic->m_myFeed.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size(); ++i)
 	{
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
 	m_logic->m_myFeed[0] = "Gegner: Karte gezogen";
 
-	for (int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
+	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{
 		m_logic->m_myFeed[i + 1] = temp[i];
 	}
@@ -48,12 +49,17 @@ Card& Enemy::getCard(int index)
 void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 	bool wunschKarteAktiv, const Card &wunschKarte, int schwierigkeitsGrad)
 {
+
+	// time the algorithm runtime
+	// startpoint
+	auto start = std::chrono::steady_clock::now();
+
 	Card currentCard;
 	std::vector<int> saveCardPoints;
 
 	if (schwierigkeitsGrad == 0)
 	{
-		for (int i{ 0 }; i < m_enemyHand.size(); ++i)
+		for (unsigned int i{ 0 }; i < m_enemyHand.size(); ++i)
 		{
 			int holdPoints{ 0 };
 			if (m_enemyHand[i].getRank() == topOfCardStack.getRank())
@@ -112,11 +118,11 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 		}
 	}
 
-	for (int startIndex{ 0 }; startIndex < (saveCardPoints.size() - 1); ++startIndex)
+	for (unsigned int startIndex{ 0 }; startIndex < (saveCardPoints.size() - 1); ++startIndex)
 	{
 		int heightestIndex = startIndex;
 
-		for (int currentIndex = startIndex + 1; currentIndex < saveCardPoints.size(); ++currentIndex)
+		for (unsigned int currentIndex = startIndex + 1; currentIndex < saveCardPoints.size(); ++currentIndex)
 		{
 			if (saveCardPoints[currentIndex] > saveCardPoints[heightestIndex])
 				heightestIndex = currentIndex;
@@ -125,16 +131,20 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 		std::swap(saveCardPoints[startIndex], saveCardPoints[heightestIndex]);
 		std::swap(m_enemyHand[startIndex], m_enemyHand[heightestIndex]);
 	}
+
+	// endpoint
+	auto end = std::chrono::steady_clock::now();
+	std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " microseconds.\n";
 }
 
 void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 {
 	int amountPiros{ 0 };
 	int amountMock{ 0 };
-	int amountTöck{ 0 };
-	int amountZöld{ 0 };
+	int amountTOECK{ 0 };
+	int amountZOELD{ 0 };
 
-	for (int i{ 0 }; i < m_enemyHand.size(); ++i)
+	for (unsigned int i{ 0 }; i < m_enemyHand.size(); ++i)
 	{
 		if (m_enemyHand[i].getRank() == Card::SIEBEN)
 			continue;
@@ -143,20 +153,20 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 		{
 		case Card::PIROS:	++amountPiros;	break;
 		case Card::MOCK:	++amountMock;	break;
-		case Card::TÖCK:	++amountTöck;	break;
-		case Card::ZÖLD:	++amountZöld;	break;
+		case Card::TOECK:	++amountTOECK;	break;
+		case Card::ZOELD:	++amountZOELD;	break;
 		}
 	}
 
 
 	wunschKarte = card;
 
-	if (amountZöld > amountPiros && amountZöld > amountMock && amountZöld > amountTöck)
-		wunschKarte.setTyp(Card::ZÖLD);
-	if (amountMock > amountPiros && amountMock > amountTöck && amountMock > amountZöld)
+	if (amountZOELD > amountPiros && amountZOELD > amountMock && amountZOELD > amountTOECK)
+		wunschKarte.setTyp(Card::ZOELD);
+	else if (amountMock > amountPiros && amountMock > amountTOECK && amountMock > amountZOELD)
 		wunschKarte.setTyp(Card::MOCK);
-	if (amountTöck > amountPiros && amountTöck > amountMock && amountTöck > amountZöld)
-		wunschKarte.setTyp(Card::TÖCK);
-	if (amountPiros > amountMock && amountPiros > amountTöck && amountPiros > amountZöld)
+	else if (amountTOECK > amountPiros && amountTOECK > amountMock && amountTOECK > amountZOELD)
+		wunschKarte.setTyp(Card::TOECK);
+	else 
 		wunschKarte.setTyp(Card::PIROS);
 }
