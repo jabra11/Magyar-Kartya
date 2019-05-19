@@ -16,16 +16,6 @@ std::string get_userpath();
 
 int main()
 {
-	//TO-DO
-	/*
-		- fix design flaw in OnlineUser, Client, Host classes...  (..XD)
-
-		- Deck mischen im Onlinemodus
-		- Im Onlinemodus immer auf Reaktion vom Gegner beim Legen eines Buben warten (done)
-		- Onlinespiel nur mit selber Anzahl der Startkarten anfangen
-		- 
-	*/
-
 	int gewonnen{ 0 };
 	int verloren{ 0 };
 

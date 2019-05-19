@@ -8,7 +8,6 @@ Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, boo
 
 	m_graphicalCard.setOrigin((m_graphicalCard.getGlobalBounds().width / 2), (m_graphicalCard.getGlobalBounds().height / 2));
 	m_graphicalCard.scale(0.4f, 0.4f);
-	//m_graphicalCard.setOrigin(100.0f, 162.8f);
 	m_graphicalCard.setPosition(xPos, yPos);
 }
 
@@ -21,11 +20,6 @@ void Card::changeMoveStatus(bool status)
 {
 	m_canBeMoved = status;
 }
-
-/*const sf::Texture& Card::getTexture() const
-{
-	return m_graphicalCard.getTexture();
-}*/
 
 void Card::setTexture(const sf::Texture &texture)
 {

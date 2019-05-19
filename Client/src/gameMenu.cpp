@@ -17,10 +17,7 @@ void gameMenu(int& gewonnen, int& verloren)
 	if (icon.loadFromFile("resources/images/icon.jpg"))
 		gameWindow.setIcon(32, 32, icon.getPixelsPtr());
 
-	// will move this somewhere else later
 	gameWindow.setFramerateLimit(600);
-
-	//gameWindow.setVerticalSyncEnabled(true);
 
 
 	sf::Texture menu; 

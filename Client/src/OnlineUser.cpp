@@ -98,90 +98,6 @@ const sf::Socket::Status OnlineUser::receive_choice_information()
 	}
 }
 
-/*bool OnlineUser::request_deck_exchange(Deck& deck)
-{
-	m_socket.setBlocking(true);
-
-	Default_packet temp;
-	temp.is_valid = true;
-	temp.header = Header::SETUP_HEADER;
-	temp.exchange_deck = true;
-
-	send_choice_information();
-
-	sf::Packet packet;
-	packet << temp;
-	m_socket.send(packet);
-
-
-
-	std::cout << "Requested deck exchange.\nWaiting for answer..\n";
-	packet.clear();
-	flush_buffer(true);
-
-	if (m_socket.receive(packet) == sf::Socket::Done)
-	{
-		packet >> temp;
-
-		if (temp.is_valid && temp.header == Header::SETUP_HEADER
-			&& temp.exchange_deck)
-			std::cout << "Request has been accepted.\n";
-	}
-	else
-	{
-		std::cout << "Request has been declined.\n";
-		return false;
-	}
-
-	if (m_is_host)
-		send_deck_information(deck);
-	else
-		receive_deck_information(deck);
-
-	return true;
-	/*
-	packet.clear();
-
-
-
-	m_socket.receive(packet);
-
-	packet >> temp;
-
-	if (temp.is_valid && temp.header == Header::SETUP_HEADER
-		&& temp.exchange_deck)
-	{
-		std::cout << "Requested deck exchange.\n";
-		return true;
-	}
-	else
-		std::cerr << "Request to exchange deck information has failed!\n";
-}*/
-
-/*bool OnlineUser::accept_deck_exchange()
-{
-	m_socket.setBlocking(true);
-	
-	Default_packet temp;
-	temp.is_valid = true;
-	temp.header = Header::SETUP_HEADER;
-	temp.exchange_deck = true;
-
-	sf::Packet packet;
-	packet << temp;
-
-	if (m_socket.send(packet) == sf::Socket::Done)
-	{
-		std::cout << "Answered request.\n";
-		return true;
-	}
-	else
-	{
-		std::cout << "Failed to answer request.\n";
-		return false;
-	}
-}*/
-
 OnlineUser::Default_packet& OnlineUser::modify_buffer(bool player)
 {
 	if (player)
@@ -215,7 +131,6 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 	for (int i{ 0 }; true;)
 	{
 		sf::Packet temp;
-		//std::cout << "connected to " << m_socket.getRemoteAddress() << std::endl;
 		m_socket.receive(temp);
 		Default_packet card;
 		temp >> card;
@@ -235,8 +150,6 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 			counter = i;
 			break;
 		}
-		/*else if (!card.is_valid && card.header != OnlineUser::Header::SETUP_HEADER)
-			assert(false && "ERROR in Client::receive_deck_information()");*/
 	}
 
 	std::cout << "Deck is syncronized. Received " << counter << " Cards.\n";

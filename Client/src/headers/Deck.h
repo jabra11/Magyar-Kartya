@@ -19,8 +19,6 @@ private:
 	std::array<short, 1000> number_list{};
 
 public:
-	// to keep onlineplay in sync
-	//std::deque<int>* generator{ nullptr };
 
 	std::vector<Card> m_deck;
 

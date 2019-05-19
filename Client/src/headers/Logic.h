@@ -42,8 +42,6 @@ public:
 	const bool playerSkips() const;
 	const bool enemySkips() const; 
 
-	//void drawsCard(bool player);
-
 	void resetFeed();
 
 	void resetStatuses();

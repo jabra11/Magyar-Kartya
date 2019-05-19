@@ -94,10 +94,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	card_stack.push_back(deck.dealCard());
 
-	////////////////////////////////
-	//logic.m_sizeOfStartHand = 1;
-	////////////////////////////////
-
 	bool mouse_left_pressed{ false };
 	bool mouse_left_released{ false };
 
@@ -164,7 +160,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	{
 		// in the host session, the enemy is the first to play
 		logic.m_playersTurn = false;
-		std::cout << "LINE 124.\n";
 		logic.m_enemysTurn = true;
 	}
 	else
@@ -386,7 +381,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					player.drawCard(deck.dealCard(player.getCoord(mouse_left_pressed), card_stack));
 					logic.m_enemysTurn = true;
 					logic.m_playersTurn = false;
-					std::cout << "LINE 339.\n";
 
 					if (is_hosting)
 						player.m_host.send_choice_information();
@@ -425,11 +419,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 					std::thread get_enemys_move{ &OnlineEnemy::getNextMove, &enemy, &error_flag };
 					get_enemys_move.detach();
-					//get_enemys_move.join();
-				}
-				else
-				{
-					//std::cout << "waiting for thread to deliver results..\n";
 				}
 				if (thread_has_been_enlisted)
 				{
@@ -453,7 +442,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					}
 					else
 					{
-						//std::cerr << "ERROR: thread hasn't received valid results yet.\n";
 						thread_is_ready = false;
 					}
 				}
@@ -482,9 +470,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 								// invalidate old packet
 								enemys_move->is_valid = false;
-
-								//thread_has_been_enlisted = false;
-								//break;
 							}
 						}
 
@@ -503,7 +488,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							if (enemy.m_enemyHand[index_of_enemy_card].getRank() == Card::BUBE)
 							{
 								std::cout << "enemys seems to be having to draw\n";
-								//has_drawcards = true;
 								logic.m_enemysTurn = false;
 								logic.m_playersTurn = true;
 								logic.m_enemyHasToDraw = false;
@@ -526,13 +510,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 								logic.m_enemysTurn = false;
 								logic.m_playersTurn = true;
 								logic.m_enemyHasToDraw = false;
-
-								/*if (is_hosting)
-									enemy.m_host->flush_buffer(false);
-								else
-									enemy.m_client->flush_buffer(false);*/
-
-								// allow to enlist new thread next iteration
 								thread_has_been_enlisted = false;
 								continue;
 							}
@@ -556,12 +533,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							enemy.dealCard(index_of_enemy_card);
 							logic.m_enemysTurn = false;
 							logic.m_playersTurn = true;
-
-							/*if (is_hosting)
-								enemy.m_host->flush_buffer(false);
-							else
-								enemy.m_client->flush_buffer(false);*/
-
 
 							if (enemy.getHandSize() == 0)
 								return ReturnCodes::LOST;
@@ -597,11 +568,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 									enemy.drawCard(deck.dealCard(sf::Vector2f{ windowSettings::windowX / 3 + enemy.m_xOffset, 125 }, card_stack));
 								enemy.m_xOffset += 50;
 							}
-
-							/*if (is_hosting)
-								enemy.m_host->flush_buffer(false);
-							else
-								enemy.m_client->flush_buffer(false);*/
 
 							logic.m_enemyHasToDraw = false;
 							logic.m_amountOfCardsToDraw = 0;
@@ -694,8 +660,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		// Only to test, will replace with If-else 
 		if (logic.m_enemysTurn)
 			turn_info.setString("Enemy's turn");
-		
-		if (logic.m_playersTurn)
+		else
 			turn_info.setString("Your turn");
 			
 		gameWindow.draw(turn_info);

@@ -47,8 +47,6 @@ public:
 	const bool getMoveStatus() const;
 	void changeMoveStatus(bool status);
 
-	//const sf::Texture& getTexture() const;
-
 	// set a texture based on parameter input
 	void setTexture(const sf::Texture &texture);
 

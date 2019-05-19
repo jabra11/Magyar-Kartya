@@ -12,12 +12,7 @@
 class TextureHandler
 {
 public:
-	void init_all();
-
-
 	static void init_font(sf::Font& init_this);
-
-	void set_font(sf::Font& copy_from);
 
 	static void init_backcard(std::array<sf::Texture, 4>& rueckseiten);
 

@@ -27,7 +27,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host,
 	int& wins, int& loses)
 {
-	// do global texture init
 	sf::RectangleShape playTable(sf::Vector2f(windowSettings::windowX, windowSettings::windowY));
 	playTable.setTexture(&playTableTexture);
 	sf::Font myFont;
@@ -70,7 +69,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	lost_connection.setPosition(windowSettings::windowX / 20 * 10 - lost_connection.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 4);
 
-	//OnlinePlayer player{ &logic, port};
 	Host host{ port, is_host };
 	Client client{ port, is_host };
 	
@@ -95,7 +93,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			{
 				if (!is_host && !setup_finished)
 				{
-					//std::cout << evnt.text.unicode << std::endl;
 					if (evnt.text.unicode == BACKSPACE)
 					{
 						if (player_input.getSize() > 0)
@@ -225,7 +222,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			{
 				disconnected = true;
 				setup_finished = false;
-				//host.m_found_a_connection = false;
 
 				result = ReturnCodes::PLACEHOLDER;
 			}

@@ -10,7 +10,6 @@ public:
 	// Returns True if a connection has been established
 	bool connect_to_user();
 
-	//void receive_deck_information(Deck& copy_to_this);
 
 	void set_IP_address(const std::string& address);
 

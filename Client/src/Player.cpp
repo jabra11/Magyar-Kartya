@@ -1,10 +1,5 @@
 #include "headers/Player.h"
 
-/*Player::Player(float xDefaultVal, float yDefaultVal)
-	:m_xDefaultVal{xDefaultVal}, m_yDefaultVal{yDefaultVal}
-{
-}*/
-
 Player::Player(Logic *logic)
 	:m_logic{ logic }
 {
@@ -56,20 +51,13 @@ sf::Vector2f Player::getCoord(bool &mouseLeftPressed)
 	int iteration{ 0 };
 	do
 	{
-		//std::cout << ++iteration << "\n";
 		for (int outer{ 0 }; outer < getHandSize(); ++outer)
 		{
 			if (static_cast <int>(getCard(outer).getGraphicalCard().getPosition().x) ==
 				static_cast<int>(m_xDefaultVal + m_xOffset) &&
 				static_cast <int>(getCard(outer).getGraphicalCard().getPosition().y) ==
 				static_cast<int>(m_yDefaultVal + m_yOffset))
-			{
-				
-				/*std::cout << "X of Card: " << getCard(outer).getGraphicalCard().getPosition().x << "\n" <<
-					"Y of Card: " << getCard(outer).getGraphicalCard().getPosition().y << "\n\n" <<
-					"X of calculated Pos: " << m_xDefaultVal + m_xOffset << "\n" <<
-					"Y if calculated Pos: " << m_yDefaultVal + m_yOffset << "\n";*/
-				
+			{				
 				noSpace = true;
 				break;
 			}
@@ -100,6 +88,5 @@ sf::Vector2f Player::getCoord(bool &mouseLeftPressed)
 		}
 	} while (noSpace);
 
-	//std::cout << "x offset: " << m_xOffset << "\n" << "y offset: " << m_yOffset << "\n";
 	return sf::Vector2f(m_xDefaultVal+m_xOffset,m_yDefaultVal+ m_yOffset);
 }

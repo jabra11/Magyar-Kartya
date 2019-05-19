@@ -117,7 +117,6 @@ int singleplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Tex
 		float xOffset{ 0 };
 		for (unsigned int i{ 0 }; i < killFeed.size(); ++i)
 		{
-			//std::cout << logic.getFeedString(i);
 			killFeed[i] = sf::Text(logic.getFeedString(i), myFont, 20u);
 			killFeed[i].setPosition(10, ((windowSettings::windowY * 0.13) - xOffset));
 			xOffset += 25;

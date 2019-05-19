@@ -18,25 +18,10 @@ Deck::Deck()
 		element = dis(gen);
 	}
 
-
-	int temp{ 0 };
-
 	for (int typ{ 0 }; typ < Card::MAX_TYPES; ++typ)
 		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
 		{
 			m_deck.push_back(Card(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank)));
-			
-			
-			// testing purposes
-			if (false)
-			{
-				if (temp % 1 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
-				if (temp % 6 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::DAME);
-				if (temp % 2 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::SIEBEN);
-				if (temp % 4 == 0) m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
-				m_deck[temp] = Card(Card::CardTyp::PIROS, Card::CardRank::ASS);
-				++temp;
-			}
 		}
 
 	shuffleDeck();
@@ -104,7 +89,6 @@ Card& Deck::dealCard()
 {
 	m_temp = m_deck.back();
 	m_deck.pop_back();
-	//std::cout << "size of deck" << m_deck.size() << "\n";
 	return m_temp;
 }
 

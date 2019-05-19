@@ -62,15 +62,12 @@ public:
 	// connection and writes it into m_buffer
 	const sf::Socket::Status receive_choice_information();
 
-	// Request to syncronize the deck after it had been reshuffled
-	//bool request_deck_exchange(Deck& deck);
-	//bool accept_deck_exchange();
-
-	// ... 
-	void receive_deck_information(Deck& write_to_this);
-
 	// Sends the deck in the parameter to the connected TCP-Socket.
 	void send_deck_information(Deck& send_this);
+
+	// Writes from the connected TCP-Socket received information to the parameter
+	void receive_deck_information(Deck& write_to_this);
+
 
 
 protected:
@@ -82,7 +79,7 @@ protected:
 
 
 public:
-	// a buffer holding information to be send after each turn
+	// buffers holding information to be send after each turn
 	Default_packet m_buffer_player;
 	Default_packet m_buffer_enemy;
 
