@@ -51,10 +51,15 @@ void initializeStats(int& gewonnen, int& verloren)
 	}
 
 	std::fstream wins;
-	wins.open(path + "/MagyarKartya/stats/wins.txt", std::ios::out);
+	wins.open(path + "/MagyarKartya/stats/wins.txt");
+	if (!wins)
+		wins.open(path + "/MagyarKartya/stats/wins.txt", std::ios::out);
+
 
 	std::fstream loses;
-	loses.open(path + "/MagyarKartya/stats/loses.txt", std::ios::out);
+	loses.open(path + "/MagyarKartya/stats/loses.txt");
+	if (!loses)
+		loses.open(path + "/MagyarKartya/stats/loses.txt", std::ios::out);
 
 
 	if (wins.is_open() && loses.is_open())
