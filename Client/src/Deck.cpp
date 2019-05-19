@@ -55,13 +55,10 @@ void Deck::shuffleDeck()
 {
 	if (client || host)
 	{
-		// reference to dereferenced poiter for qol
-
-
-		// shuffle deck based on a given list of numbers (generator parameter)
-		for (int o = 0; o < this->getSize(); ++o)
+		// shuffle deck based on a given list of numbers (number_list)
+		for (unsigned int o = 0; o < this->getSize(); ++o)
 		{
-			for (int i = 0; i < number_list.size(); ++i)
+			for (unsigned int i = 0; i < number_list.size(); ++i)
 			{
 				if (number_list[i] <= this->getSize() - 1)
 				{

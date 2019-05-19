@@ -41,11 +41,6 @@ bool Host::wait_for_connection(bool* done)
 		*done = false;
 		return false;
 	}
-	
-
-	// disable blocking to allow for smooth gameplay
-	m_listener.setBlocking(false);
-	m_socket.setBlocking(false);
 }
 
 /*void Host::send_deck_information(Deck& deck_to_send)

@@ -6,7 +6,7 @@
 
 int singleplayer_setup(sf::RenderWindow& renderWindow, Logic& logic, const sf::Texture& playTableTexture,
 	int& wins, int& loses);
-int multiplayerSetup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host,
+int multiplayer_setup(sf::RenderWindow& renderWindow, Logic &logic, const sf::Texture &playTableTexture, const bool host,
 	int& wins, int& loses);
 
 void gameMenu(int& gewonnen, int& verloren)
@@ -112,13 +112,11 @@ void gameMenu(int& gewonnen, int& verloren)
 		{
 			// SINGLEPLAYER
 			if (play.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-			{
 				singleplayer_setup(gameWindow, logic, textureToPass, gewonnen, verloren);
-			}
 
 			// MULTIPLAYER
 			if (multiplayerText.getGlobalBounds().contains(mousePos) && !showStats && !showOptions)
-				int gameStatus{ multiplayerSetup(gameWindow, logic, textureToPass, host, gewonnen, verloren) };
+				multiplayer_setup(gameWindow, logic, textureToPass, host, gewonnen, verloren);
 
 			if (stats.getGlobalBounds().contains(mousePos) && !showOptions)
 			{

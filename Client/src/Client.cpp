@@ -10,19 +10,6 @@ Client::Client(unsigned short port, bool is_host)
 
 bool Client::connect_to_user()
 {
-	/*
-	sf::Socket::Status status{ m_socket.connect(m_address_of_other_user, m_port) };
-	while (status != sf::Socket::Done)
-	{
-		std::cerr << "not done!\n";
-		status = m_socket.connect(m_address_of_other_user, m_port);
-	}	
-
-	std::cout << "Successfully connected to " << m_address_of_other_user << '\n';
-
-	return true;
-	*/
-	
 	// enable blocking to safely establish a connection
 	m_socket.setBlocking(true);
 	if (m_socket.connect(m_address_of_other_user, m_port, sf::Time(sf::seconds(3.0f))) == sf::Socket::Done)
@@ -32,26 +19,10 @@ bool Client::connect_to_user()
 	}
 
 	else
+	{
 		std::cerr << "Couldn't connect to " << m_address_of_other_user << ".\n";
-
-	//disable blocking to allow smooth iterations
-	m_socket.setBlocking(false);
-	
-
-
-	/*
-
-	if (m_socket.connect(m_address_of_other_user, m_port) == sf::Socket::Done)
-	{
-		std::cout << "Successfully connected to " << m_address_of_other_user << '\n';
-		return true;
-	}
-
-	else
-	{
-		std::cerr << "Couldn't connect to " << m_address_of_other_user << '\n';
 		return false;
-	}*/
+	}
 }
 
 /*void Client::receive_deck_information(Deck& deck_to_copy_in)

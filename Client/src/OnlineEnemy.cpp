@@ -2,8 +2,8 @@
 
 
 
-OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, std::vector<Card>* card_stack,
-	int port, bool is_hosting)
+OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, 
+						std::vector<Card>* card_stack,bool is_hosting)
 	:m_client{ client }, m_host{ host }, m_card_stack{ card_stack },
 	m_logic{ logic }, m_deck{ deck }, m_is_hosting{ is_hosting }
 {

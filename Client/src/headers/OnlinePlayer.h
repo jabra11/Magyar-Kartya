@@ -9,7 +9,7 @@ class OnlinePlayer : public Player
 
 public: // functions
 
-	OnlinePlayer(Logic *logic, int port, Client& client, Host& host);
+	OnlinePlayer(Logic *logic, Client& client, Host& host);
 
 	void dealCard(int card_to_deal, std::vector<Card>& card_stack) override;
 	void drawCard(const Card& card, const int how_many = 1);

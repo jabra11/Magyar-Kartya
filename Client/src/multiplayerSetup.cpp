@@ -24,7 +24,7 @@
 
 int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, bool is_host);
 
-int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host,
+int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Texture& playTableTexture, const bool is_host,
 	int& wins, int& loses)
 {
 	// do global texture init
@@ -170,6 +170,8 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 
 			if (host.m_found_a_connection)
 			{
+				host.m_found_a_connection = false;
+
 				player_text.setString("Found a connection.\n");
 				player_text.setCharacterSize(50);
 				player_text.setPosition(windowSettings::windowX / 2 - player_text.getGlobalBounds().width / 2,
@@ -223,7 +225,7 @@ int multiplayerSetup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Textu
 			{
 				disconnected = true;
 				setup_finished = false;
-				host.m_found_a_connection = false;
+				//host.m_found_a_connection = false;
 
 				result = ReturnCodes::PLACEHOLDER;
 			}

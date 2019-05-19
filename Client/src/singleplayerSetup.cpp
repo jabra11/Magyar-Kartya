@@ -53,7 +53,10 @@ int singleplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Tex
 		while (gameWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				gameWindow.close();
+				return ReturnCodes::EXIT;
+			}
 
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
@@ -124,4 +127,7 @@ int singleplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Tex
 		// display
 		gameWindow.display();
 	}
+
+	// Return EXIT when the window has been closed.
+	return ReturnCodes::EXIT;
 }

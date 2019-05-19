@@ -57,9 +57,9 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	constexpr unsigned short port{ 55000 };
 
-	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, port, true };
+	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, true };
 
-	OnlinePlayer player{&logic, port, client, host };
+	OnlinePlayer player{&logic, client, host };
 
 	sf::Socket::Status error_flag{ sf::Socket::Status::NotReady };
 
@@ -95,7 +95,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	card_stack.push_back(deck.dealCard());
 
 	////////////////////////////////
-	logic.m_sizeOfStartHand = 1;
+	//logic.m_sizeOfStartHand = 1;
 	////////////////////////////////
 
 	bool mouse_left_pressed{ false };
@@ -406,8 +406,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		{
 			for (int i{ 0 }; i < 1; ++i)
 			{
-				bool has_drawcards{ false };
-
 				if (logic.enemySkips() && logic.m_enemysTurn)
 				{
 					logic.m_enemysTurn = false;
@@ -630,7 +628,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		gameWindow.draw(playTable);
 
 		// draw playerHand
-		int xOffSet{ 0 };
 		for (int i{ 0 }; i < player.getHandSize(); ++i)
 		{
 			sf::Vector2f position{ player.getCard(i).getGraphicalCard().getPosition() };
@@ -718,8 +715,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		gameWindow.display();
 	}
 
-
-	// preliminary return statement
-	//return ReturnCodes::EXIT;
-	///////////////////////////////
+	// return exit if the gameWindow was closed
+	return ReturnCodes::EXIT;
 }

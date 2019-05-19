@@ -1,6 +1,6 @@
 #include "headers/OnlinePlayer.h"
 
-OnlinePlayer::OnlinePlayer(Logic* logic, int port, Client& client, Host& host)
+OnlinePlayer::OnlinePlayer(Logic* logic, Client& client, Host& host)
 	:Player{ logic },
 	m_client{client}, m_host{host}
 {
