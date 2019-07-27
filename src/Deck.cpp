@@ -1,11 +1,11 @@
-#include "headers/Deck.hpp"
+#include "Deck.hpp"
 #include <random>
 #include <cassert>
 #include <thread>
 
-#include "headers/Client.hpp"
-#include "headers/Host.hpp"
-#include "headers/OnlineUser.hpp"
+#include "Client.hpp"
+#include "Host.hpp"
+#include "OnlineUser.hpp"
 
 Deck::Deck()
 {

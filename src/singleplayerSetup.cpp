@@ -1,7 +1,7 @@
 #include "SFML/Graphics.hpp"
 
-#include "headers/Logic.hpp"
-#include "headers/ReturnCodes.hpp"
+#include "Logic.hpp"
+#include "ReturnCodes.hpp"
 
 
 

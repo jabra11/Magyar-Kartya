@@ -1,8 +1,8 @@
 #include "SFML/Graphics.hpp"	
-#include "headers/windowSettings.hpp"
+#include "windowSettings.hpp"
 #include <iostream>
-#include "headers/Logic.hpp"
-#include "headers/ReturnCodes.hpp"
+#include "Logic.hpp"
+#include "ReturnCodes.hpp"
 
 int singleplayer_setup(sf::RenderWindow& renderWindow, Logic& logic, const sf::Texture& playTableTexture,
 	int& wins, int& loses);

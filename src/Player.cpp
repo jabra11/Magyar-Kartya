@@ -1,4 +1,4 @@
-#include "headers/Player.hpp"
+#include "Player.hpp"
 
 Player::Player(Logic *logic)
 	:m_logic{ logic }

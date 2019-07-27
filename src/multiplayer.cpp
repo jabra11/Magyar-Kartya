@@ -6,12 +6,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "headers/Logic.hpp"
-#include "headers/OnlinePlayer.hpp"
-#include "headers/OnlineEnemy.hpp"
-#include "headers/textureHandler.hpp"
-#include "headers/Card.hpp"
-#include "headers/ReturnCodes.hpp"
+#include "Logic.hpp"
+#include "OnlinePlayer.hpp"
+#include "OnlineEnemy.hpp"
+#include "textureHandler.hpp"
+#include "Card.hpp"
+#include "ReturnCodes.hpp"
 
 int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, const bool is_hosting = true)
 {

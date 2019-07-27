@@ -4,9 +4,9 @@
 #define NOMINMAX
 #include <UserEnv.h>
 
-#include "headers/textureArray.hpp"
-#include "headers/Logic.hpp"
-#include "headers/windowSettings.hpp"
+#include "textureArray.hpp"
+#include "Logic.hpp"
+#include "windowSettings.hpp"
 
 
 void gameMenu(int &gewonnen, int &verloren);

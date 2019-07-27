@@ -1,4 +1,4 @@
-#include "headers/Card.hpp"
+#include "Card.hpp"
 
 
 Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, bool canBeMoved)

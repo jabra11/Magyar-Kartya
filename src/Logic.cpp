@@ -1,4 +1,4 @@
-#include "headers/Logic.hpp"
+#include "Logic.hpp"
 
 Logic::Logic()
 {

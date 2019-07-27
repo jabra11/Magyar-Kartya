@@ -5,15 +5,15 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "headers/Card.hpp"
-#include "headers/Deck.hpp"
-#include "headers/textureArray.hpp"
-#include "headers/OnlineEnemy.hpp"
-#include "headers/OnlinePlayer.hpp"
-#include "headers/Logic.hpp"
-#include "headers/Client.hpp"
-#include "headers/Host.hpp"
-#include "headers/ReturnCodes.hpp"
+#include "Card.hpp"
+#include "Deck.hpp"
+#include "textureArray.hpp"
+#include "OnlineEnemy.hpp"
+#include "OnlinePlayer.hpp"
+#include "Logic.hpp"
+#include "Client.hpp"
+#include "Host.hpp"
+#include "ReturnCodes.hpp"
 
 // key macros expanding unicodes
 

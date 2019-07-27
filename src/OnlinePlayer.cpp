@@ -1,4 +1,4 @@
-#include "headers/OnlinePlayer.hpp"
+#include "OnlinePlayer.hpp"
 
 OnlinePlayer::OnlinePlayer(Logic* logic, Client& client, Host& host)
 	:Player{ logic },

@@ -29,20 +29,20 @@ set(project_sources
     src/windowSettings.cpp)
 
 set(project_headers
-    src/headers/Card.hpp
-    src/headers/Client.hpp
-    src/headers/Deck.hpp
-    src/headers/Enemy.hpp
-    src/headers/Host.hpp
-    src/headers/Logic.hpp
-    src/headers/OnlineEnemy.hpp
-    src/headers/OnlinePlayer.hpp
-    src/headers/OnlineUser.hpp
-    src/headers/Player.hpp
-    src/headers/ReturnCodes.hpp
-    src/headers/textureArray.hpp
-    src/headers/TextureHandler.hpp
-    src/headers/windowSettings.hpp)
+    src/Card.hpp
+    src/Client.hpp
+    src/Deck.hpp
+    src/Enemy.hpp
+    src/Host.hpp
+    src/Logic.hpp
+    src/OnlineEnemy.hpp
+    src/OnlinePlayer.hpp
+    src/OnlineUser.hpp
+    src/Player.hpp
+    src/ReturnCodes.hpp
+    src/textureArray.hpp
+    src/TextureHandler.hpp
+    src/windowSettings.hpp)
 
 add_executable(${PROJECT_NAME} ${project_sources} ${project_headers})
 

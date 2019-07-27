@@ -1,4 +1,4 @@
-#include "headers/windowSettings.hpp"
+#include "windowSettings.hpp"
 
 namespace windowSettings
 {
