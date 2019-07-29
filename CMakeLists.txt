@@ -1,10 +1,14 @@
-cmake_minimum_required(VERSION 3.15.0)
+cmake_minimum_required(VERSION 3.14.0)
 
 project (MagyarKartya LANGUAGES CXX)
 
+set (CMAKE_CXX_STANDARD 17)
+
+set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML)
+
 find_package(SFML COMPONENTS graphics window network system)
 
-include_directories(C:/Program Files (x86)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
+include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
 
 
 set(project_sources 
@@ -47,11 +51,12 @@ set(project_headers
 add_executable(${PROJECT_NAME} ${project_sources} ${project_headers})
 
 target_link_libraries(${PROJECT_NAME}
-    sfml-graphics
-    sfml-audio
-    sfml-network
-    sfml-system
-    UserEnv)
+        stdc++fs
+        sfml-graphics
+        sfml-audio
+        sfml-network
+        sfml-system
+        UserEnv)
 
 
 

@@ -15,7 +15,7 @@
 
 int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleShape& playTable, Client& client, Host& host, const bool is_hosting = true)
 {
-	// init rückseiten array
+	// init rÃ¼ckseiten array
 	auto rueckseiten = std::array<sf::Texture, 4>{};
 	TextureHandler::init_backcard(rueckseiten);
 

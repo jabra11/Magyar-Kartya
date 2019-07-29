@@ -35,7 +35,7 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	bool setup_finished{ false };
 	int result{ ReturnCodes::PLACEHOLDER };
 	bool play_again{ true };
-	constexpr unsigned short port{ unsigned short(55000) };
+	constexpr unsigned short port{ 55000 };
 
 
 	sf::Event evnt;
