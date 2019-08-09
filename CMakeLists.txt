@@ -4,6 +4,7 @@ project (MagyarKartya LANGUAGES CXX)
 
 set (CMAKE_CXX_STANDARD 17)
 
+# set path to SFML's cmake config files
 set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML)
 
 find_package(SFML COMPONENTS graphics window network system)
@@ -48,16 +49,12 @@ set(project_headers
     src/TextureHandler.hpp
     src/windowSettings.hpp)
 
-add_executable(${PROJECT_NAME} ${project_sources} ${project_headers})
+add_executable(MagyarKartya ${project_sources} ${project_headers})
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(MagyarKartya
         stdc++fs
         sfml-graphics
         sfml-audio
         sfml-network
         sfml-system
         UserEnv)
-
-
-
-
