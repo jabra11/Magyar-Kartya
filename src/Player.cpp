@@ -5,6 +5,21 @@ Player::Player(Logic *logic)
 {
 }
 
+void Player::move_card(sf::Vector2f new_pos, int card_index)
+{
+	if (move_info.currently_moving && move_info.index_of_card != card_index)
+		getCard(move_info.index_of_card).setPosition(new_pos.x, new_pos.y);
+
+	else if (move_info.currently_moving && move_info.index_of_card == card_index)
+		getCard(card_index).setPosition(new_pos.x, new_pos.y);
+
+	else
+	{
+		move_info.currently_moving = true;
+		move_info.index_of_card = card_index;
+		getCard(card_index).setPosition(new_pos.x, new_pos.y);
+	}
+}
 
 void Player::dealCard(int cardToDeal, std::vector<Card> &cardStack)
 {
@@ -42,6 +57,11 @@ void Player::drawCard(const Card &card)
 Card& Player::getCard(int index)
 {
 	return m_playerHand[index];
+}
+
+void Player::set_moving_status(bool moving)
+{
+	move_info.currently_moving = moving;
 }
 
 sf::Vector2f Player::getCoord(bool &mouseLeftPressed)

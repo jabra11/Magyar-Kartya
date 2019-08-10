@@ -276,7 +276,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 				{
 					if (player.getCard(i).m_graphicalCard.getGlobalBounds().contains(mouse_pos))
 					{
-						player.getCard(i).getGraphicalCard().setPosition(mouse_pos);
+						player.move_card(mouse_pos, i);
 						break;
 					}
 				}
@@ -390,6 +390,8 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					continue;
 				}
 			}
+			else
+				player.set_moving_status(false);
 		}
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
