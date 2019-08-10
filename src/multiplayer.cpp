@@ -55,7 +55,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	auto card_stack = std::vector<Card>{};
 
-	constexpr unsigned short port{ 55000 };
+	constexpr unsigned short port{ 55000u };
 
 	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, true };
 
@@ -83,14 +83,16 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		player.set_host_status(false);
 	}
 
-
 	logic.resetFeed();
 	logic.resetStatuses();
 
 	if (is_hosting)
 		player.m_host.send_deck_information(deck);
 	else
-		player.m_client.receive_deck_information(deck);
+	{
+		if (!player.m_client.receive_deck_information(deck))
+			return ReturnCodes::LOST_CONNECTION;
+	}
 
 	card_stack.push_back(deck.dealCard());
 
@@ -176,7 +178,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		sf::Vector2f mouse_pos{ sf::Mouse::getPosition(gameWindow) };
 		std::string wrong_card_string;
 		bool wrong_card{ false };
-
 
 		while (gameWindow.pollEvent(evnt))
 		{
@@ -276,7 +277,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 				{
 					if (player.getCard(i).m_graphicalCard.getGlobalBounds().contains(mouse_pos))
 					{
-						player.getCard(i).getGraphicalCard().setPosition(mouse_pos);
+						player.move_card(mouse_pos, i);
 						break;
 					}
 				}
@@ -390,6 +391,8 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					continue;
 				}
 			}
+			else
+				player.set_moving_status(false);
 		}
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -445,7 +448,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						thread_is_ready = false;
 					}
 				}
-
 
 				if (thread_is_ready && logic.m_enemysTurn && enemys_move->is_valid)
 				{

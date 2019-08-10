@@ -193,7 +193,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 				{
 					if (player.getCard(i).m_graphicalCard.getGlobalBounds().contains(sf::Vector2f(mousePos)))
 					{
-						player.getCard(i).getGraphicalCard().setPosition(mousePos);
+						player.move_card(mousePos, i);
 						break;
 					}
 				}
@@ -263,6 +263,8 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 					continue;
 				}
 			}
+			else
+				player.set_moving_status(false);
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////////////////// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP //// ENEMY LOOP /////////////////////////

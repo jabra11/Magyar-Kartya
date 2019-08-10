@@ -3,11 +3,6 @@
 
 class Logic
 {
-private:
-
-	int m_wunschKarteSpam{ 1 };
-
-	std::array<std::string, 6> m_myFeed{ "" };
 public:
 
 	bool m_startWunschKarteAktiv{ false };
@@ -26,11 +21,8 @@ public:
 	sf::Sprite m_SpriteWunschkarte;
 	int m_sizeOfStartHand{ 5 };
 
-public:
 	bool m_playersTurn{ true };
 	bool m_enemysTurn{ false };
-
-public:
 
 	Logic();
 
@@ -62,10 +54,10 @@ public:
 	{
 		switch (m_wunschkarte.getTyp())
 		{
-		case Card::PIROS:   return "Wunschkarte aktiv: Piros"; break;
-		case Card::TOECK:	return "Wunschkarte aktiv: Toeck"; break;
-		case Card::MOCK:    return "Wunschkarte aktiv: Mock"; break;
-		case Card::ZOELD:    return "Wunschkarte aktiv: Zoeld"; break;
+		case Card::PIROS:	return "Wunschkarte aktiv: Piros";	break;
+		case Card::TOECK:	return "Wunschkarte aktiv: Toeck";	break;
+		case Card::MOCK:    return "Wunschkarte aktiv: Mock";	break;
+		case Card::ZOELD:	return "Wunschkarte aktiv: Zoeld";	break;
 		default: std::cout << "Could not get a name (getWunschkartenName())";
 		}
 	}
@@ -75,5 +67,11 @@ public:
 	friend class Enemy;
 	friend class OnlinePlayer;
 	friend class OnlineEnemy;
+
+private:
+
+	int m_wunschKarteSpam{ 1 };
+
+	std::array<std::string, 6> m_myFeed{ "" };
 };
 

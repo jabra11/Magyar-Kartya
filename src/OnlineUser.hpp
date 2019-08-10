@@ -66,7 +66,7 @@ public:
 	void send_deck_information(Deck& send_this);
 
 	// Writes from the connected TCP-Socket received information to the parameter
-	void receive_deck_information(Deck& write_to_this);
+	bool receive_deck_information(Deck& write_to_this);
 
 
 

@@ -38,6 +38,7 @@ void OnlineUser::send_choice_information()
 		std::cout << "packet isn't valid\n";
 
 	std::cout << "Sending packet..\n";
+
 	if (m_socket.send(temp) == sf::Socket::Done)
 		std::cout << "Successfully sent packet. # " << ++counter << "\n";
 
@@ -119,7 +120,7 @@ void OnlineUser::flush_buffer(bool player)
 		m_buffer_enemy = OnlineUser::Default_packet{};
 }
 
-void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
+bool OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 {
 	m_socket.setBlocking(true);
 
@@ -131,7 +132,8 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 	for (int i{ 0 }; true;)
 	{
 		sf::Packet temp;
-		m_socket.receive(temp);
+		if (m_socket.receive(temp) != sf::Socket::Done)
+			return false;
 		Default_packet card;
 		temp >> card;
 
@@ -154,6 +156,8 @@ void OnlineUser::receive_deck_information(Deck& deck_to_copy_in)
 
 	std::cout << "Deck is syncronized. Received " << counter << " Cards.\n";
 	m_socket.setBlocking(false);
+
+	return true;
 }
 
 void OnlineUser::send_deck_information(Deck& deck_to_send)
