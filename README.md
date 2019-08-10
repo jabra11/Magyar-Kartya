@@ -4,7 +4,7 @@ This game is modelled after the Hungarian cardgame Magyar Kartya. It has a singl
 
 
 ### Contributing
-This project is currently using a Windows specific library and is therefore limited only to users with access to Win32 API.
+This project is currently using a Windows specific library and is therefore limited only to users with access to the Win32 API.
 
 ### Building on Windows
 1. Download the appropriate version of SFML(64bit) from [SFML](https://www.sfml-dev.org/download/sfml/2.5.1/).
