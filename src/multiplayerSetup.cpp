@@ -17,8 +17,8 @@
 
 // key macros expanding unicodes
 
-#define BACKSPACE			0x00000008
-#define ENTER_ON_WINDOWS	0x0000000D
+#define BACKSPACE			0x0008
+#define ENTER_ON_WINDOWS	0x000D
 //////////////////////////////////////
 
 
@@ -37,6 +37,8 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	bool play_again{ true };
 	constexpr unsigned short port{ 55000 };
 
+	// disable cheats in online mode
+	logic.m_viewEnemyHand = false;
 
 	sf::Event evnt;
 	sf::String player_input{ "LOCALHOST" };
@@ -72,6 +74,8 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	Host host{ port, is_host };
 	Client client{ port, is_host };
 	
+	std::array<sf::Text, 5> killFeed;
+
 	bool has_won{ false };
 	bool disconnected{ false };
 
@@ -80,7 +84,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	while (gameWindow.isOpen())
 	{
 		sf::Vector2f mouse_pos{ sf::Mouse::getPosition(gameWindow) };
-
 
 		while (gameWindow.pollEvent(evnt))
 		{
@@ -101,15 +104,14 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 							player_text.setString(player_input);
 						}
 					}
-
 					else if (evnt.text.unicode == ENTER_ON_WINDOWS)
 					{
 						if (player_input.getSize() > 0)
 						{
 							client.set_IP_address(static_cast<std::string>(player_input));
+
 							if (client.connect_to_user())
 							{
-								// worked, great!
 								player_input.clear();
 								player_text.setString(player_input);
 
@@ -120,14 +122,11 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 									setup_finished = true;
 								}
 							}
-							else
-								//did not work, not great
 
 							player_input.clear();
 							player_text.setString(player_input);
 						}
 					}
-
 					else
 					{
 						player_input += evnt.text.unicode;
@@ -152,7 +151,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 				mouse_pressed = false;
 				mouse_released = true;
 			}
-			
 		}
 
 		if (is_host)
@@ -162,8 +160,7 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 				std::thread t1{ &Host::wait_for_connection, &host, &host.m_found_a_connection };
 				t1.detach();
 				host.m_enlisted_thread = true;
-			}
-			
+			}			
 
 			if (host.m_found_a_connection)
 			{
@@ -188,7 +185,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			}
 		}
 
-
 		if (setup_finished)
 		{
 			if (play_again)
@@ -207,7 +203,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 
 				result = ReturnCodes::PLACEHOLDER;
 			}
-
 			// lost the game
 			else if (result == ReturnCodes::LOST)
 			{
@@ -232,11 +227,9 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			// clear
 			gameWindow.clear();
 
-
 			// draw
 			gameWindow.draw(playTable);
 			gameWindow.draw(go_back);
-
 
 			if (has_won)
 				gameWindow.draw(won_game);
@@ -247,10 +240,18 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			if (!play_again)
 				gameWindow.draw(play_again_tex);
 
+			float xOffset{ 0 };
+			for (unsigned int i{ 0 }; i < killFeed.size(); ++i)
+			{
+				killFeed[i] = sf::Text(logic.getFeedString(i), myFont, 20u);
+				killFeed[i].setPosition(10, ((windowSettings::windowY * 0.13) - xOffset));
+				xOffset += 25;
+				gameWindow.draw(killFeed[i]);
+			}
+
 			// display
 			gameWindow.display();
 		}
-
 		else if (disconnected)
 		{
 			gameWindow.clear();
@@ -264,7 +265,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 
 			gameWindow.display();
 		}
-
 		// draw setup screen
 		else
 		{
@@ -272,7 +272,6 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 			gameWindow.clear();
 
 			// draw
-
 			gameWindow.draw(playTable);
 			gameWindow.draw(player_text);
 			gameWindow.draw(go_back);
@@ -281,11 +280,9 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 				gameWindow.draw(enter_the_ip);
 
 			// display
-
 			gameWindow.display();
 		}
 	}
-
 	// preliminary return statement
 	return 0;
 	// ----------------------------
