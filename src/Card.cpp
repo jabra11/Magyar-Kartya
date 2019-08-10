@@ -11,16 +11,6 @@ Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, boo
 	m_graphicalCard.setPosition(xPos, yPos);
 }
 
-const bool Card::getMoveStatus() const
-{
-	return m_canBeMoved;
-}
-
-void Card::changeMoveStatus(bool status)
-{
-	m_canBeMoved = status;
-}
-
 void Card::setTexture(const sf::Texture &texture)
 {
 	m_graphicalCard.setTexture(texture);

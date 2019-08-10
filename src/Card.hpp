@@ -33,8 +33,6 @@ public:
 
 
 private:
-	bool m_canBeMoved{ false };
-
 	CardRank m_rank;
 	CardTyp m_typ;
 public:
@@ -43,9 +41,8 @@ public:
 
 	Card(const CardTyp &typ = CardTyp::MAX_TYPES, const CardRank &rank = CardRank::MAX_RANKS,
 		float xPos = 280.0f, float yPos = 550.0f, bool canBeMoved = true);
-
-	const bool getMoveStatus() const;
-	void changeMoveStatus(bool status);
+	
+	bool m_canBeMoved{ false };
 
 	// set a texture based on parameter input
 	void setTexture(const sf::Texture &texture);
