@@ -37,7 +37,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	// init additional_info_text
 	sf::Text additional_info_text;
-	additional_info_text.setString("Du musst XX Karten ziehen\n");
+	additional_info_text.setString("You have to draw XX cards\n");
 	additional_info_text.setCharacterSize(40);
 	additional_info_text.setFont(my_font);
 	additional_info_text.setPosition(windowSettings::windowX / 2 - additional_info_text.getGlobalBounds().width / 2,
@@ -156,7 +156,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		}
 	}
 
-	std::cout << "Startkarte: " << card_stack.back() << '\n';
+	std::cout << "Start card: " << card_stack.back() << '\n';
 
 	if (is_hosting)
 	{
@@ -217,7 +217,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 			{
 				logic.m_playersTurn = false;
 				logic.m_playerSkips = false;
-				std::cout << "Du musst eine Runde aussetzen.\n";
+				std::cout << "You have to skip a round.\n";
 				logic.m_enemysTurn = true;
 				mouse_left_pressed = false;
 				mouse_left_released = true;
@@ -242,9 +242,9 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 				}
 
 				if (has_draw_cards)
-					additional_info = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen oder kontern!";
+					additional_info = "You have to draw " + std::to_string(logic.m_amountOfCardsToDraw) + " cards or strike back!";
 				else
-					additional_info = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen!";
+					additional_info = "You have to draw " + std::to_string(logic.m_amountOfCardsToDraw) + " cards!";
 
 				additional_info_text.setString(additional_info);
 				additional_info_text.setPosition(windowSettings::windowX / 2 - additional_info_text.getGlobalBounds().width / 2,
@@ -306,7 +306,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 							logic.m_enemysTurn = true;
 							logic.m_playersTurn = false;
 							choose_wishcard = false;
-							std::cout << "Du willst " << logic.m_wunschkarte.getTyp() << ".\n";
+							std::cout << "You want " << logic.m_wunschkarte.getTyp() << ".\n";
 
 							if (is_hosting)
 								player.m_host.send_choice_information();
@@ -365,7 +365,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						{
 							if (logic.m_playersTurn)
 							{
-								wrong_card_string = player.getCard(i).getCardName() + " passt nicht auf " + card_stack.back().getCardName() + "!";
+								wrong_card_string = player.getCard(i).getCardName() + " doesn't fit " + card_stack.back().getCardName() + "!";
 								wrong_card = true;
 							}
 							else // will never get here, so it's redundant, need to place it somewhere else.. 
@@ -409,7 +409,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 					logic.m_enemySkips = false;
 					logic.m_playersTurn = true;
 
-					std::cout << "Der Gegner sitzt eine Runde aus.\n\n";
+					std::cout << "The enemy skips a round.\n\n";
 					continue;
 				}
 

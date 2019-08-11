@@ -63,7 +63,7 @@ const int OnlineEnemy::getHandSize()
 
 void OnlineEnemy::dealCard(int cardToDeal)
 {
-	std::cout << "Gegner: " << m_enemyHand[cardToDeal] << " -> " << m_card_stack->back() << "\n\n";
+	std::cout << "Enemy: " << m_enemyHand[cardToDeal] << " -> " << m_card_stack->back() << "\n\n";
 	m_enemyHand[cardToDeal].setTexture();
 	std::swap(m_enemyHand[cardToDeal], m_enemyHand.back());
 	m_card_stack->push_back(m_enemyHand.back());
@@ -73,7 +73,7 @@ void OnlineEnemy::dealCard(int cardToDeal)
 void OnlineEnemy::drawCard(const Card &card)
 {
 	m_enemyHand.push_back(card);
-	std::cout << "Gegner: Karte gezogen\n\n";
+	std::cout << "Enemy: draws card\n\n";
 
 	std::array<std::string, 6> temp;
 
@@ -82,7 +82,7 @@ void OnlineEnemy::drawCard(const Card &card)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "Gegner: Karte gezogen";
+	m_logic->m_myFeed[0] = "Enemy: draws card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{
