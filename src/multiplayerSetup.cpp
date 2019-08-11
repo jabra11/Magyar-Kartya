@@ -30,7 +30,7 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	sf::RectangleShape playTable(sf::Vector2f(windowSettings::windowX, windowSettings::windowY));
 	playTable.setTexture(&playTableTexture);
 	sf::Font myFont;
-	myFont.loadFromFile("../resources/font/testFont.ttf");
+	myFont.loadFromFile("../resources/font/default.ttf");
 
 	bool setup_finished{ false };
 	int result{ ReturnCodes::PLACEHOLDER };

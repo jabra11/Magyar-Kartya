@@ -23,7 +23,7 @@ void Player::move_card(sf::Vector2f new_pos, int card_index)
 
 void Player::dealCard(int cardToDeal, std::vector<Card> &cardStack)
 {
-	std::cout << "Du: " << m_playerHand[cardToDeal] << " -> " << cardStack.back() << "\n";
+	std::cout << "You: " << m_playerHand[cardToDeal] << " -> " << cardStack.back() << "\n";
 	std::swap(Player::m_playerHand[cardToDeal], Player::m_playerHand.back());
 	cardStack.push_back(m_playerHand.back());
 	Player::m_playerHand.pop_back();
@@ -37,7 +37,7 @@ const int Player::getHandSize()
 void Player::drawCard(const Card &card)
 {
 	m_playerHand.push_back(card);
-	std::cout << "Du ziehst " << card << "\n";
+	std::cout << "You draw " << card << "\n";
 
 	std::array<std::string, 6> temp;
 
@@ -46,7 +46,7 @@ void Player::drawCard(const Card &card)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "Du: Karte gezogen";
+	m_logic->m_myFeed[0] = "You: draws card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{

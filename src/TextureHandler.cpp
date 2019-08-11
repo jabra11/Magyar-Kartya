@@ -6,7 +6,7 @@
 
 void TextureHandler::init_font(sf::Font& init_this)
 {
-	init_this.loadFromFile("../resources/font/testFont.ttf");
+	init_this.loadFromFile("../resources/font/default.ttf");
 }
 
 void TextureHandler::init_backcard(std::array<sf::Texture, 4>& rueckseiten)

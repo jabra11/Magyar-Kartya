@@ -23,9 +23,9 @@ const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnSta
 		}
 
 		if (player)
-			m_myFeed[0] = "Du: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
+			m_myFeed[0] = "You: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
 		else
-			m_myFeed[0] = "Gegner: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
+			m_myFeed[0] = "Enemy: " + cardToValidate.getCardName() + " -> " + cardOnStack.getCardName();
 
 		for (unsigned int i{ 0 }; i < m_myFeed.size() - 1; ++i)
 			m_myFeed[i + 1] = temp[i];

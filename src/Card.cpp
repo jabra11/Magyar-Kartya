@@ -122,14 +122,14 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 {
 	switch (card.m_rank)
 	{
-	case Card::ASS:		out	<< "Ass";		break;
+	case Card::ASS:		out	<< "Ace";		break;
 	case Card::ZEHN:	out	<< "X";			break;
 	case Card::NEUN:	out	<< "IX";		break;
 	case Card::ACHT:	out	<< "VIII";		break;
 	case Card::SIEBEN:	out	<< "VII";		break;
-	case Card::KOENIG:	out	<< "Koenig";	break;
-	case Card::DAME:	out	<< "Dame";		break;
-	case Card::BUBE:	out	<< "Bube";		break;
+	case Card::KOENIG:	out	<< "King";	break;
+	case Card::DAME:	out	<< "Queen";		break;
+	case Card::BUBE:	out	<< "Jack";		break;
 	}
 
 	out << " ";
@@ -168,23 +168,23 @@ const std::string Card::getCardName() const
 	std::string temp;
 	switch (m_rank)
 	{
-	case Card::ASS:		temp += "Ass";		break;
+	case Card::ASS:		temp += "Ace";		break;
 	case Card::ZEHN:	temp += "X";			break;
 	case Card::NEUN:	temp += "IX";		break;
 	case Card::ACHT:	temp += "VIII";		break;
 	case Card::SIEBEN:	temp += "VII";		break;
-	case Card::KOENIG:	temp += "Koenig";	break;
-	case Card::DAME:	temp += "Dame";		break;
-	case Card::BUBE:	temp += "Bube";		break;
+	case Card::KOENIG:	temp += "King";	break;
+	case Card::DAME:	temp += "Queen";		break;
+	case Card::BUBE:	temp += "Jack";		break;
 	}
 
 	temp += " ";
 
 	switch (m_typ)
 	{
-	case Card::ZOELD:	temp += "ZOELD";			break;
+	case Card::ZOELD:	temp += "Zoeld";			break;
 	case Card::MOCK:	temp += "Mock";			break;
-	case Card::TOECK:	temp += "TOECK";			break;
+	case Card::TOECK:	temp += "Toeck";			break;
 	case Card::PIROS:	temp += "Piros";		break;
 	}
 

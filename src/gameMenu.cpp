@@ -36,20 +36,20 @@ void gameMenu(int& gewonnen, int& verloren)
 
 	//  defining the font for the text object/s
 	sf::Font myFont;
-	myFont.loadFromFile("../resources/font/testFont.ttf");
+	myFont.loadFromFile("../resources/font/default.ttf");
 	//
 
 	// defining the text objects
-	sf::Text play{"Spielen", myFont, 90u };
+	sf::Text play{"Play", myFont, 90u };
 	play.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (play.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 2.0f));
 
 	sf::Text multiplayerText{ "Multiplayer", myFont, 90u };
 	multiplayerText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (multiplayerText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 5.0f));
 
-	sf::Text options{ "Optionen", myFont, 90u };
+	sf::Text options{ "Options", myFont, 90u };
 	options.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (options.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 8.0f));
 
-	sf::Text stats{ "Statistiken", myFont, 90u };
+	sf::Text stats{ "Statistics", myFont, 90u };
 	stats.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (stats.getGlobalBounds().width / 2.0f), windowSettings::windowY / 20 * 11.0f));
 
 	sf::Text exit{ "Exit", myFont, 90u };
@@ -129,19 +129,19 @@ void gameMenu(int& gewonnen, int& verloren)
 
 		if (showStats)
 		{
-			sf::Text gewonnenText{ "Gewonnen: " + std::to_string(gewonnen), myFont, 80u };
+			sf::Text gewonnenText{ "Won: " + std::to_string(gewonnen), myFont, 80u };
 			gewonnenText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (gewonnenText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 1.0f));
 
-			sf::Text verlorenText{ "Verloren: " + std::to_string(verloren), myFont, 80u };
+			sf::Text verlorenText{ "Lost: " + std::to_string(verloren), myFont, 80u };
 			verlorenText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (verlorenText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 2.0f));
 
-			sf::Text bilanzText{ "Bilanz: " + std::to_string((gewonnen - verloren)), myFont, 80u };
+			sf::Text bilanzText{ "Record: " + std::to_string((gewonnen - verloren)), myFont, 80u };
 			bilanzText.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (bilanzText.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 3.0f));
 
-			sf::Text resetStats{ "Zurücksetzen", myFont, 80u };
+			sf::Text resetStats{ "Reset", myFont, 80u };
 			resetStats.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (resetStats.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 7.0f));
 
-			sf::Text goBack{ "Zurück", myFont, 80u };
+			sf::Text goBack{ "Go back", myFont, 80u };
 			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (goBack.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 8.0f));
 
 			if (mouseLeftPressed && !mouseLeftReleased)
@@ -169,26 +169,26 @@ void gameMenu(int& gewonnen, int& verloren)
 
 		else if (showOptions)
 		{
-			sf::Text startSize{ "Startkarten: " + std::to_string(logic.m_sizeOfStartHand), myFont, 50u };
+			sf::Text startSize{ "Startcards: " + std::to_string(logic.m_sizeOfStartHand), myFont, 50u };
 			startSize.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 2.0f);
 
 			std::string viewEnemyHand{ "" };
-			(logic.m_viewEnemyHand) ? viewEnemyHand = "Ja" : viewEnemyHand = "Nein";
-			sf::Text showEnemyHand{ "Zeige Gegnerkarten: " + viewEnemyHand, myFont, 50u };
+			(logic.m_viewEnemyHand) ? viewEnemyHand = "Yes" : viewEnemyHand = "No";
+			sf::Text showEnemyHand{ "Show enemyhand: " + viewEnemyHand, myFont, 50u };
 			showEnemyHand.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 3.0f);
 
 
 			std::string tableTexString{ "" };
-			(tableTex) ? tableTexString = "Grau" : tableTexString = "Gruen";
-			sf::Text chooseTableTex{ "Spielhintergrund: " + tableTexString, myFont, 50u };
+			(tableTex) ? tableTexString = "Grey" : tableTexString = "Green";
+			sf::Text chooseTableTex{ "Game background: " + tableTexString, myFont, 50u };
 			chooseTableTex.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 4.0f);
 
 			std::string onlineHost{ "" };
 			(host) ? onlineHost = "Host" : onlineHost = "Client";
-			sf::Text onlineHostTex{ "Onlinemodus: " + onlineHost, myFont, 50u };
+			sf::Text onlineHostTex{ "Online mode: " + onlineHost, myFont, 50u };
 			onlineHostTex.setPosition(windowSettings::windowX / 10 * 1.0f, windowSettings::windowY / 10 * 5.0f);
 
-			sf::Text goBack{ "Zurueck", myFont, 80u };
+			sf::Text goBack{ "Go back", myFont, 80u };
 			goBack.setPosition(sf::Vector2f((windowSettings::windowX / 2.0f) - (goBack.getGlobalBounds().width / 2.0f), windowSettings::windowY / 10 * 8.0f));
 
 			if (mouseLeftPressed && !mouseLeftReleased)

@@ -15,7 +15,7 @@ int singleplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Tex
 	playTable.setTexture(&playTableTexture);
 
 	sf::Font myFont;
-	myFont.loadFromFile("../resources/font/testFont.ttf");
+	myFont.loadFromFile("../resources/font/default.ttf");
 
 	sf::Text go_back{ "Go back", myFont, 40 };
 	go_back.setPosition(windowSettings::windowX / 20 * 19 - go_back.getGlobalBounds().width / 2,

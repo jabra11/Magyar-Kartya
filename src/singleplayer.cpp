@@ -31,7 +31,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 
 	std::string additionalInfo{ "" };
 	sf::Font myFont;
-	myFont.loadFromFile("../resources/font/testFont.ttf");
+	myFont.loadFromFile("../resources/font/default.ttf");
 
 	sf::Text turn_info{ "Your turnX", myFont, 25 };
 	turn_info.setPosition(windowSettings::windowX / 20 * 1 - turn_info.getGlobalBounds().width / 2,
@@ -91,7 +91,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 		enemy.m_xOffset += 50;
 	}
 
-	std::cout << "Startkarte " << cardStack.back() << "\n";
+	std::cout << "Start card " << cardStack.back() << "\n";
 	
 	while (gameWindow.isOpen())
 	{
@@ -139,7 +139,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 			{
 				logic.m_playersTurn = false;
 				logic.m_playerSkips = false;
-				std::cout << "Du musst eine Runde aussetzen.\n";
+				std::cout << "You have to skip a round.\n";
 				logic.m_enemysTurn = true;
 				myClock.restart();
 
@@ -148,7 +148,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 
 			if (logic.m_playerHasToDraw)
 			{
-				additionalInfo = "Du musst " + std::to_string(logic.m_amountOfCardsToDraw) + " Karten ziehen!";
+				additionalInfo = "You have to draw " + std::to_string(logic.m_amountOfCardsToDraw) + " cards!";
 				bool hasDrawCards{ false };
 				for (int i{ 0 }; i < player.getHandSize(); ++i)
 				{
@@ -208,7 +208,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 							logic.m_wunschkarteAktiv = true;
 							logic.m_enemysTurn = true;
 							chooseWunschkarte = false;
-							std::cout << "Du willst " << logic.m_wunschkarte.getTyp() << ".\n";
+							std::cout << "You want " << logic.m_wunschkarte.getTyp() << ".\n";
 						}
 					}
 				}
@@ -243,12 +243,12 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 						{
 							if (logic.m_playersTurn)
 							{
-								wrongCardString = player.getCard(i).getCardName() + " passt nicht auf " + cardStack.back().getCardName() + "!";
+								wrongCardString = player.getCard(i).getCardName() + " doesn't fit " + cardStack.back().getCardName() + "!";
 								wrongCard = true;
 							}
 							else
 							{
-								wrongCardString = "Du bist nicht an der Reihe!";
+								wrongCardString = "It's not your turn!";
 								wrongCard = true;
 							}
 						}
@@ -290,7 +290,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 					logic.m_enemysTurn = false;
 					logic.m_enemySkips = false;
 					logic.m_playersTurn = true;
-					std::cout << "Der Gegner sitzt eine Runde aus.\n\n";
+					std::cout << "The enemy skips a round\n\n";
 					continue;
 				}
 

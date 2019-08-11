@@ -25,7 +25,7 @@ Deck::Deck()
 		}
 
 	shuffleDeck();
-	std::cout << "Deck wurde gemischt\n";
+	std::cout << "The deck was shuffled\n";
 }
 
 void Deck::set_online_status(bool is_host, Host* host, Client* client)
@@ -127,7 +127,7 @@ void Deck::shuffleStack(std::vector<Card> &cardStack)
 
 	shuffleDeck();
 
-	std::cout << "Das Deck wird neu gemischt...\n";
+	std::cout << "Shuffle deck...\n";
 	std::cout << '\n';
 }
 
