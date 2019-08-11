@@ -62,7 +62,7 @@ if (MSVC)
         sfml-system
         UserEnv)
 
-else if (UNIX AND NOT APPLE)
+elseif (UNIX AND NOT APPLE)
     target_link_libraries(MagyarKartya
         pthread
         stdc++fs 	
