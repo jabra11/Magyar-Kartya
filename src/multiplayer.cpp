@@ -9,7 +9,7 @@
 #include "Logic.hpp"
 #include "OnlinePlayer.hpp"
 #include "OnlineEnemy.hpp"
-#include "textureHandler.hpp"
+#include "TextureHandler.hpp"
 #include "Card.hpp"
 #include "ReturnCodes.hpp"
 

@@ -1,8 +1,6 @@
 #include <iostream>
 #include <experimental/filesystem>
 #include <fstream>
-#define NOMINMAX
-#include <UserEnv.h>
 
 #include "textureArray.hpp"
 #include "Logic.hpp"
@@ -42,8 +40,7 @@ void initializeStats(int& gewonnen, int& verloren)
 	
 	namespace fs = std::experimental::filesystem;
 
-	fs::path dir = path + "/MagyarKartya/stats";
-
+	fs::path dir = path + "/.MagyarKartya/stats"; 
 	if (!fs::is_directory(dir) || !fs::exists(dir))
 	{
 		std::cout << "Did not find the directory, creating now..\n";
@@ -51,15 +48,15 @@ void initializeStats(int& gewonnen, int& verloren)
 	}
 
 	std::fstream wins;
-	wins.open(path + "/MagyarKartya/stats/wins.txt");
+	wins.open(path + "/.MagyarKartya/stats/wins.txt");
 	if (!wins)
-		wins.open(path + "/MagyarKartya/stats/wins.txt", std::ios::out);
+		wins.open(path + "/.MagyarKartya/stats/wins.txt", std::ios::out);
 
 
 	std::fstream loses;
-	loses.open(path + "/MagyarKartya/stats/loses.txt");
+	loses.open(path + "/.MagyarKartya/stats/loses.txt");
 	if (!loses)
-		loses.open(path + "/MagyarKartya/stats/loses.txt", std::ios::out);
+		loses.open(path + "/.MagyarKartya/stats/loses.txt", std::ios::out);
 
 
 	if (wins.is_open() && loses.is_open())
@@ -75,9 +72,9 @@ void initializeStats(int& gewonnen, int& verloren)
 	else
 	{
 		if (!wins.is_open())
-			std::cout << "Couldn't open " << path + R"(\MagyarKartya\stats\wins.txt")" << std::endl;
+			std::cout << "Couldn't open " << path + R"(\.MagyarKartya\stats\wins.txt")" << std::endl;
 		else
-			std::cout << "Couldn't open " << path  + R"(\MagyarKartya\stats\loses.txt")" << std::endl;
+			std::cout << "Couldn't open " << path  + R"(\.MagyarKartya\stats\loses.txt")" << std::endl;
 
 		std::cout << "Failed to initialize stats.\n";
 	}
@@ -90,10 +87,10 @@ void saveStats(int& gewonnen, int& verloren)
 	std::cout << "Saving..\n";
 
 	std::ofstream wins;
-	wins.open(path + "/MagyarKartya/stats/wins.txt", std::ostream::out);
+	wins.open(path + "/.MagyarKartya/stats/wins.txt", std::ostream::out);
 
 	std::ofstream loses;
-	loses.open(path + "/MagyarKartya/stats/loses.txt", std::ostream::out);
+	loses.open(path + "/.MagyarKartya/stats/loses.txt", std::ostream::out);
 
 	if (wins.is_open() && loses.is_open())
 	{
@@ -108,26 +105,10 @@ void saveStats(int& gewonnen, int& verloren)
 	else
 	{
 		if (!wins.is_open())
-			std::cout << "Couldn't open " << path + R"(\MagyarKartya\stats\wins.txt")" << std::endl;
+			std::cout << "Couldn't open " << path + R"(\.MagyarKartya\stats\wins.txt")" << std::endl;
 		else
-			std::cout << "Couldn't open " << path + R"(\MagyarKartya\stats\loses.txt")" << std::endl;
+			std::cout << "Couldn't open " << path + R"(\.MagyarKartya\stats\loses.txt")" << std::endl;
 
 		std::cout << "Failed to save.\n";
 	}
-}
-
-std::string get_userpath()
-{
-	HANDLE token_handle = nullptr;
-	OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token_handle);
-
-	char buffer_string[50];
-
-	LPSTR profile_dir = buffer_string;
-	DWORD size = 50;
-
-
-	GetUserProfileDirectoryA(token_handle, profile_dir, &size);
-
-	return buffer_string;
 }
