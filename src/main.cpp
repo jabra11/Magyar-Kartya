@@ -1,7 +1,3 @@
-#include <unistd.h>
-#include <pwd.h>
-#include <sys/types.h>
-
 #include <iostream>
 #include <experimental/filesystem>
 #include <fstream>
@@ -44,8 +40,7 @@ void initializeStats(int& gewonnen, int& verloren)
 	
 	namespace fs = std::experimental::filesystem;
 
-	fs::path dir = path + "/.MagyarKartya/stats";
-
+	fs::path dir = path + "/.MagyarKartya/stats"; 
 	if (!fs::is_directory(dir) || !fs::exists(dir))
 	{
 		std::cout << "Did not find the directory, creating now..\n";
@@ -116,13 +111,4 @@ void saveStats(int& gewonnen, int& verloren)
 
 		std::cout << "Failed to save.\n";
 	}
-}
-
-std::string get_userpath()
-{
-    const char* home_dir;
-    if ((home_dir = getenv("HOME")) == NULL)
-        home_dir = getpwuid(getuid())->pw_dir;
-
-    return home_dir;
 }
