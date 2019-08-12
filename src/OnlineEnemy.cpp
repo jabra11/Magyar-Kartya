@@ -7,7 +7,6 @@ OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck,
 	:m_client{ client }, m_host{ host }, m_card_stack{ card_stack },
 	m_logic{ logic }, m_deck{ deck }, m_is_hosting{ is_hosting }
 {
-	
 }
 
 void OnlineEnemy::getNextMove(sf::Socket::Status* error_flag)
@@ -73,7 +72,7 @@ void OnlineEnemy::dealCard(int cardToDeal)
 void OnlineEnemy::drawCard(const Card &card)
 {
 	m_enemyHand.push_back(card);
-	std::cout << "Enemy: draws card\n\n";
+	std::cout << "Enemy: Draws card\n\n";
 
 	std::array<std::string, 6> temp;
 
@@ -82,7 +81,7 @@ void OnlineEnemy::drawCard(const Card &card)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "Enemy: draws card";
+	m_logic->m_myFeed[0] = "Enemy: Draws card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{

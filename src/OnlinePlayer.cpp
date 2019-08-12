@@ -14,7 +14,7 @@ Card& OnlinePlayer::operator[](int index)
 
 void OnlinePlayer::dealCard(int card_to_deal, std::vector<Card>& card_stack)
 {
-	std::cout << "Du " << m_playerHand[card_to_deal] << " -> " << card_stack.back() << '\n';
+	std::cout << "You " << m_playerHand[card_to_deal] << " -> " << card_stack.back() << '\n';
 	std::swap(m_playerHand[card_to_deal], m_playerHand.back());
 
 	// Insert card_to_deal into the card_stack
@@ -49,7 +49,7 @@ void OnlinePlayer::dealCard(int card_to_deal, std::vector<Card>& card_stack)
 void OnlinePlayer::drawCard(const Card& card, const int how_many)
 {
 	m_playerHand.push_back(card);
-	std::cout << "Du ziehst " << card << "\n";
+	std::cout << "You draw " << card << "\n";
 
 	std::array<std::string, 6> temp;
 
@@ -58,7 +58,7 @@ void OnlinePlayer::drawCard(const Card& card, const int how_many)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "Du: Karte gezogen";
+	m_logic->m_myFeed[0] = "You: Draw card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{
