@@ -46,7 +46,7 @@ void Player::drawCard(const Card &card)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "You: draws card";
+	m_logic->m_myFeed[0] = "You: Draw card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{

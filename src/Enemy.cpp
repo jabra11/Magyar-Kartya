@@ -24,7 +24,7 @@ const int Enemy::getHandSize()
 void Enemy::drawCard(const Card &card)
 {
 	m_enemyHand.push_back(card);
-	std::cout << "Enemy: draws card\n\n";
+	std::cout << "Enemy: Draws card\n\n";
 
 	std::array<std::string, 6> temp;
 
@@ -33,7 +33,7 @@ void Enemy::drawCard(const Card &card)
 		temp[i] = m_logic->m_myFeed[i];
 	}
 
-	m_logic->m_myFeed[0] = "Enemy: draws card";
+	m_logic->m_myFeed[0] = "Enemy: Draws card";
 
 	for (unsigned int i{ 0 }; i < m_logic->m_myFeed.size() - 1; ++i)
 	{

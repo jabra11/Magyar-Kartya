@@ -489,7 +489,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 						{
 							if (enemy.m_enemyHand[index_of_enemy_card].getRank() == Card::BUBE)
 							{
-								std::cout << "enemys seems to be having to draw\n";
+								std::cout << "Enemys seems to be having to draw\n";
 								logic.m_enemysTurn = false;
 								logic.m_playersTurn = true;
 								logic.m_enemyHasToDraw = false;
@@ -497,7 +497,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 							else 
 							{
-								std::cout << "enemy draws: " << logic.m_amountOfCardsToDraw << " cards\n";
+								std::cout << "Enemy draws: " << logic.m_amountOfCardsToDraw << " cards\n";
 								for (int i{ 0 }; i < logic.m_amountOfCardsToDraw; ++i)
 								{
 									int amountOfCards{ enemy.getHandSize() };
