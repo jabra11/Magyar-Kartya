@@ -2,6 +2,8 @@
 
 This game is modelled after the Hungarian cardgame Magyar Kartya. It has a singleplayer and a pure Peer-to-Peer multiplayer. It is written in C++17 and utilizes OpenGL in form of SFML.
 
+![Annotation 2019-08-25 211101](https://user-images.githubusercontent.com/34109209/63654652-71776400-c77d-11e9-8a60-55efae82aec6.png)
+
 
 ### Contributing
 This project can be built on Windows and Linux. Build instructions are below.
