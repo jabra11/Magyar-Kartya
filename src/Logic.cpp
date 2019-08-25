@@ -162,3 +162,15 @@ const sf::Sprite& Logic::getWunschkarteSprite()
 {
 	return m_SpriteWunschkarte;
 }
+
+const std::string Logic::getWunschkartenName() const
+{
+    switch (m_wunschkarte.getTyp())
+    {
+        case Card::PIROS:	return "Wunschkarte aktiv: Piros";	break;
+        case Card::TOECK:	return "Wunschkarte aktiv: Toeck";	break;
+        case Card::MOCK:    return "Wunschkarte aktiv: Mock";	break;
+        case Card::ZOELD:	return "Wunschkarte aktiv: Zoeld";	break;
+        default: std::cout << "Could not get a name (getWunschkartenName())";
+    }
+}

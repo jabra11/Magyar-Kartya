@@ -8,6 +8,10 @@ if (MSVC)
     # set path to libraries
     set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-vc15-64-bit/SFML-2.5.1/lib/cmake/SFML)
     include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
+
+elseif(MINGW)
+    set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML)
+    include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
 endif()
 
 
@@ -61,6 +65,15 @@ if (MSVC)
         sfml-network
         sfml-system
         UserEnv)
+
+elseif (MINGW)
+    target_link_libraries(MagyarKartya
+            stdc++fs
+            sfml-graphics
+            sfml-audio
+            sfml-network
+            sfml-system
+            UserEnv)
 
 elseif (UNIX AND NOT APPLE)
     target_link_libraries(MagyarKartya
