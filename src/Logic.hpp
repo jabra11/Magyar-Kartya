@@ -50,18 +50,8 @@ public:
 
 	const bool viewEnemyHand() const;
 
-	const std::string getWunschkartenName()
-	{
-		switch (m_wunschkarte.getTyp())
-		{
-		case Card::PIROS:	return "Wunschkarte aktiv: Piros";	break;
-		case Card::TOECK:	return "Wunschkarte aktiv: Toeck";	break;
-		case Card::MOCK:    return "Wunschkarte aktiv: Mock";	break;
-		case Card::ZOELD:	return "Wunschkarte aktiv: Zoeld";	break;
-		default: std::cout << "Could not get a name (getWunschkartenName())";
-		}
-	}
-	
+	const std::string getWunschkartenName() const;
+
 	// Decapsulate
 	friend class Player;
 	friend class Enemy;
