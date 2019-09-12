@@ -1,12 +1,16 @@
 # Magyar Kartya
 
-This game is modelled after the Hungarian cardgame Magyar Kartya. It is written in C++17 and makes use of [SFML](https://www.sfml-dev.org/). You can play against the computer or against a friend using the peer-to-peer based multiplayer.
+This game is modelled after the Hungarian cardgame Magyar Kartya. 
+You can play against the computer or against a friend using the peer-to-peer based multiplayer.
 
 ![Annotation 2019-08-25 211101](https://user-images.githubusercontent.com/34109209/63654652-71776400-c77d-11e9-8a60-55efae82aec6.png)
 
 
+
 ### Contributing
-This project can be built on Windows and Linux. Build instructions are below.
+I initially started this project to get more comfortable with [SFML](https://www.sfml-dev.org/) and the language itself, therefore most of the code can be improved easily. It is written in C++11.
+
+It can be built on Windows and Linux. Build instructions are below.
 
 ### Building on Windows
 1. Download the appropriate version of SFML(64bit) from [SFML](https://www.sfml-dev.org/download/sfml/2.5.1/).
