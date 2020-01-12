@@ -5,7 +5,7 @@
 class Client : public OnlineUser
 {
 public:
-	Client(unsigned short port, bool is_host);
+	Client(unsigned short port);
 
 	// Returns True if a connection has been established
 	bool connect_to_user();

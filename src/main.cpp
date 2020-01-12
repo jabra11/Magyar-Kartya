@@ -1,5 +1,5 @@
 #include <iostream>
-#include <experimental/filesystem>
+#include <filesystem>
 #include <fstream>
 
 #include "textureArray.hpp"
@@ -38,7 +38,7 @@ void initializeStats(int& gewonnen, int& verloren)
 	std::string path{ get_userpath() };
 	std::cout << "Initializing stats..\n";
 	
-	namespace fs = std::experimental::filesystem;
+	namespace fs = std::filesystem;
 
 	fs::path dir = path + "/.MagyarKartya/stats"; 
 	if (!fs::is_directory(dir) || !fs::exists(dir))

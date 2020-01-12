@@ -1,13 +1,13 @@
 #include "Card.hpp"
 
-
 Card::Card(const CardTyp &typ, const CardRank &rank, float xPos, float yPos, bool canBeMoved)
-	:m_typ{typ}, m_rank{rank}, m_canBeMoved{canBeMoved}
+	:m_rank{rank}, m_typ{typ}, m_canBeMoved{canBeMoved}
 {
 	setTexture();
 
+	constexpr float scale_factor = 0.4F;
 	m_graphicalCard.setOrigin((m_graphicalCard.getGlobalBounds().width / 2), (m_graphicalCard.getGlobalBounds().height / 2));
-	m_graphicalCard.scale(0.4f, 0.4f);
+	m_graphicalCard.scale(scale_factor, scale_factor);
 	m_graphicalCard.setPosition(xPos, yPos);
 }
 
@@ -127,9 +127,10 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 	case Card::NEUN:	out	<< "IX";		break;
 	case Card::ACHT:	out	<< "VIII";		break;
 	case Card::SIEBEN:	out	<< "VII";		break;
-	case Card::KOENIG:	out	<< "King";	break;
+	case Card::KOENIG:	out	<< "King";		break;
 	case Card::DAME:	out	<< "Queen";		break;
 	case Card::BUBE:	out	<< "Jack";		break;
+	default: throw std::runtime_error{"Error in Card.cpp operator<<"};
 	}
 
 	out << " ";
@@ -140,6 +141,7 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 	case Card::MOCK:	out	<< "Mock";		break;
 	case Card::TOECK:	out	<< "Toeck";		break;
 	case Card::PIROS:	out	<< "Piros";		break;
+	default: throw std::runtime_error{"Error in Card.cpp operator<<"};
 	}
 
 	return out;
@@ -153,6 +155,7 @@ std::ostream& operator<<(std::ostream &out, const Card::CardTyp &typ)
 	case Card::TOECK: out << "Toeck"; break;
 	case Card::MOCK: out << "Mock"; break;
 	case Card::ZOELD: out << "Zoeld"; break;
+	default: throw std::runtime_error{"std::ostream& operator<<(std::ostream &out, const Card::CardType &typ"};
 	}
 
 	return out;
@@ -169,24 +172,25 @@ const std::string Card::getCardName() const
 	switch (m_rank)
 	{
 	case Card::ASS:		temp += "Ace";		break;
-	case Card::ZEHN:	temp += "X";			break;
+	case Card::ZEHN:	temp += "X";		break;
 	case Card::NEUN:	temp += "IX";		break;
 	case Card::ACHT:	temp += "VIII";		break;
 	case Card::SIEBEN:	temp += "VII";		break;
-	case Card::KOENIG:	temp += "King";	break;
-	case Card::DAME:	temp += "Queen";		break;
+	case Card::KOENIG:	temp += "King";		break;
+	case Card::DAME:	temp += "Queen";	break;
 	case Card::BUBE:	temp += "Jack";		break;
+	default: throw std::runtime_error{"const std::string Card::getCardName() const"};
 	}
 
 	temp += " ";
 
 	switch (m_typ)
 	{
-	case Card::ZOELD:	temp += "Zoeld";			break;
+	case Card::ZOELD:	temp += "Zoeld";		break;
 	case Card::MOCK:	temp += "Mock";			break;
-	case Card::TOECK:	temp += "Toeck";			break;
+	case Card::TOECK:	temp += "Toeck";		break;
 	case Card::PIROS:	temp += "Piros";		break;
+	default: throw std::runtime_error{"const std::string Card::getCardName() const"};
 	}
-
 	return temp;
 }

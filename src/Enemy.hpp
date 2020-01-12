@@ -23,7 +23,7 @@ public:
 
 	void dealCard(int cardToDeal, std::vector<Card> &cardStack);
 	void drawCard(const Card &card);
-	const int getHandSize();
+	int getHandSize();
 
 	void determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 		bool wunschkarteAktiv, const Card &wunschKarte, int schwierigkeitsgrad = 0);

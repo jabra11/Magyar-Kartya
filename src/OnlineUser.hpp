@@ -60,7 +60,7 @@ public:
 
 	// Retrieves information of a received packet from the established TCP-
 	// connection and writes it into m_buffer
-	const sf::Socket::Status receive_choice_information();
+	sf::Socket::Status receive_choice_information();
 
 	// Sends the deck in the parameter to the connected TCP-Socket.
 	void send_deck_information(Deck& send_this);
@@ -72,7 +72,7 @@ public:
 
 protected:
 
-	OnlineUser(unsigned short port, bool is_host);
+	OnlineUser(unsigned short port);
 
 	friend sf::Packet& operator<<(sf::Packet& write_in, const Default_packet& write_from);
 	friend sf::Packet& operator>>(sf::Packet& write_from, Default_packet& write_in);
@@ -90,5 +90,4 @@ public:
 	unsigned short m_port{ 0 };
 
 private:
-	bool m_is_host{ false };
 };

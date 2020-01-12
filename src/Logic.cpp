@@ -5,7 +5,7 @@ Logic::Logic()
 	m_SpriteWunschkarte.setPosition(sf::Vector2f(50, 300));
 }
 
-const bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw)
+bool Logic::validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw)
 {
 	if ((playerHasToDraw) ? cardToValidate.getRank() == Card::BUBE :
 		(m_startWunschKarteAktiv) ? true :
@@ -97,7 +97,7 @@ void Logic::resetStatuses()
 	m_amountOfCardsToDraw = 0;
 }
 
-const bool Logic::viewEnemyHand() const 
+bool Logic::viewEnemyHand() const 
 {
 	if (m_viewEnemyHand)
 		return true;
@@ -105,7 +105,7 @@ const bool Logic::viewEnemyHand() const
 		return false;
 }
 
-const bool Logic::playerSkips() const 
+bool Logic::playerSkips() const 
 {
 	if (m_playerSkips)
 		return true;
@@ -113,7 +113,7 @@ const bool Logic::playerSkips() const
 		return false;
 }
 
-const bool Logic::enemySkips() const 
+bool Logic::enemySkips() const 
 {
 	if (m_enemySkips)
 		return true;
@@ -137,7 +137,7 @@ void Logic::setWunschkarte(Card &card, bool player)
 		std::cout << "Der Gegner will " << card.getTyp() << ".\n";
 }
 
-const bool Logic::wunschkarteAktiv()
+bool Logic::wunschkarteAktiv()
 {
 	if (m_wunschkarteAktiv)
 	{
@@ -147,6 +147,7 @@ const bool Logic::wunschkarteAktiv()
 		case Card::ZOELD: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_ZOELD], true); break;
 		case Card::TOECK: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_TOECK], true); break;
 		case Card::PIROS: m_SpriteWunschkarte.setTexture(otherTextureArr[myTextures::OtherTextures::WUNSCHKARTE_AKTIV_PIROS], true); break;
+		default: throw std::runtime_error("Error in Logic::wunschkarteAktiv");
 		}
 	}
 		
@@ -158,12 +159,12 @@ void Logic::setWunschkarte(Card &card)
 	m_wunschkarte = card;
 }
 
-const sf::Sprite& Logic::getWunschkarteSprite()
+const sf::Sprite& Logic::getWunschkarteSprite() const
 {
 	return m_SpriteWunschkarte;
 }
 
-const std::string Logic::getWunschkartenName() const
+std::string Logic::getWunschkartenName() const
 {
     switch (m_wunschkarte.getTyp())
     {
@@ -171,6 +172,6 @@ const std::string Logic::getWunschkartenName() const
         case Card::TOECK:	return "Wunschkarte aktiv: Toeck";	break;
         case Card::MOCK:    return "Wunschkarte aktiv: Mock";	break;
         case Card::ZOELD:	return "Wunschkarte aktiv: Zoeld";	break;
-        default: std::cout << "Could not get a name (getWunschkartenName())";
+        default: throw std::runtime_error{"Could not get a name (getWunschkartenName())"};
     }
 }

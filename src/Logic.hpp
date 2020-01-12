@@ -29,10 +29,10 @@ public:
 	const std::string& getFeedString(int index) const;
 
 	//player true, enemy false
-	const bool validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw = false); 
+	bool validateMove(const Card &cardToValidate, const Card &cardOnStack, bool player, bool playerHasToDraw = false); 
 
-	const bool playerSkips() const;
-	const bool enemySkips() const; 
+	bool playerSkips() const;
+	bool enemySkips() const; 
 
 	void resetFeed();
 
@@ -44,13 +44,13 @@ public:
 	void setWunschkarte(Card &card, bool player);
 	void setWunschkarte(Card &card);
 
-	const sf::Sprite& getWunschkarteSprite();
+	const sf::Sprite& getWunschkarteSprite() const;
 
-	const bool wunschkarteAktiv();
+	bool wunschkarteAktiv();
 
-	const bool viewEnemyHand() const;
+	bool viewEnemyHand() const;
 
-	const std::string getWunschkartenName() const;
+	std::string getWunschkartenName() const;
 
 	// Decapsulate
 	friend class Player;

@@ -29,7 +29,7 @@ void Player::dealCard(int cardToDeal, std::vector<Card> &cardStack)
 	Player::m_playerHand.pop_back();
 }
 
-const int Player::getHandSize()
+int Player::getHandSize()
 {
 	return m_playerHand.size();
 }
@@ -68,7 +68,6 @@ sf::Vector2f Player::getCoord(bool &mouseLeftPressed)
 {
 	bool noSpace{ false };
 	mouseLeftPressed = false;
-	int iteration{ 0 };
 	do
 	{
 		for (int outer{ 0 }; outer < getHandSize(); ++outer)

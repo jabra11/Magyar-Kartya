@@ -2,8 +2,8 @@
 #include <cassert>
 #include <utility>
 
-OnlineUser::OnlineUser(unsigned short port, bool is_host)
-	:m_port{port}, m_is_host{is_host}
+OnlineUser::OnlineUser(unsigned short port)
+	:m_port{port}
 {
 	m_socket.setBlocking(true);
 }
@@ -55,7 +55,7 @@ void OnlineUser::send_choice_information()
 }
 
 
-const sf::Socket::Status OnlineUser::receive_choice_information()
+sf::Socket::Status OnlineUser::receive_choice_information()
 {
 	sf::Packet temp;
 	bool received_a_packet{ false };
@@ -97,6 +97,7 @@ const sf::Socket::Status OnlineUser::receive_choice_information()
 			return sf::Socket::Error;
 		}
 	}
+	return sf::Socket::Error;
 }
 
 OnlineUser::Default_packet& OnlineUser::modify_buffer(bool player)
@@ -164,7 +165,7 @@ void OnlineUser::send_deck_information(Deck& deck_to_send)
 {
 	m_socket.setBlocking(true);
 	int counter{ 0 };
-	for (int i{ 0 }; i < deck_to_send.getSize() + 1; ++i)
+	for (unsigned int i{ 0 }; i < deck_to_send.getSize() + 1; ++i)
 	{
 		if (i < deck_to_send.getSize())
 		{

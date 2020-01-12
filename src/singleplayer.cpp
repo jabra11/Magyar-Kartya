@@ -71,6 +71,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 	case Card::SIEBEN: logic.m_startWunschKarteAktiv = true; break;
 	case Card::ASS: logic.m_playerSkips = true; break;
 	case Card::BUBE: logic.m_playerHasToDraw = true; logic.m_amountOfCardsToDraw += 2; break;
+	default: throw std::runtime_error{"Error in singleplayer()"};
 	}
 
 	bool mouseLeftPressed{ false };
@@ -96,7 +97,6 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 	while (gameWindow.isOpen())
 	{
 		sf::Event evnt;
-		sf::Vector2f cardStackPos{ cardStack.back().getGraphicalCard().getPosition() };
 		sf::Vector2f mousePos{ sf::Mouse::getPosition(gameWindow) };
 		bool wrongCard{ false };
 		std::string wrongCardString{ "" };
@@ -384,7 +384,6 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 		// draw playerHand //
 		for (int i{ 0 }; i < player.getHandSize(); ++i)
 		{
-			sf::Vector2f position{ player.getCard(i).getGraphicalCard().getPosition() };
 			gameWindow.draw(player.getCard(i).getGraphicalCard());
 		}
 

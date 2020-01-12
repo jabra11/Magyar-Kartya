@@ -4,7 +4,7 @@
 
 OnlineEnemy::OnlineEnemy(Host* host, Client* client, Logic* logic, Deck* deck, 
 						std::vector<Card>* card_stack,bool is_hosting)
-	:m_client{ client }, m_host{ host }, m_card_stack{ card_stack },
+	:m_client{ client },m_card_stack{ card_stack }, m_host{ host }, 
 	m_logic{ logic }, m_deck{ deck }, m_is_hosting{ is_hosting }
 {
 }
@@ -55,7 +55,7 @@ void OnlineEnemy::getNextMove(sf::Socket::Status* error_flag)
 	}
 }
 
-const int OnlineEnemy::getHandSize()
+int OnlineEnemy::getHandSize()
 {
 	return m_enemyHand.size();
 }

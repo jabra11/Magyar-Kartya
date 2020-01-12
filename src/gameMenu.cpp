@@ -19,11 +19,8 @@ void gameMenu(int& gewonnen, int& verloren)
 
 	gameWindow.setFramerateLimit(600);
 
-
 	sf::Texture menu; 
 	menu.loadFromFile("../resources/images/greyBackground.jpg");
-
-
 
 	sf::Texture playTableGrey; playTableGrey.loadFromFile("../resources/images/greyBackground.jpg");
 	sf::Texture playTableGreen; playTableGreen.loadFromFile("../resources/images/playTable.png");

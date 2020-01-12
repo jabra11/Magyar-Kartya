@@ -71,8 +71,8 @@ int multiplayer_setup(sf::RenderWindow& gameWindow, Logic& logic, const sf::Text
 	lost_connection.setPosition(windowSettings::windowX / 20 * 10 - lost_connection.getGlobalBounds().width / 2,
 		windowSettings::windowY / 10 * 4);
 
-	Host host{ port, is_host };
-	Client client{ port, is_host };
+	Host host{ port };
+	Client client{ port };
 	
 	std::array<sf::Text, 5> killFeed;
 

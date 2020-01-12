@@ -16,7 +16,7 @@ void Enemy::dealCard(int cardToDeal, std::vector<Card> &cardStack)
 	Enemy::m_enemyHand.pop_back();
 }
 
-const int Enemy::getHandSize()
+int Enemy::getHandSize()
 {
 	return m_enemyHand.size();
 }
@@ -155,6 +155,7 @@ void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
 		case Card::MOCK:	++amountMock;	break;
 		case Card::TOECK:	++amountTOECK;	break;
 		case Card::ZOELD:	++amountZOELD;	break;
+		default: throw std::runtime_error{"Error in Enemy::determineBesteWunschKarte"};
 		}
 	}
 

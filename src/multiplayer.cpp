@@ -55,8 +55,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 
 	auto card_stack = std::vector<Card>{};
 
-	constexpr unsigned short port{ 55000u };
-
 	OnlineEnemy enemy{ &host, &client, &logic, &deck, &card_stack, true };
 
 	OnlinePlayer player{&logic, client, host };
@@ -106,6 +104,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		case Card::SIEBEN:	logic.m_startWunschKarteAktiv = true;								break;
 		case Card::ASS:		logic.m_enemySkips = true;											break;
 		case Card::BUBE:	logic.m_enemyHasToDraw = true;	logic.m_amountOfCardsToDraw += 2;	break;
+		default: throw std::runtime_error{"Error in multiplayer"};
 		}
 
 		// init playerhand
@@ -133,6 +132,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		case Card::SIEBEN:	logic.m_startWunschKarteAktiv = true;								break;
 		case Card::ASS:		logic.m_playerSkips = true;											break;
 		case Card::BUBE:	logic.m_playerHasToDraw = true;	logic.m_amountOfCardsToDraw += 2;	break;
+		default: throw std::runtime_error{"Error in multiplayer()"};
 		}
 
 
@@ -174,7 +174,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 	while (gameWindow.isOpen())
 	{
 		sf::Event evnt;
-		sf::Vector2f card_stack_pos{ card_stack.back().getGraphicalCard().getPosition() };
 		sf::Vector2f mouse_pos{ sf::Mouse::getPosition(gameWindow) };
 		std::string wrong_card_string;
 		bool wrong_card{ false };
@@ -598,7 +597,6 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		// draw playerHand
 		for (int i{ 0 }; i < player.getHandSize(); ++i)
 		{
-			sf::Vector2f position{ player.getCard(i).getGraphicalCard().getPosition() };
 			gameWindow.draw(player.getCard(i).getGraphicalCard());
 		}
 

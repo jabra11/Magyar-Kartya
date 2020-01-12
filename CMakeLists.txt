@@ -4,15 +4,22 @@ project (MagyarKartya LANGUAGES CXX)
 
 set (CMAKE_CXX_STANDARD 17)
 
-if (MSVC)
-    # set path to libraries
-    set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-vc15-64-bit/SFML-2.5.1/lib/cmake/SFML)
-    include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
 
-elseif(MINGW)
-    set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML)
-    include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
+if(WIN32)
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+
+        set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML)
+        include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
+        message("detected GNU on windows")
+    elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL Clang OR ${CMAKE_CXX_COMPILER_ID} STREQUAL msvc)
+        # set path to libraries
+        set(SFML_DIR D:/Libs/SFML/SFML-2.5.1-windows-vc15-64-bit/SFML-2.5.1/lib/cmake/SFML)
+        include_directories(C:/Program Files \(x86\)/Windows Kits/10/Lib/10.0.17763.0/um/x86)
+        message("detected msvc/clang on windows")
+    endif()
 endif()
+
+set(CMAKE_CXX_FLAGS -fcolor-diagnostics)
 
 
 find_package(SFML COMPONENTS graphics window network system)
@@ -57,30 +64,73 @@ set(project_headers
 
 add_executable(MagyarKartya ${project_sources} ${project_headers})
 
+target_link_libraries(MagyarKartya
+                    PRIVATE
+                    sfml-graphics
+                    sfml-audio
+                    sfml-network
+                    sfml-system)
 
-if (MSVC)
-    target_link_libraries(MagyarKartya
-        sfml-graphics
-        sfml-audio
-        sfml-network
-        sfml-system
-        UserEnv)
 
-elseif (MINGW)
-    target_link_libraries(MagyarKartya
-            stdc++fs
-            sfml-graphics
-            sfml-audio
-            sfml-network
-            sfml-system
-            UserEnv)
-
+if (WIN32)
+    #mingw
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+        target_link_libraries(MagyarKartya
+                PRIVATE 
+                stdc++fs
+                UserEnv)
+    #clang on windows
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
+        target_link_libraries(MagyarKartya
+                        PRIVATE
+                        UserEnv
+                            )
+        target_compile_options(MagyarKartya PRIVATE -Wall -Wextra -fcolor-diagnostics)
+    #windows
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL msvc)
+        target_link_libraries(MagyarKartya
+                        PRIVATE
+                        UserEnv
+                            )
+    endif()
+    
+    #linux
 elseif (UNIX AND NOT APPLE)
     target_link_libraries(MagyarKartya
+        PRIVATE
         pthread
         stdc++fs 	
-        sfml-graphics
-        sfml-audio
-        sfml-network
-        sfml-system)
+    )
+
+endif()
+
+if (WIN32)
+    #copy dlls
+
+    message("Copying DLLs..")
+
+    if (CMAKE_BUILD_TYPE STREQUAL Release)
+        add_custom_command(TARGET MagyarKartya PRE_BUILD        # Adds a post-build event to MyTest
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
+                "${SFML_DIR}/../../../bin/openal32.dll"
+                "${SFML_DIR}/../../../bin/sfml-audio-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-graphics-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-network-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-system-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-window-2.dll"
+                $<TARGET_FILE_DIR:MagyarKartya>) 
+    endif()
+                
+
+    if (CMAKE_BUILD_TYPE STREQUAL Debug)
+        add_custom_command(TARGET MagyarKartya PRE_BUILD       # Adds a post-build event to MyTest
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
+                "${SFML_DIR}/../../../bin/openal32.dll"
+                "${SFML_DIR}/../../../bin/sfml-audio-d-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-graphics-d-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-network-d-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-system-d-2.dll"
+                "${SFML_DIR}/../../../bin/sfml-window-d-2.dll"
+                $<TARGET_FILE_DIR:MagyarKartya>) 
+    endif()
 endif()

@@ -19,9 +19,9 @@ public:
 	
 	virtual void dealCard(int cardToDeal, std::vector<Card>& cardStack);
 	
-	virtual void drawCard(const Card& card);
+	void drawCard(const Card& card);
 	
-	const int getHandSize();
+	int getHandSize();
 	
 	Card& getCard(int index);
 

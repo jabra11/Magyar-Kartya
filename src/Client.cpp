@@ -2,8 +2,8 @@
 #include <cassert>
 
 
-Client::Client(unsigned short port, bool is_host)
-	:OnlineUser{port, is_host}
+Client::Client(unsigned short port)
+	:OnlineUser{port}
 {
 	m_address_of_other_user = sf::IpAddress::None;
 }

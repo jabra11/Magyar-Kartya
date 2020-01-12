@@ -2,8 +2,8 @@
 
 
 
-Host::Host(unsigned short port, bool is_host)
-	:OnlineUser{ port, is_host }
+Host::Host(unsigned short port)
+	:OnlineUser{ port }
 {
 	m_listener.setBlocking(false);
 }

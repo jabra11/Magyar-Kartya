@@ -1,7 +1,6 @@
 #pragma once
 #include <array>
 #include "SFML/Graphics.hpp"
-#include "Card.hpp"
 
 extern std::array<std::array<sf::Texture, 8>, 4> textureArr;
 extern std::array<sf::Texture, 4> otherTextureArr;

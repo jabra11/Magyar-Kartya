@@ -77,7 +77,7 @@ Card& Deck::getLastCard()
 }
 
 
-const int Deck::getRandomNumber(unsigned int min, unsigned int max)
+int Deck::getRandomNumber(unsigned int min, unsigned int max)
 {
 	std::random_device rd;
 	std::mt19937 mersenne(rd());

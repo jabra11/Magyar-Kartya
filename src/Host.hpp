@@ -7,7 +7,7 @@ class Host : public OnlineUser
 
 public:
 
-	Host(unsigned short port, bool is_host);
+	Host(unsigned short port);
 
 	// Returns True if a connection has been established.
 	bool wait_for_connection(bool* done);

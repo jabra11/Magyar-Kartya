@@ -5,6 +5,7 @@
 #include "textureArray.hpp"
 #include "windowSettings.hpp"
 
+
 class Card
 {
 public:

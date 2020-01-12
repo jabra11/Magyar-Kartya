@@ -1,11 +1,9 @@
 #pragma once
 #include <vector>
 #include <array>
+#include "Card.hpp"
 
-#include "OnlineUser.hpp"
 
-
-class OnlineUser;
 class Host;
 class Client;
 
@@ -16,7 +14,7 @@ private:
 	Host* host{ nullptr };
 	Client* client{ nullptr };
 
-	std::array<short, 1000> number_list{};
+	std::array<unsigned short, 1000> number_list{};
 
 public:
 
@@ -37,7 +35,7 @@ public:
 
 	Card& getLastCard();
 
-	static const int getRandomNumber(unsigned int min, unsigned int max);
+	static int getRandomNumber(unsigned int min, unsigned int max);
 	static void swapCard(Card &a, Card &b);
 
 	void shuffleStack(std::vector<Card> &cardStack);
