@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.13.0)
-
 project (MagyarKartya LANGUAGES CXX)
-
 set (CMAKE_CXX_STANDARD 17)
 
 
@@ -18,9 +16,6 @@ if(WIN32)
         message("detected msvc/clang on windows")
     endif()
 endif()
-
-set(CMAKE_CXX_FLAGS -fcolor-diagnostics)
-
 
 find_package(SFML COMPONENTS graphics window network system)
 
@@ -106,8 +101,6 @@ endif()
 
 if (WIN32)
     #copy dlls
-
-    message("Copying DLLs..")
 
     if (CMAKE_BUILD_TYPE STREQUAL Release)
         add_custom_command(TARGET MagyarKartya PRE_BUILD        # Adds a post-build event to MyTest
