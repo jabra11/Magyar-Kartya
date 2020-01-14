@@ -67,11 +67,6 @@ void Logic::setStatuses(const Card &card, bool player)
 		else
 			m_playerSkips = true;
 	}
-
-	if (card.getRank() == Card::SIEBEN && player)
-	{
-		
-	}
 }
 
 void Logic::resetFeed()
