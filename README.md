@@ -8,7 +8,7 @@ You can play against the computer or against a friend using the peer-to-peer bas
 
 
 ### Contributing
-I initially started this project to get more comfortable with [SFML](https://www.sfml-dev.org/) and the language itself, therefore most of the code can be improved easily. It is written in C++17.
+I initially started this project to get more comfortable with [SFML](https://www.sfml-dev.org/) and C++ itself, therefore most of the code can be improved easily. It is written in C++17.
 
 It can be built on Windows and Linux. Build instructions are below.
 
