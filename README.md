@@ -1,3 +1,7 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/jbar98/Magyar-Kartya.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jbar98/Magyar-Kartya/alerts/)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/jbar98/Magyar-Kartya.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jbar98/Magyar-Kartya/context:cpp)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ac69f43eca13461b80f4d756ed03971b)](https://www.codacy.com/manual/barkoczijoerg/Magyar-Kartya?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jbar98/Magyar-Kartya&amp;utm_campaign=Badge_Grade)
+[![Build status](https://ci.appveyor.com/api/projects/status/258dibi9d57y7r5d/branch/master?svg=true)](https://ci.appveyor.com/project/jbar98/magyar-kartya/branch/master)
 # Magyar Kartya
 
 This game is modelled after the Hungarian cardgame Magyar Kartya. 
@@ -8,7 +12,7 @@ You can play against the computer or against a friend using the peer-to-peer bas
 
 
 ### Contributing
-I initially started this project to get more comfortable with [SFML](https://www.sfml-dev.org/) and C++ itself, therefore most of the code can be improved easily. It is written in C++17.
+I initially started this project to get more comfortable with [SFML](https://www.sfml-dev.org/) and C++ itself, therefore most of the code logic can be improved easily. It is written in C++17.
 
 It can be built on Windows and Linux. Build instructions are below.
 
