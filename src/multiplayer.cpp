@@ -104,7 +104,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		case Card::SIEBEN:	logic.m_startWunschKarteAktiv = true;								break;
 		case Card::ASS:		logic.m_enemySkips = true;											break;
 		case Card::BUBE:	logic.m_enemyHasToDraw = true;	logic.m_amountOfCardsToDraw += 2;	break;
-		default: throw std::runtime_error{"Error in multiplayer"};
+		default: break;
 		}
 
 		// init playerhand
@@ -132,7 +132,7 @@ int multiplayer(sf::RenderWindow& gameWindow, Logic& logic, const sf::RectangleS
 		case Card::SIEBEN:	logic.m_startWunschKarteAktiv = true;								break;
 		case Card::ASS:		logic.m_playerSkips = true;											break;
 		case Card::BUBE:	logic.m_playerHasToDraw = true;	logic.m_amountOfCardsToDraw += 2;	break;
-		default: throw std::runtime_error{"Error in multiplayer()"};
+		default: break;
 		}
 
 

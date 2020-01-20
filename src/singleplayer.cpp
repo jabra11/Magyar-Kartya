@@ -71,7 +71,7 @@ int singleplayer(sf::RenderWindow &gameWindow, Logic &logic, const sf::Texture &
 	case Card::SIEBEN: logic.m_startWunschKarteAktiv = true; break;
 	case Card::ASS: logic.m_playerSkips = true; break;
 	case Card::BUBE: logic.m_playerHasToDraw = true; logic.m_amountOfCardsToDraw += 2; break;
-	default: throw std::runtime_error{"Error in singleplayer()"};
+	default: break; 
 	}
 
 	bool mouseLeftPressed{ false };
