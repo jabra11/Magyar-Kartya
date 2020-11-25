@@ -49,10 +49,9 @@ Card& Enemy::getCard(int index)
 void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 	bool wunschKarteAktiv, const Card &wunschKarte, int schwierigkeitsGrad)
 {
-
 	// time the algorithm runtime
 	// startpoint
-	auto start = std::chrono::steady_clock::now();
+	//auto start = std::chrono::steady_clock::now();
 
 	Card currentCard;
 	std::vector<int> saveCardPoints;
@@ -133,8 +132,8 @@ void Enemy::determineBestCard(const Card &topOfCardStack, int sizeOfPlayerHand,
 	}
 
 	// endpoint
-	auto end = std::chrono::steady_clock::now();
-	std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " microseconds.\n";
+	//auto end = std::chrono::steady_clock::now();
+	//std::cout << "Calculated best move in " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " microseconds.\n";
 }
 
 void Enemy::determineBesteWunschKarte(const Card &card, Card &wunschKarte)
