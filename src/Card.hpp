@@ -15,8 +15,8 @@ public:
 		TOECK,
 		MOCK,
 		PIROS,
-		MAX_TYPES,
-		PLACEHOLDER_TYP
+		PLACEHOLDER_TYP,
+		MAX_TYPES
 	};
 	enum CardRank
 	{
@@ -28,8 +28,8 @@ public:
 		NEUN,
 		ZEHN,
 		ASS,
-		MAX_RANKS,
-		PLACEHOLDER_RANK
+		PLACEHOLDER_RANK,
+		MAX_RANKS
 	};
 
 
@@ -61,7 +61,6 @@ public:
 	sf::Sprite& getGraphicalCard();
 
 	friend std::ostream& operator<<(std::ostream &out, const Card &card);
-	friend std::ostream& operator<<(std::ostream &out, const Card::CardTyp &typ);
 
 	void setPosition(float xPos, float yPos);
 };

@@ -18,10 +18,10 @@ Deck::Deck()
 		element = dis(gen);
 	}
 
-	for (int typ{ 0 }; typ < Card::MAX_TYPES; ++typ)
-		for (int rank{ 0 }; rank < Card::MAX_RANKS; ++rank)
+	for (int typ{ 0 }; typ <= Card::PIROS; ++typ)
+		for (int rank{ 0 }; rank <= Card::ASS; ++rank)
 		{
-			m_deck.push_back(Card(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank)));
+			m_deck.emplace_back(static_cast<Card::CardTyp>(typ),static_cast<Card::CardRank>(rank));
 		}
 
 	shuffleDeck();

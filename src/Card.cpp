@@ -130,6 +130,11 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 	case Card::KOENIG:	out	<< "King";		break;
 	case Card::DAME:	out	<< "Queen";		break;
 	case Card::BUBE:	out	<< "Jack";		break;
+
+    // PLACEHOLDER_RANK case is reached when a card draw
+    // happens
+    case Card::PLACEHOLDER_RANK:            break;
+
 	default: throw std::runtime_error{"Error in Card.cpp operator<<"};
 	}
 
@@ -141,21 +146,11 @@ std::ostream& operator<<(std::ostream &out, const Card &card)
 	case Card::MOCK:	out	<< "Mock";		break;
 	case Card::TOECK:	out	<< "Toeck";		break;
 	case Card::PIROS:	out	<< "Piros";		break;
+
+    // PLACEHOLDER_TYP case is reached when a card draw
+    // happens
+    case Card::PLACEHOLDER_TYP:             break;
 	default: throw std::runtime_error{"Error in Card.cpp operator<<"};
-	}
-
-	return out;
-}
-
-std::ostream& operator<<(std::ostream &out, const Card::CardTyp &typ)
-{
-	switch (typ)
-	{
-	case Card::PIROS: out << "Piros"; break;
-	case Card::TOECK: out << "Toeck"; break;
-	case Card::MOCK: out << "Mock"; break;
-	case Card::ZOELD: out << "Zoeld"; break;
-	default: throw std::runtime_error{"std::ostream& operator<<(std::ostream &out, const Card::CardType &typ"};
 	}
 
 	return out;
