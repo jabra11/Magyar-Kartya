@@ -127,3 +127,11 @@ if (WIN32)
                 $<TARGET_FILE_DIR:MagyarKartya>) 
     endif()
 endif()
+
+install(TARGETS MagyarKartya
+    RUNTIME DESTINATION bin
+    )
+
+install(DIRECTORY resources
+    DESTINATION .
+    )
